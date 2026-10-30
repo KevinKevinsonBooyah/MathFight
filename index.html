@@ -88,13 +88,22 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom));backgro
 @media(max-width:400px){.device-mobile .device-toggle{font-size:9px;padding:0 6px}.device-mobile .topbar{padding:7px 8px}.device-mobile .brand-name{font-size:15px}.device-mobile .fighter-big{height:35px;width:35px;font-size:11px}.device-mobile .fighter-detail small{font-size:7px}.device-choices button{padding:17px 5px}}
 @media(max-height:560px) and (orientation:landscape){.device-mobile .stage canvas{aspect-ratio:2.15}.device-mobile .topbar{padding-top:4px;padding-bottom:4px}.device-mobile .stage-head{padding:4px 12px}.device-mobile .controls .action{min-height:48px}.device-mobile .modal h1{font-size:22px}}
 
+
+/* Compact, thumb-friendly controls for the original procedural soundtrack */
+.sound-controls{display:flex;align-items:center;gap:10px;border:1px solid #e4ebe6;background:#f7faf7;padding:10px 12px;border-radius:12px;margin:9px 0 12px}
+.sound-controls label{font-size:10px;font-weight:850;letter-spacing:.6px;color:#53635a;white-space:nowrap}
+.sound-controls input{appearance:auto;flex:1;min-width:48px;accent-color:#2e965f;touch-action:pan-x}
+.sound-controls span{font-size:11px;color:#67766d;width:38px;text-align:right;font-variant-numeric:tabular-nums}
+.sound-controls button{padding:7px 10px;background:white;border:1px solid #d8e4dc;border-radius:8px;color:#368453;font-size:10px;font-weight:850;white-space:nowrap}
+.sound-controls button:active{background:#e8f5ed}
+@media(max-width:520px){.sound-controls{gap:7px;padding:8px 9px}.sound-controls label{font-size:9px}.sound-controls button{padding:7px;font-size:9px}}
 </style>
 </head>
 <body>
 <div class="shell">
 <header class="topbar">
   <div class="brand"><div class="brand-mark"><img src="data:image/png;base64,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" alt="f(x) icon"></div><div><div class="brand-name">MathFight</div><div class="brand-sub">FUNCTIONS FIGHT BACK</div></div></div>
-  <div class="topactions"><button class="top-pill device-toggle" id="deviceToggle" title="Switch between Mobile and PC">▣ DEVICE</button><button class="top-pill" id="roundIndicator">ROUND 01</button><button class="icon-btn" id="soundBtn" title="Sound on/off">♫</button><button class="icon-btn" id="pauseBtn" title="Pause / resume (P)">Ⅱ</button><button class="top-pill" id="menuBtn">⚙ MATCHUP</button></div>
+  <div class="topactions"><button class="top-pill device-toggle" id="deviceToggle" title="Switch between Mobile and PC">▣ DEVICE</button><button class="top-pill" id="roundIndicator">ROUND 01</button><button class="icon-btn" id="soundBtn" title="Sound on/off" aria-label="Toggle game sounds" aria-pressed="true">♫</button><button class="icon-btn" id="pauseBtn" title="Pause / resume (P)">Ⅱ</button><button class="top-pill" id="menuBtn">⚙ MATCHUP</button></div>
 </header>
 <div class="layout">
  <main class="game-col">
@@ -128,7 +137,7 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom));backgro
   <section class="panel"><div class="panel-heading"><span class="eyebrow">MATCH LOG</span><span class="light">LIVE</span></div><div class="event-feed" id="feed"></div><div class="scoreline"><div><b id="totalWins">0</b><small id="statLabel1">WINS</small></div><div><b id="streak">0</b><small id="statLabel2">STREAK</small></div><div><b id="best">0</b><small id="statLabel3">BEST</small></div></div></section>
  </aside>
 </div>
-<footer>MathFight · Inspired by math function battle videos · An original interactive remake · Works offline</footer>
+<footer>MathFight · Original graph battles & synthesized sounds · Works offline</footer>
 </div>
 <div class="modal-bg" id="modalBg"><div class="modal" id="modal">
  <div id="setupPage"><div class="setup-scroll"><div class="modal-top"><div><div class="eyebrow">WELCOME TO THE ARENA</div><h1>Let the equations fight.</h1><p class="modal-sub">Choose two functions. Their graphs become the weapons. Custom equations are automatically centered in the arena. Add your own variables below!</p></div><button class="close" id="setupClose" title="Close">×</button></div>
@@ -149,7 +158,7 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom));backgro
    <p class="preview-caption" id="previewCaption1">Graph is adjusted to show inside the arena when attacking.</p><p class="op-insight" id="opInsight1" aria-live="polite"></p></div></div>
  <div class="mode-switch"><button class="active" id="modePlay">1 PLAYER · VS CPU</button><button id="modeLocal">2 PLAYERS · LOCAL</button><button id="modeWatch">CPU VS CPU</button></div>
  <p class="mode-description" id="modeDescription">Player 1: WASD / Space attack / Left Shift dash. Fight the CPU.</p><p class="syntax-hint">Examples: <code>a*x^2 + b</code> · <code>x^3 - 2*x</code> · <code>sin(2*x)</code> · <code>e^x</code> · <code>1/x</code> · <code>abs(x)</code></p>
- </div><div class="setup-footer"><button class="primary" id="startBtn">START FIGHT →</button><p class="help-line">80 HP each · Custom equations become real attacks · First to 0 loses</p></div></div>
+ </div><div class="sound-controls"><label for="soundVolume">♫ SOUND EFFECTS</label><input id="soundVolume" type="range" min="0" max="100" value="68" step="1" aria-label="Sound effects volume"><span id="soundValue">68%</span><button type="button" id="soundTest">▶ TEST</button></div><div class="setup-footer"><button class="primary" id="startBtn">START FIGHT →</button><p class="help-line">80 HP each · Custom equations become real attacks · First to 0 loses</p></div></div>
  <div id="resultPage" style="display:none"><div class="eyebrow" id="resultEyebrow">MATCH COMPLETE</div><h1 id="resultTitle">Victory!</h1><p class="modal-sub" id="resultDetail">You survived the showdown.</p><div class="result-score"><div><div class="score-eq" id="resultEqA">tan x</div><div class="score-num team-green" id="resultHpA">6</div><small>HP REMAINING</small></div><div class="colon">VS</div><div><div class="score-eq" id="resultEqB">eˣ</div><div class="score-num team-red" id="resultHpB">0</div><small>HP REMAINING</small></div></div><div class="result-actions"><button class="secondary" id="resultChange">CHANGE MATCHUP</button><button class="primary" id="resultRematch">REMATCH ↻</button></div></div>
  </div></div>
 <!-- The first-run device selector is intentionally shown on every fresh open. -->
@@ -175,6 +184,182 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom));backgro
  </div>
 </div>
 <script>
+/* MathFight sound studio: original synthesized SFX, no external audio files. */
+window.MathFightSFX = (() => {
+  'use strict';
+  let ctx = null, master = null, compressor = null, noiseBuffer = null;
+  let buses = [], volume = 0.68, enabled = true, lastClick = 0, fallbackMedia = null;
+  const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+  function session() {
+    try {
+      if (navigator.audioSession && navigator.audioSession.type !== 'playback')
+        navigator.audioSession.type = 'playback';
+    } catch (_) { /* Not all browsers expose the Audio Session API. */ }
+  }
+  function makeWavSilence() {
+    const rate = 8000, count = 8000, bytes = new Uint8Array(44 + count * 2);
+    const view = new DataView(bytes.buffer);
+    const text = (offset, value) => { for(let i=0;i<value.length;i++) bytes[offset+i]=value.charCodeAt(i); };
+    text(0,'RIFF');view.setUint32(4,36 + count*2,true);text(8,'WAVE');text(12,'fmt ');
+    view.setUint32(16,16,true);view.setUint16(20,1,true);view.setUint16(22,1,true);
+    view.setUint32(24,rate,true);view.setUint32(28,rate*2,true);
+    view.setUint16(32,2,true);view.setUint16(34,16,true);text(36,'data');view.setUint32(40,count*2,true);
+    let bin=''; for(let i=0;i<bytes.length;i+=4096)
+      bin+=String.fromCharCode.apply(null,bytes.subarray(i,i+4096));
+    return 'data:audio/wav;base64,' + btoa(bin);
+  }
+  function oldSafariFallback() {
+    // Older iOS Safari versions could mute Web Audio while allowing HTML media.
+    // This quiet loop is only used when the explicit Audio Session API is missing.
+    if(!isiOS || navigator.audioSession || fallbackMedia || !enabled)return;
+    try {
+      fallbackMedia = new Audio(makeWavSilence());
+      fallbackMedia.loop=true;fallbackMedia.volume=0.01;fallbackMedia.preload='auto';
+      const p=fallbackMedia.play();if(p&&p.catch)p.catch(()=>{});
+    } catch (_) {}
+  }
+  function unlock() {
+    session();
+    if (!ctx) {
+      const Context=window.AudioContext||window.webkitAudioContext;
+      if (!Context) return false;
+      try {
+        ctx=new Context();
+        compressor=ctx.createDynamicsCompressor();
+        compressor.threshold.value=-19;compressor.knee.value=16;
+        compressor.ratio.value=3.2;compressor.attack.value=0.004;
+        compressor.release.value=0.14;
+        master=ctx.createGain();master.gain.value=volume;
+        master.connect(compressor);compressor.connect(ctx.destination);
+        buses=[0,1].map((_,i)=>{
+          const bus=ctx.createGain();bus.gain.value=0.77;
+          if(ctx.createStereoPanner){let pan=ctx.createStereoPanner();pan.pan.value=i?0.24:-0.24;
+            bus.connect(pan);pan.connect(master);}else bus.connect(master);
+          return bus;
+        });
+        noiseBuffer=ctx.createBuffer(1,ctx.sampleRate,ctx.sampleRate);
+        const data=noiseBuffer.getChannelData(0);
+        // Seeded noise avoids random initialization differences while sounding organic.
+        let seed=95217;for(let i=0;i<data.length;i++){
+          seed=(Math.imul(seed,1664525)+1013904223)|0;
+          data[i]=((seed>>>8)/8388607.5)-1;
+        }
+      } catch (_) {ctx=null;return false;}
+    }
+    if(ctx.state==='suspended')ctx.resume().catch(()=>{});
+    // A tiny silent Web Audio buffer unlocked directly inside the tap/press event.
+    try {const buffer=ctx.createBuffer(1,1,ctx.sampleRate),source=ctx.createBufferSource();
+      source.buffer=buffer;source.connect(ctx.destination);source.start(0);}catch(_){}
+    oldSafariFallback();
+    return true;
+  }
+  const busFor = side => buses[side===1?1:0] || master;
+  function tone(start, end, time, duration, level=0.12, shape='sine', side=0, attack=0.008) {
+    if(!ctx)return;
+    const at=ctx.currentTime+Math.max(0,time),len=Math.max(.035,duration);
+    const osc=ctx.createOscillator(),amp=ctx.createGain();
+    osc.type=shape;osc.frequency.setValueAtTime(Math.max(22,start),at);
+    osc.frequency.exponentialRampToValueAtTime(Math.max(22,end),at+len*.92);
+    amp.gain.setValueAtTime(.0001,at);
+    amp.gain.exponentialRampToValueAtTime(Math.max(.00015,level),at+Math.min(attack,len*.28));
+    amp.gain.exponentialRampToValueAtTime(.0001,at+len);
+    osc.connect(amp);amp.connect(busFor(side));osc.start(at);osc.stop(at+len+.025);
+  }
+  function hiss(time,duration,level=0.12,cutoff=900,side=0,band='lowpass') {
+    if(!ctx||!noiseBuffer)return;
+    const at=ctx.currentTime+Math.max(0,time),len=Math.max(.04,duration);
+    const src=ctx.createBufferSource(),filter=ctx.createBiquadFilter(),amp=ctx.createGain();
+    src.buffer=noiseBuffer;src.type='lowpass';filter.type=band;
+    filter.frequency.setValueAtTime(cutoff,at);
+    filter.frequency.exponentialRampToValueAtTime(Math.max(120,cutoff*.4),at+len);
+    amp.gain.setValueAtTime(.0001,at);
+    amp.gain.exponentialRampToValueAtTime(Math.max(.00015,level),at+Math.min(.04,len*.28));
+    amp.gain.exponentialRampToValueAtTime(.0001,at+len);
+    src.connect(filter);filter.connect(amp);amp.connect(busFor(side));src.start(at);src.stop(at+len+.01);
+  }
+  function play(kind,side=0,formula='') {
+    if(!enabled||volume<=0)return;
+    if(!ctx || ctx.state==='suspended')unlock();
+    if(!ctx || ctx.state!=='running')return;
+    const team=side===1?1:0;
+    switch(kind){
+      case 'click':
+        if(ctx.currentTime-lastClick<.065)return;
+        lastClick=ctx.currentTime;
+        tone(550,920,0,.075,.05,'sine',team);
+        tone(950,1150,.023,.065,.018,'triangle',team);
+        break;
+      case 'ready':
+        tone(392,523,0,.16,.09,'triangle',team);
+        tone(523,660,.16,.20,.09,'triangle',team);
+        tone(784,988,.32,.27,.12,'sine',team);
+        break;
+      case 'cast': {
+        const base=team?255:330;
+        const id=String(formula||'');
+        const voice=id==='sin'||id==='abs'?'sine':id==='exp'?'triangle':id==='tan'?'sawtooth':id==='quad'?'triangle':'sine';
+        tone(base,base*2.7,0,.20,.115,voice,team);
+        tone(base*1.45,base*.85,.075,.27,.043,'triangle',team);
+        hiss(.01,.23,.085,3100,team,'bandpass');
+        if(id==='tan'||id.startsWith('custom'))tone(base*3.1,base*.62,.12,.15,.035,'square',team);
+        break;
+      }
+      case 'hit':
+        tone(180,48,0,.28,.23,'sine',team);
+        tone(1100,190,.007,.115,.073,'triangle',team);
+        hiss(0,.22,.17,2800,team,'highpass');
+        break;
+      case 'dash':
+        hiss(0,.26,.18,6000,team,'bandpass');
+        tone(300,810,0,.17,.07,'triangle',team);
+        tone(600,190,.12,.19,.045,'sine',team);
+        break;
+      case 'pickup':
+        [659,830,988,1318].forEach((f,i)=>{
+          tone(f,f*1.006,i*.093,.32,.072,'sine',team);
+          tone(f*2,f*2.01,i*.093,.19,.019,'triangle',team);
+        });
+        break;
+      case 'win':
+        [392,494,587,784].forEach((f,i)=>{
+          tone(f,f*1.02,i*.16,.37,.12,'triangle',team);
+          tone(f*2,f*2,i*.16,.25,.03,'sine',team);
+        });
+        tone(784,787,.7,.63,.15,'sine',team);
+        break;
+      case 'lose':
+        [494,392,294,196].forEach((f,i)=>tone(f,f*.91,i*.18,.29,.105,'triangle',team));
+        hiss(.17,.25,.035,450,team);
+        break;
+      case 'warning':
+        tone(420,550,0,.23,.083,'square',team);
+        tone(420,550,.29,.23,.083,'square',team);
+        break;
+      case 'bump':
+        tone(130,72,0,.13,.09,'sine',team);
+        hiss(0,.08,.045,1300,team);
+        break;
+      default: tone(500,700,0,.09,.04,'sine',team);
+    }
+  }
+  function setVolume(v){volume=Math.max(0,Math.min(1,Number(v)||0));
+    if(master&&ctx)master.gain.setTargetAtTime(volume,ctx.currentTime,.02);
+    return volume;}
+  function setEnabled(v){enabled=!!v;
+    if(!enabled){ if(master)master.gain.value=0; if(fallbackMedia){fallbackMedia.pause();fallbackMedia=null;} }
+    else{if(master)master.gain.value=volume;unlock();}
+  }
+  document.addEventListener('visibilitychange',()=>{
+    if(!document.hidden){session();if(enabled&&ctx&&ctx.state==='suspended')ctx.resume().catch(()=>{});}
+  });
+  window.addEventListener('pageshow',session);
+  session();
+  return {unlock,play,setVolume,setEnabled,session,get volume(){return volume}};
+})();
+</script>
+<script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),canvas=$('arena'),ctx=canvas.getContext('2d',{alpha:false});
 let chosenDevice=null,activeSetupSide=0;
@@ -196,6 +381,7 @@ function chooseDevice(device){
  document.body.classList.toggle('device-pc',device==='pc');
  $('deviceToggle').textContent=device==='mobile'?'▯ MOBILE':'⌨ PC';
  $('deviceOverlay').hidden=true;
+ unlockAudio();playSound('click');
  // Bring battle mode choice to the top of the mobile setup, but keep it near Play on PC.
  const switcher=document.querySelector('.mode-switch'),description=$('modeDescription');
  if(device==='mobile'){$('mobilePlayerTabs').before(switcher,description)}
@@ -341,8 +527,8 @@ function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
 function dist(a,b){return Math.hypot(a.x-b.x,a.y-b.y)}
 function bezier(a,b,t){return a+(b-a)*t}
 function setText(id,value){const e=$(id);if(e.textContent!==''+value)e.textContent=value}
-function playSound(type){if(!sound||!audio)return;try{let ac=audio,osc=ac.createOscillator(),gain=ac.createGain(),t=ac.currentTime;osc.connect(gain);gain.connect(ac.destination);let settings={cast:[270,750,.08,'sine'],hit:[330,90,.19,'sawtooth'],dash:[220,540,.1,'triangle'],pickup:[690,1000,.13,'sine'],win:[480,960,.27,'sine'],click:[500,660,.06,'sine']}[type]||[400,600,.1,'sine'];osc.type=settings[3];osc.frequency.setValueAtTime(settings[0],t);osc.frequency.exponentialRampToValueAtTime(settings[1],t+settings[2]);gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(.05,t+.015);gain.gain.exponentialRampToValueAtTime(.0001,t+settings[2]);osc.start(t);osc.stop(t+settings[2]+.02)}catch(e){}}
-function unlockAudio(){if(!audio)try{audio=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}if(audio&&audio.state==='suspended')audio.resume().catch(()=>{})}
+function playSound(type,side=0,formula=''){if(sound)window.MathFightSFX.play(type,side,formula)}
+function unlockAudio(){if(sound)window.MathFightSFX.unlock()}
 function log(msg,team='green'){feedItems.unshift({msg,team});feedItems=feedItems.slice(0,5);$('feed').innerHTML=feedItems.map(x=>`<div class="event-item"><span class="event-dot ${x.team}"></span><span>${x.msg}</span></div>`).join('')}
 function saveStats(){try{localStorage.setItem('mathBallFightStats',JSON.stringify(totalStats))}catch(e){}}
 function updateStats(){setText('totalWins',local?localWins[0]:totalStats.wins);setText('streak',local?localWins[1]:totalStats.streak);setText('best',local?localWins[0]+localWins[1]:totalStats.best);setText('statLabel1',local?'P1 WINS':'WINS');setText('statLabel2',local?'P2 WINS':'STREAK');setText('statLabel3',local?'MATCHES':'BEST')}
@@ -447,10 +633,10 @@ function start(force=false){
    let reasons=analyzeOpFunction(selection[side]);
    if(reasons.length)reports.push({side,formula:F[selection[side]].eq,reasons});
   }
-  if(reports.length){showOpWarning(reports);return}
+  if(reports.length){showOpWarning(reports);unlockAudio();playSound('warning');return}
  }
  $('opWarning').hidden=true;
- unlockAudio();round++;if(state==='menu'&&round===2)round=1;time=0;now=0;graphs=[];particles=[];texts=[];pickups=[];pickupClock=5.8;shake=0;hitFlash=0;keys.clear();pointer[0].down=pointer[1].down=false;players=[makeBall(0,selection[0],watch),makeBall(1,selection[1],!local)];state='playing';$('pauseOverlay').classList.remove('active');$('modalBg').classList.add('hidden');setLabels();setText('roundIndicator','ROUND '+String(round).padStart(2,'0'));feedItems=[];log(watch?'Autobattle started. Watch the formulas!':local?'Local 1v1 started. Both players ready!':'Fight started. Dodge the incoming graphs!');updateStats();updateHUD(true);playSound('cast')}
+ unlockAudio();round++;if(state==='menu'&&round===2)round=1;time=0;now=0;graphs=[];particles=[];texts=[];pickups=[];pickupClock=5.8;shake=0;hitFlash=0;keys.clear();pointer[0].down=pointer[1].down=false;players=[makeBall(0,selection[0],watch),makeBall(1,selection[1],!local)];state='playing';$('pauseOverlay').classList.remove('active');$('modalBg').classList.add('hidden');setLabels();setText('roundIndicator','ROUND '+String(round).padStart(2,'0'));feedItems=[];log(watch?'Autobattle started. Watch the formulas!':local?'Local 1v1 started. Both players ready!':'Fight started. Dodge the incoming graphs!');updateStats();updateHUD(true);playSound('ready')}
 function togglePause(){if(state==='playing'){state='paused';$('pauseOverlay').classList.add('active');keys.clear();pointer[0].down=pointer[1].down=false}else if(state==='paused'){state='playing';$('pauseOverlay').classList.remove('active')}else if(state==='over'){setModal('result')}}
 function particlesAt(x,y,color,n=13,scale=1){for(let i=0;i<n;i++){let a=rng(0,Math.PI*2),v=rng(35,160)*scale,life=rng(.28,.73);particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life,max:life,r:rng(1.3,4)*scale,color})}if(particles.length>310)particles.splice(0,particles.length-310)}
 function showDamage(x,y,value,color){texts.push({x,y,value,color,life:.86,max:.86,vy:-58})}
@@ -478,16 +664,16 @@ function cast(p){if(state!=='playing'||p.hp<=0||p.cd>0)return false;
  if(!anchorInfo){log('Function has no visible points. Please change its settings.','red');return false}
  const x0=aimX-anchorInfo.u0*unit,scaleY=computeGraphScale(p.formula,anchorInfo.u0,anchorInfo.anchor);
  graphs.push({id:id++,team:p.team,formula:p.formula,x0,base:aimY,aimX,aimY,anchor:anchorInfo.anchor,scaleY,age:0,warning:.48,duration:1.12,fade:.42,damage:Math.round(f.dmg*(p.power>0?2:1)),hit:false,velocity:(p.team?-1:1)*80,wind:Math.random()*20,volume:1.5});
- p.vx-=p.dirX*16;particlesAt(p.x,p.y,COLORS[p.team],12,1);playSound('cast');if(Math.random()<.28)log((p.team?'Red':'Green')+' drew y = '+f.eq,p.team?'red':'green');return true
+ p.vx-=p.dirX*16;particlesAt(p.x,p.y,COLORS[p.team],12,1);playSound('cast',p.team,p.formula);if(Math.random()<.28)log((p.team?'Red':'Green')+' drew y = '+f.eq,p.team?'red':'green');return true
 }
 function calcFn(type,u){try{const y=F[type].fn(u);return typeof y==='number'&&Number.isFinite(y)?y:NaN}catch(e){return NaN}}
 function curveY(g,x,age){let u=(x-g.x0-(Math.max(0,age-g.warning)*g.velocity))/unit,val=calcFn(g.formula,u);if(!Number.isFinite(val))return null;let y=g.aimY-(val-g.anchor)*unit*g.scaleY;if(!Number.isFinite(y)||y<-H*.4||y>H*1.4)return null;return y}
 function graphHit(g,p){if(g.hit||p.hp<=0)return false;for(let i=-8;i<=8;i++){let x=p.x+(i/8)*(p.r+8),y=curveY(g,x,g.age);if(y===null)continue;let dx=x-p.x,dy=y-p.y;if(dx*dx+dy*dy<(p.r+4)*(p.r+4))return true}return false}
-function damage(p,n,x,y,source){if(p.hp<=0||p.inv>.02)return;let actual=Math.min(p.hp,n);p.hp=Math.max(0,p.hp-n);p.inv=.22;let attacker=players[1-p.team];attacker.score+=actual;showDamage(x,y,'-'+actual,p.team?'#d83b44':'#26854c');particlesAt(x,y,COLORS[p.team],17,1.2);shake=Math.max(shake,4.3);hitFlash=.12;playSound('hit');if(p.hp<=0)endMatch(1-p.team)}
+function damage(p,n,x,y,source){if(p.hp<=0||p.inv>.02)return;let actual=Math.min(p.hp,n);p.hp=Math.max(0,p.hp-n);p.inv=.22;let attacker=players[1-p.team];attacker.score+=actual;showDamage(x,y,'-'+actual,p.team?'#d83b44':'#26854c');particlesAt(x,y,COLORS[p.team],17,1.2);shake=Math.max(shake,4.3);hitFlash=.12;playSound('hit',p.team);if(p.hp<=0)endMatch(1-p.team)}
 function endMatch(winner){if(state!=='playing')return;state='over';const p=players[winner],loser=players[1-winner];particlesAt(loser.x,loser.y,COLORS[loser.team],55,2.4);shake=11;let isVictory=winner===0;
  if(local){localWins[winner]++;updateStats()}else if(!watch){if(isVictory){totalStats.wins++;totalStats.streak++;totalStats.best=Math.max(totalStats.streak,totalStats.best)}else totalStats.streak=0;saveStats();updateStats()}
- $('resultEyebrow').textContent=watch?'AUTOBATTLE COMPLETE':local?'LOCAL MATCH COMPLETE':'MATCH COMPLETE';$('resultTitle').textContent=local?'Player '+(winner+1)+' wins!':watch?(F[p.formula].short+' wins!'):(isVictory?'Victory!':'Defeat!');$('resultTitle').style.color=isVictory?'#278249':'#d64852';$('resultDetail').textContent=(local?'Good game!':watch?'The battle is over.':isVictory?'Your graphing skills prevailed.':'The rival function took the round.')+' Winner finished with '+Math.ceil(p.hp)+' HP.';$('resultEqA').textContent=F[players[0].formula].short;$('resultEqB').textContent=F[players[1].formula].short;setText('resultHpA',Math.ceil(players[0].hp));setText('resultHpB',Math.ceil(players[1].hp));log((winner?'Red':'Green')+' won the battle!','gold');playSound('win');setTimeout(()=>{if(state==='over')setModal('result')},950)}
-function dash(p){if(state!=='playing'||p.hp<=0||p.dashCd>0)return;let mx=p.dirX,my=p.dirY,l=Math.hypot(mx,my);if(l<.1){mx=p.team?-1:1;my=0;l=1}p.vx=mx/l*clamp(W*.96,310,650);p.vy=my/l*clamp(W*.96,310,650);p.dashTime=.18;p.inv=Math.max(p.inv,.31);p.dashCd=3.65;particlesAt(p.x,p.y,COLORS[p.team],20,1.05);playSound('dash')}
+ $('resultEyebrow').textContent=watch?'AUTOBATTLE COMPLETE':local?'LOCAL MATCH COMPLETE':'MATCH COMPLETE';$('resultTitle').textContent=local?'Player '+(winner+1)+' wins!':watch?(F[p.formula].short+' wins!'):(isVictory?'Victory!':'Defeat!');$('resultTitle').style.color=isVictory?'#278249':'#d64852';$('resultDetail').textContent=(local?'Good game!':watch?'The battle is over.':isVictory?'Your graphing skills prevailed.':'The rival function took the round.')+' Winner finished with '+Math.ceil(p.hp)+' HP.';$('resultEqA').textContent=F[players[0].formula].short;$('resultEqB').textContent=F[players[1].formula].short;setText('resultHpA',Math.ceil(players[0].hp));setText('resultHpB',Math.ceil(players[1].hp));log((winner?'Red':'Green')+' won the battle!','gold');playSound('win',winner);if(!local&&!watch&&winner===1)playSound('lose',0);setTimeout(()=>{if(state==='over')setModal('result')},950)}
+function dash(p){if(state!=='playing'||p.hp<=0||p.dashCd>0)return;let mx=p.dirX,my=p.dirY,l=Math.hypot(mx,my);if(l<.1){mx=p.team?-1:1;my=0;l=1}p.vx=mx/l*clamp(W*.96,310,650);p.vy=my/l*clamp(W*.96,310,650);p.dashTime=.18;p.inv=Math.max(p.inv,.31);p.dashCd=3.65;particlesAt(p.x,p.y,COLORS[p.team],20,1.05);playSound('dash',p.team)}
 function playerMove(p){let dx=0,dy=0;
  if(p.team===0){if(keys.has('a')||!local&&keys.has('arrowleft'))dx--;if(keys.has('d')||!local&&keys.has('arrowright'))dx++;if(keys.has('w')||!local&&keys.has('arrowup'))dy--;if(keys.has('s')||!local&&keys.has('arrowdown'))dy++}
  else if(local){if(keys.has('arrowleft'))dx--;if(keys.has('arrowright'))dx++;if(keys.has('arrowup'))dy--;if(keys.has('arrowdown'))dy++}
@@ -510,7 +696,7 @@ function update(dt){time+=dt;now+=dt;shake=Math.max(0,shake-dt*14);hitFlash=Math
  let a=players[0],b=players[1],d=dist(a,b),min=a.r+b.r;if(d<min&&d>0.001&&a.hp>0&&b.hp>0){let nx=(b.x-a.x)/d,ny=(b.y-a.y)/d,overlap=(min-d)*.5;a.x-=nx*overlap;a.y-=ny*overlap;b.x+=nx*overlap;b.y+=ny*overlap;let v=rng(35,55);a.vx-=nx*v;a.vy-=ny*v;b.vx+=nx*v;b.vy+=ny*v;if(a.bumpCd===0&&b.bumpCd===0&&d<min*.65){a.bumpCd=b.bumpCd=.95;particlesAt((a.x+b.x)/2,(a.y+b.y)/2,'#b8c8bd',8,.6)}}
  for(let g of graphs){g.age+=dt;if(g.age>=g.warning&&g.age<=g.warning+g.duration&&!g.hit){let target=players[1-g.team];if(graphHit(g,target)){g.hit=true;damage(target,g.damage,target.x,target.y,g)}}}
  graphs=graphs.filter(g=>g.age<g.warning+g.duration+g.fade);
- for(let i=pickups.length-1;i>=0;i--){let q=pickups[i];q.t+=dt;q.life-=dt;let who=players.find(p=>p.hp>0&&dist(p,q)<p.r+q.r);if(who){who.power=9;particlesAt(q.x,q.y,'#e6ae23',28,1.3);showDamage(q.x,q.y-7,'×2','#c49a1f');log((who.team?'Red':'Green')+' collected a = 2. Double damage!','gold');pickups.splice(i,1);playSound('pickup')}else if(q.life<=0)pickups.splice(i,1)}
+ for(let i=pickups.length-1;i>=0;i--){let q=pickups[i];q.t+=dt;q.life-=dt;let who=players.find(p=>p.hp>0&&dist(p,q)<p.r+q.r);if(who){who.power=9;particlesAt(q.x,q.y,'#e6ae23',28,1.3);showDamage(q.x,q.y-7,'×2','#c49a1f');log((who.team?'Red':'Green')+' collected a = 2. Double damage!','gold');pickups.splice(i,1);playSound('pickup',who.team)}else if(q.life<=0)pickups.splice(i,1)}
  for(let p of particles){p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=Math.pow(.96,dt*60);p.vy+=50*dt;p.life-=dt}particles=particles.filter(p=>p.life>0);
  for(let t of texts){t.y+=t.vy*dt;t.life-=dt}texts=texts.filter(t=>t.life>0);
 }
@@ -554,7 +740,9 @@ function bind(){
  $('menuBtn').onclick=()=>{if(state==='playing'){state='paused';$('pauseOverlay').classList.add('active');keys.clear()}setModal('setup')};$('pauseBtn').onclick=togglePause;$('resumeBtn').onclick=togglePause;
  $('castBtn').onclick=()=>{unlockAudio();if(players[0])cast(players[0])};$('dashBtn').onclick=()=>{unlockAudio();if(players[0])dash(players[0])};
  $('castBtn2').onclick=()=>{unlockAudio();if(local&&players[1])cast(players[1])};$('dashBtn2').onclick=()=>{unlockAudio();if(local&&players[1])dash(players[1])};
- $('soundBtn').onclick=()=>{sound=!sound;setText('soundBtn',sound?'♫':'♪̸');if(sound)unlockAudio()};
+ $('soundBtn').onclick=()=>{sound=!sound;window.MathFightSFX.setEnabled(sound);setText('soundBtn',sound?'♫':'♪̸');$('soundBtn').setAttribute('aria-pressed',String(sound));if(sound)playSound('click')};
+ $('soundVolume').addEventListener('input',e=>{let n=Number(e.target.value);window.MathFightSFX.setVolume(n/100);setText('soundValue',n+'%')});
+ $('soundTest').onclick=()=>{unlockAudio();playSound('pickup')};
  $('roundIndicator').onclick=()=>{if(state==='playing')togglePause()};
  window.addEventListener('keydown',e=>{if(!$('opWarning').hidden||!$('deviceOverlay').hidden)return;let key=e.key.toLowerCase();if(['input','textarea','select'].includes(document.activeElement?.tagName?.toLowerCase()))return;
  if([' ','arrowup','arrowdown','arrowleft','arrowright','shift','enter'].includes(key)&&state==='playing')e.preventDefault();
