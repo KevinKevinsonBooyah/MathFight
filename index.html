@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#f6f7f4">
 <title>MathFight</title>
 <meta name="apple-mobile-web-app-title" content="MathFight">
-<link rel="icon" type="image/png" href="favicon.png?v=16">
-<link rel="apple-touch-icon" href="favicon.png?v=16">
+<link rel="icon" type="image/png" href="favicon.png?v=17">
+<link rel="apple-touch-icon" href="favicon.png?v=17">
 <style>
 :root{--ink:#232735;--sub:#7e8591;--line:#e1e5e3;--paper:#fff;--bg:#f5f7f5;--green:#23834b;--red:#d8424a;--yellow:#d8a326;--shadow:0 16px 55px rgba(29,48,41,.075)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;user-select:none;-webkit-user-select:none}
@@ -289,6 +289,7 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom))}
  .device-mobile .joystick-zone{transform:scale(.7);transform-origin:bottom left}
  .device-mobile .joystick-p2{transform-origin:bottom right}
 }
+.ai-difficulty-box{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 15px;margin:10px 0;border-radius:13px;background:#f0f4fb;border:1px solid #dbe2f3}.ai-difficulty-copy{display:flex;flex-direction:column;gap:4px;min-width:0}.ai-difficulty-copy strong{font-size:11px;letter-spacing:.7px;color:#354c7f}.ai-difficulty-copy span{font-size:11px;color:#637494;line-height:1.3}.ai-difficulty-box select{max-width:130px;min-width:100px;padding:9px;border:1px solid #bccce3;border-radius:9px;background:white;color:#354c7f;font-size:12px;font-weight:800;flex-shrink:0}.ai-difficulty-box[hidden]{display:none!important}@media(max-width:370px){.ai-difficulty-box{gap:8px;padding:10px}.ai-difficulty-box select{min-width:90px;max-width:100px}}
 </style>
 </head>
 <body>
@@ -332,7 +333,7 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom))}
   <button class="mobile-details-toggle" id="mobileDetailsToggle" aria-expanded="false">ⓘ Match details <span>⌄</span></button>
   </main>
   <aside class="sidebar">
-  <section class="panel"><div class="panel-heading"><span class="eyebrow">CURRENT FUNCTION</span><span class="light" id="funcType">ASYMPTOTIC</span></div><div class="formula-card"><div class="eq" id="formulaEq">y = tan x</div><p id="formulaDesc">Repeated vertical asymptotes cut through the arena.</p></div><p class="hint" id="functionHint" style="margin-top:12px">Graph attacks are <b>dashed while charging</b>, then solid when dangerous. Collect <b>power-up orbs</b> for shields, faster attacks, healing, double damage or the five-shot Gun.</p></section>
+  <section class="panel"><div class="panel-heading"><span class="eyebrow">CURRENT FUNCTION</span><span class="light" id="funcType">ASYMPTOTIC</span></div><div class="formula-card"><div class="eq" id="formulaEq">y = tan x</div><p id="formulaDesc">Repeated vertical asymptotes cut through the arena.</p></div><p class="hint" id="functionHint" style="margin-top:12px">Graph attacks are <b>dashed while charging</b>, then solid when dangerous. Collect <b>power-up orbs</b> for shields, faster attacks, healing, double damage or the five-shot Gun, plus five new pickups.</p></section>
   <section class="panel"><div class="panel-heading"><span class="eyebrow">MATCH LOG</span><span class="light">LIVE</span></div><div class="event-feed" id="feed"></div><div class="scoreline"><div><b id="totalWins">0</b><small id="statLabel1">WINS</small></div><div><b id="streak">0</b><small id="statLabel2">STREAK</small></div><div><b id="best">0</b><small id="statLabel3">BEST</small></div></div></section>
  </aside>
 </div>
@@ -341,13 +342,17 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom))}
 <div class="modal-bg" id="modalBg"><div class="modal" id="modal">
  <div id="setupPage">
   <div class="setup-scroll mf-lobby">
-    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V16 · SMART WARZONE</span></div><h1>Choose your battle.</h1><p>Pick a mode, customize the fighters, then launch. Every graph is a weapon.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
+    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V17 · BALANCED BATTLES</span></div><h1>Choose your battle.</h1><p>Pick a mode, customize the fighters, then launch. Every graph is a weapon.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
     <div class="lobby-section-label"><span>01</span> GAME MODE</div>
     <div class="mode-switch lobby-modes" role="group" aria-label="Battle mode">
       <button id="modeWatch" class="active"><span class="mode-emoji">🤖</span><strong>CPU BATTLE</strong><small>Watch two smart AIs fight</small></button>
       <button id="modePlay"><span class="mode-emoji">🎮</span><strong>SOLO</strong><small>Fight against the CPU</small></button>
       <button id="modeLocal"><span class="mode-emoji">⚔️</span><strong>LOCAL 1V1</strong><small>Play with a friend</small></button>
       <button id="modeWarzone"><span class="mode-emoji">🏁</span><strong>THE WARZONE</strong><small>Turns, cover & flags</small></button>
+    </div>
+    <div class="ai-difficulty-box" id="aiDifficultyBox">
+      <div class="ai-difficulty-copy"><strong>🤖 CPU DIFFICULTY</strong><span id="aiDifficultyDescription">Normal · Smart enough to fight back, but still makes mistakes.</span></div>
+      <select id="aiDifficulty" aria-label="CPU difficulty"><option value="easy">Casual</option><option value="normal" selected>Normal</option><option value="hard">Hard</option><option value="expert">Expert</option></select>
     </div>
     <p class="mode-description lobby-mode-caption" id="modeDescription">Two AI fighters. Choose their equations and enjoy the battle.</p>
     <details id="localControlHelp"><summary>❔ Controls for local 1v1</summary><div class="help-controls"><div><strong>🟢 Player 1</strong> — Move <kbd>WASD</kbd>, dash <kbd>Left Shift</kbd>. Graphs fire automatically.</div><div><strong>🔴 Player 2</strong> — Move <kbd>Arrow Keys</kbd>, dash <kbd>Right Shift</kbd>. Graphs fire automatically.</div></div><p style="margin:7px 0 0">Mobile: use the two joysticks and the dash buttons. In Warzone, type a function, take turns firing, then rush the flags for 5 seconds.</p></details>
@@ -773,6 +778,10 @@ for(let side=0;side<2;side++){
 }
 const rosterIds=['tan','exp','sin','quad','abs','custom'],COLORS=['#238a47','#dd3f4c'];
 let warzone=null,cinematic=null,screenFlash=0,ambientSparks=[],shotTrails=[],finishShards=[];
+let aiDifficulty='normal';
+const AI_LEVELS={easy:{name:'Casual',miss:.43,think:[.54,.91],choices:5,dodge:.27,dash:.14,pickup:.36,noise:1.9},normal:{name:'Normal',miss:.27,think:[.37,.64],choices:8,dodge:.53,dash:.36,pickup:.66,noise:.9},hard:{name:'Hard',miss:.15,think:[.23,.42],choices:12,dodge:.79,dash:.66,pickup:.85,noise:.4},expert:{name:'Expert',miss:.085,think:[.16,.28],choices:16,dodge:1,dash:.87,pickup:1,noise:.12}};
+function aiRules(){return AI_LEVELS[aiDifficulty]||AI_LEVELS.normal}
+function showAiDifficulty(){const visible=mode==='cpu'||mode==='watch'||(mode==='warzone'&&$('warzonePlayers').value==='cpu');$('aiDifficultyBox').hidden=!visible;let a=aiRules();$('aiDifficultyDescription').textContent=({'easy':'Relaxed reactions · lots of mistakes and misses.','normal':'A good fight, but plenty of mistakes.','hard':'Faster dodges and smarter decisions.','expert':'Very sharp tactics, but still misses sometimes.'}[aiDifficulty]);}
 let selection=['tan','exp'],mode='cpu',watch=false,local=false,localWins=[0,0],state='menu',players=[],graphs=[],particles=[],texts=[],pickups=[],rays=[],gunBursts=[],shockwaves=[],feedItems=[],W=800,H=620,unit=58,now=0,prev=0,round=1,time=0,shake=0,pickupClock=0,totalStats={wins:0,streak:0,best:0};
 let touch=null,keys=new Set(),holding=[false,false],stick=[{x:0,y:0,active:false,id:null},{x:0,y:0,active:false,id:null}],pointer={0:{down:false,x:0,y:0,id:null},1:{down:false,x:0,y:0,id:null}},audio=null,sound=true,hitFlash=0,lastHud=0,id=0,orientation=1;
 try{let saved=JSON.parse(localStorage.getItem('mathBallFightStats')||'null');if(saved&&typeof saved==='object')totalStats={...totalStats,...saved}}catch(e){}
@@ -859,6 +868,7 @@ function drawRoster(){for(let side=0;side<2;side++){
  $('customEditor'+side).hidden=selection[side]!=='custom'+side;
 }}
 function setMode(next){mode=next;watch=mode==='watch';local=mode==='local';$('modePlay').classList.toggle('active',mode==='cpu');$('modeLocal').classList.toggle('active',local);$('modeWatch').classList.toggle('active',watch);$('modeWarzone').classList.toggle('active',mode==='warzone');
+ showAiDifficulty();
  $('warzoneSetup').hidden=mode!=='warzone';$('warzoneHud').hidden=mode!=='warzone';$('warzonePanel').hidden=mode!=='warzone';document.body.classList.toggle('warzone-mode',mode==='warzone');document.body.classList.toggle('auto-combat',mode!=='warzone');
  $('fightControls').classList.toggle('versus',local);if(mode==='warzone'){$('fightControls').classList.remove('versus');}$('stage').classList.toggle('local-touch',local);for(let id of ['castBtn2','dashBtn2'])$(id).classList.toggle('visible',local);
  setText('castTitle',local?'P1 GRAPH':'DRAW GRAPH');setText('dashTitle',local?'P1 DASH':'DASH');
@@ -882,7 +892,7 @@ function closeModal(){if(state==='playing'||state==='paused')$('modalBg').classL
 function setLabels(){let a=F[selection[0]],b=F[selection[1]];
  setText('leftFormula',a.short);setText('rightFormula',b.short);setText('leftHealthLabel',a.short);setText('rightHealthLabel',b.short);
  setText('leftName',watch?'CPU ALPHA':local?'PLAYER 1':'YOU');setText('rightName',watch?'CPU OMEGA':local?'PLAYER 2':'CPU');
- setText('spellInfo','[ y = '+a.eq+' ]');setText('enemyInfo','[ y = '+b.eq+' ]');setText('formulaEq','y = '+a.eq);setText('formulaDesc',a.desc);setText('funcType',a.type);setText('functionHint','Graph attacks fade smoothly after firing. Power-up orbs provide shields, healing, rapid fire, double damage or the five-shot Gun.')
+ setText('spellInfo','[ y = '+a.eq+' ]');setText('enemyInfo','[ y = '+b.eq+' ]');setText('formulaEq','y = '+a.eq);setText('formulaDesc',a.desc);setText('funcType',a.type);setText('functionHint','Graph attacks fade smoothly after firing. Power-up orbs provide shields, healing, rapid fire, double damage or the five-shot Gun, plus five new pickups.')
 }
 function resize(){
  const rect=canvas.getBoundingClientRect();
@@ -934,7 +944,7 @@ function scheduleResponsiveViewport(){
  if(viewportResizePending)return;viewportResizePending=true;
  requestAnimationFrame(()=>{viewportResizePending=false;syncResponsiveViewport()});
 }
-function makeBall(team,formula,auto){return {team,formula,auto,x:W*(team?0.78:0.22),y:H*(team?.40:.60),r:clamp(W*.031,15,23),vx:team?-45:45,vy:team?56:-51,hp:80,cd:1.6+team*.65,dashCd:0,dashTime:0,dirX:team?-1:1,dirY:0,power:0,shield:0,rapid:0,inv:0,aiChange:0,aiDX:0,aiDY:0,score:0,trails:[],bumpCd:0}}
+function makeBall(team,formula,auto){return {team,formula,auto,x:W*(team?0.78:0.22),y:H*(team?.40:.60),r:clamp(W*.031,15,23),vx:team?-45:45,vy:team?56:-51,hp:80,cd:1.6+team*.65,dashCd:0,dashTime:0,dirX:team?-1:1,dirY:0,power:0,shield:0,rapid:0,frozen:0,magnet:0,regen:0,regenClock:0,inv:0,aiChange:0,aiDX:0,aiDY:0,score:0,trails:[],bumpCd:0}}
 function start(force=false){
  if(mode==='warzone'){startWarzone();return;}
  for(let side=0;side<2;side++)if(selection[side]==='custom'+side&&!customValid[side]){
@@ -954,10 +964,10 @@ function start(force=false){
 function togglePause(){if(state==='playing'){state='paused';$('pauseOverlay').classList.add('active');keys.clear();pointer[0].down=pointer[1].down=false}else if(state==='paused'){state='playing';$('pauseOverlay').classList.remove('active')}else if(state==='over'){setModal('result')}}
 function particlesAt(x,y,color,n=13,scale=1){for(let i=0;i<n;i++){let a=rng(0,Math.PI*2),v=rng(35,160)*scale,life=rng(.28,.73);particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life,max:life,r:rng(1.3,4)*scale,color})}if(particles.length>310)particles.splice(0,particles.length-310)}
 function showDamage(x,y,value,color){texts.push({x,y,value,color,life:.86,max:.86,vy:-58})}
-const POWERUPS={double:{label:'×2',color:'#dba52b',desc:'Double damage'},gun:{label:'🔫',color:'#6a58cb',desc:'Gun: 5 rays × 2 damage'},shield:{label:'◆',color:'#4a9dde',desc:'Shield: reduces incoming damage'},heal:{label:'+',color:'#3aaa78',desc:'Heal 16 HP'},rapid:{label:'⚡',color:'#e58c43',desc:'Rapid-fire graph attacks'}};
+const POWERUPS={double:{label:'×2',color:'#dba52b',desc:'Double damage'},gun:{label:'🔫',color:'#6a58cb',desc:'Gun: 5 rays × 2 damage'},shield:{label:'◆',color:'#4a9dde',desc:'Shield: reduces incoming damage'},heal:{label:'+',color:'#3aaa78',desc:'Heal 16 HP'},rapid:{label:'⚡',color:'#e58c43',desc:'Rapid-fire graph attacks'},freeze:{label:'❄',color:'#4dbbd3',desc:'Frost: slow the enemy for 3 seconds'},magnet:{label:'🧲',color:'#ba64e5',desc:'Magnet: pull power-ups toward you for 9 seconds'},blink:{label:'✦',color:'#8c72ff',desc:'Blink: teleport to a new position'},regen:{label:'♥',color:'#fa6b9d',desc:'Regeneration: restore health over 6 seconds'},pulse:{label:'◉',color:'#e7ad50',desc:'Pulse: close-range shockwave damage'}};
 function burstRing(x,y,color,r=20,life=.5){shockwaves.push({x,y,color,r,life,max:life});if(shockwaves.length>36)shockwaves.shift()}
 function spawnPickup(){if(pickups.length>=3)return;
- const choices=['gun','shield','heal','rapid','double'];let kind=choices[Math.floor(Math.random()*choices.length)];
+ const choices=Object.keys(POWERUPS);let kind=choices[Math.floor(Math.random()*choices.length)];
  // Prevent clutter and try to avoid same-type duplicates.
  for(let n=0;n<5&&pickups.some(p=>p.kind===kind);n++)kind=choices[Math.floor(Math.random()*choices.length)];
  let q={kind,x:rng(W*.17,W*.83),y:rng(H*.21,H*.77),r:17,t:0,life:14};pickups.push(q);particlesAt(q.x,q.y,POWERUPS[kind].color,18,.8);burstRing(q.x,q.y,POWERUPS[kind].color,16,.52);log(POWERUPS[kind].desc+' appeared!','gold')}
@@ -980,6 +990,11 @@ function collectPickup(q,p){const k=q.kind;
  if(k==='shield'){p.shield=8;showDamage(q.x,q.y-9,'SHIELD','#4a9dde');playSound('shield',p.team)}
  if(k==='heal'){let gain=Math.min(16,80-p.hp);p.hp+=gain;showDamage(q.x,q.y-9,'+'+gain+' HP','#299b5f');playSound('heal',p.team)}
  if(k==='rapid'){p.rapid=9;p.cd=Math.min(p.cd,.4);showDamage(q.x,q.y-9,'RAPID FIRE','#e58c43');playSound('rapid',p.team)}
+ if(k==='freeze'){const rival=players[1-p.team];rival.frozen=Math.max(rival.frozen||0,3);showDamage(q.x,q.y-9,'FROST!','#369caf');playSound('shield',p.team);}
+ if(k==='magnet'){p.magnet=9;showDamage(q.x,q.y-9,'MAGNET','#ac52d8');playSound('pickup',p.team);}
+ if(k==='blink'){const ox=p.x,oy=p.y;p.x=clamp(rng(W*.15,W*.85),p.r,W-p.r);p.y=clamp(rng(H*.17,H*.83),p.r,H-p.r);p.vx=p.vy=0;particlesAt(ox,oy,'#8c72ff',30,1.2);burstRing(ox,oy,'#8c72ff',28,.65);showDamage(p.x,p.y-18,'BLINK','#8c72ff');playSound('dash',p.team);}
+ if(k==='regen'){p.regen=6;p.regenClock=0;showDamage(q.x,q.y-9,'REGEN +18','#fa6b9d');playSound('heal',p.team);}
+ if(k==='pulse'){const enemy=players[1-p.team],reach=Math.max(110,W*.36);burstRing(p.x,p.y,'#e7ad50',Math.min(reach*.28,70),.85);particlesAt(p.x,p.y,'#e7ad50',35,1.3);if(enemy&&dist(p,enemy)<reach){damage(enemy,8,enemy.x,enemy.y,null,true);showDamage(p.x,p.y-10,'PULSE HIT','#d28b27')}else showDamage(p.x,p.y-10,'PULSE','#d28b27');playSound('gun',p.team);}
  if(k!=='gun')log((p.team?'Red':'Green')+' collected '+POWERUPS[k].desc+'!','gold');
  particlesAt(q.x,q.y,POWERUPS[k].color,28,1.2);burstRing(q.x,q.y,POWERUPS[k].color,19,.6);
 }
@@ -1002,7 +1017,11 @@ function computeGraphScale(type,u0,anchor){
 }
 function cast(p){if(state!=='playing'||p.hp<=0||p.cd>0)return false;
  const f=F[p.formula],enemy=players[1-p.team];p.cd=f.cd*(p.rapid>0?.48:1);
- const aimX=clamp(enemy.x+rng(-unit*.15,unit*.15),40,W-40),aimY=clamp(enemy.y+rng(-5,5),18,H-18);
+ const ai=p.auto,rule=aiRules(),whiff=ai&&Math.random()<rule.miss;
+ const aimX=clamp(enemy.x+rng(-unit*(ai?.22:.15),unit*(ai?.22:.15)),40,W-40);
+ // Never give a bot perfect accuracy. A deliberate miss chooses an off-target vertical lane.
+ const deviation=whiff?(rng(H*.16,H*.32)*(Math.random()<.5?-1:1)):rng(-unit*(ai?.44:.12),unit*(ai?.44:.12));
+ const aimY=clamp(enemy.y+deviation,18,H-18);
  const anchorInfo=chooseGraphAnchor(p.formula);
  if(!anchorInfo){log('Function has no visible points. Please change its settings.','red');return false}
  const x0=aimX-anchorInfo.u0*unit,scaleY=computeGraphScale(p.formula,anchorInfo.u0,anchorInfo.anchor);
@@ -1011,7 +1030,7 @@ function cast(p){if(state!=='playing'||p.hp<=0||p.cd>0)return false;
 }
 function calcFn(type,u){try{const y=F[type].fn(u);return typeof y==='number'&&Number.isFinite(y)?y:NaN}catch(e){return NaN}}
 function curveY(g,x,age){let u=(x-g.x0-(Math.max(0,age-g.warning)*g.velocity))/unit,val=calcFn(g.formula,u);if(!Number.isFinite(val))return null;let y=g.aimY-(val-g.anchor)*unit*g.scaleY;if(!Number.isFinite(y)||y<-H*.4||y>H*1.4)return null;return y}
-function graphHit(g,p){if(g.hit||p.hp<=0)return false;for(let i=-8;i<=8;i++){let x=p.x+(i/8)*(p.r+8),y=curveY(g,x,g.age);if(y===null)continue;let dx=x-p.x,dy=y-p.y;if(dx*dx+dy*dy<(p.r+4)*(p.r+4))return true}return false}
+function graphHit(g,p){if(g.hit||p.hp<=0)return false;for(let i=-8;i<=8;i++){let x=p.x+(i/8)*(p.r+8),y=curveY(g,x,g.age);if(y===null||y<6||y>H-6||x<6||x>W-6)continue;let dx=x-p.x,dy=y-p.y;if(dx*dx+dy*dy<(p.r+4)*(p.r+4))return true}return false}
 function damage(p,n,x,y,source,ignoreInv=false){if(p.hp<=0||(!ignoreInv&&p.inv>.02))return;let dealt=p.shield>0?Math.max(1,Math.ceil(n*.5)):n;let actual=Math.min(p.hp,dealt);p.hp=Math.max(0,p.hp-dealt);p.inv=ignoreInv?Math.min(p.inv,.07):.22;let attacker=players[1-p.team];attacker.score+=actual;showDamage(x,y,'-'+actual,p.team?'#d83b44':'#26854c');particlesAt(x,y,COLORS[p.team],23,1.2);burstRing(x,y,COLORS[p.team],20,.35);shake=Math.max(shake,4.3);hitFlash=.14;if(!ignoreInv)playSound('hit',p.team);if(p.hp<=0)endMatch(1-p.team)}
 function clearTransientEffects(){graphs=[];pickups=[];rays=[];gunBursts=[];shockwaves=[];particles=[];texts=[];finishShards=[];hitFlash=0;shake=0;screenFlash=0;if(warzone)warzone.shots=[];for(const p of players)p.trails=[];}
 function endMatch(winner,reason='knockout'){if(state!=='playing')return;state='finishing';
@@ -1029,16 +1048,16 @@ function playerMove(p){let dx=0,dy=0;
  let control=pointer[p.team];if(stick[p.team].active){dx=stick[p.team].x;dy=stick[p.team].y}else if(control.down){dx=control.x-p.x;dy=control.y-p.y;if(Math.hypot(dx,dy)<p.r*.7){dx=0;dy=0}}
  let l=Math.hypot(dx,dy);if(l>0){p.dirX=dx/l;p.dirY=dy/l}return l?{x:dx/l,y:dy/l}:{x:0,y:0}}
 function aiMove(p,dt){
- const enemy=players[1-p.team];p.aiChange-=dt;
+ const enemy=players[1-p.team],rule=aiRules();p.aiChange-=dt;
  // A CPU scores possible directions by safety, pickups, room to dodge, and pressure.
  if(p.aiChange<=0){
-  p.aiChange=rng(.16,.28);let best=-Infinity,bestX=0,bestY=0;
+  p.aiChange=rng(...rule.think);let best=-Infinity,bestX=0,bestY=0;
   const hpFraction=p.hp/80;
-  const bonuses={gun:3.9,heal:hpFraction<.52?5.3:hpFraction<.8?2.4:.25,shield:2.8,rapid:2.9,double:2.5};
+  const bonuses={gun:3.9,heal:hpFraction<.52?5.3:hpFraction<.8?2.4:.25,shield:2.8,rapid:2.9,double:2.5,freeze:2.7,magnet:2.5,blink:2.2,regen:hpFraction<.8?3.9:1.1,pulse:2.7};
   let target=null,priority=-Infinity;
   for(const q of pickups){const d=Math.hypot(q.x-p.x,q.y-p.y);const value=(bonuses[q.kind]||1.5)/(1+d/170);if(value>priority){priority=value;target=q}}
-  for(let k=0;k<16;k++){
-   const a=k*Math.PI/8,dx=Math.cos(a),dy=Math.sin(a);
+  for(let k=0;k<rule.choices;k++){
+   const a=k*Math.PI*2/rule.choices+rng(-rule.noise,rule.noise)*.3,dx=Math.cos(a),dy=Math.sin(a);
    const tx=clamp(p.x+dx*100,p.r,W-p.r),ty=clamp(p.y+dy*100,p.r,H-p.r);
    let score=0;
    const nearEdge=Math.min(tx-p.r,W-p.r-tx,ty-p.r,H-p.r-ty);
@@ -1046,20 +1065,20 @@ function aiMove(p,dt){
    const de=Math.hypot(tx-enemy.x,ty-enemy.y);
    score-=Math.abs(de-unit*2.6)*.0024;
    score+= (k%2?-.08:.08)*Math.sin(now*3+p.team*3);
-   if(target){let after=Math.hypot(tx-target.x,ty-target.y);score+=(Math.hypot(p.x-target.x,p.y-target.y)-after)*.009*Math.min(4.5,priority);}
+   if(target){let after=Math.hypot(tx-target.x,ty-target.y);score+=(Math.hypot(p.x-target.x,p.y-target.y)-after)*.009*Math.min(4.5,priority)*rule.pickup;}
    for(let g of graphs){if(g.team===p.team||g.hit||g.age>g.warning+g.duration)continue;
     let futureAge=g.age+Math.max(.15,g.warning-g.age)+.10;
     let y=curveY(g,tx,futureAge);
-    if(y!==null){let separation=Math.abs(y-ty);if(separation<unit*.95)score-=8.5*(1-separation/(unit*.95));}
-    const yNow=curveY(g,p.x,futureAge);if(yNow!==null&&Math.abs(yNow-p.y)<unit*.6&&Math.abs(ty-yNow)>unit*.65)score+=1.9;
+    if(y!==null){let separation=Math.abs(y-ty);if(separation<unit*.95)score-=8.5*rule.dodge*(1-separation/(unit*.95));}
+    const yNow=curveY(g,p.x,futureAge);if(yNow!==null&&Math.abs(yNow-p.y)<unit*.6&&Math.abs(ty-yNow)>unit*.65)score+=1.9*rule.dodge;
    }
-   if(score>best){best=score;bestX=dx;bestY=dy}
+   score+=rng(-rule.noise,rule.noise);if(score>best){best=score;bestX=dx;bestY=dy}
   }
   p.aiDX=bestX;p.aiDY=bestY;
  }
  const dx=p.aiDX,dy=p.aiDY;p.dirX=dx;p.dirY=dy;
  const threat=graphs.find(g=>g.team!==p.team&&!g.hit&&g.age<g.warning+.5&&Math.abs((curveY(g,p.x,g.age+.23)??-10000)-p.y)<unit*.78);
- if(threat&&p.dashCd<=0&&p.hp>8){p.dirX=0;p.dirY=p.y>H/2?-1:1;dash(p);}
+ if(threat&&p.dashCd<=0&&p.hp>8&&Math.random()<rule.dash){p.dirX=0;p.dirY=p.y>H/2?-1:1;dash(p);}
  if(p.cd<=0&&time>.75)cast(p);
  return{x:dx,y:dy};
 }
@@ -1073,8 +1092,8 @@ function updateCinematic(dt){
  if(c.elapsed>=c.duration){state='over';cinematic=null;clearTransientEffects();$('koOverlay').classList.remove('show');$('stage').classList.remove('cinematic');setModal('result')}
 }
 function update(dt){time+=dt;now+=dt;shake=Math.max(0,shake-dt*14);hitFlash=Math.max(0,hitFlash-dt);pickupClock-=dt;if(pickupClock<=0){spawnPickup();pickupClock=rng(5.8,8.2)}
- for(let p of players){if(p.hp>0&&!p.auto&&p.cd<=0&&time>1.25)cast(p);p.cd=Math.max(0,p.cd-dt);p.dashCd=Math.max(0,p.dashCd-dt);p.dashTime=Math.max(0,p.dashTime-dt);p.inv=Math.max(0,p.inv-dt);p.power=Math.max(0,p.power-dt);p.shield=Math.max(0,p.shield-dt);p.rapid=Math.max(0,p.rapid-dt);p.bumpCd=Math.max(0,p.bumpCd-dt);if(p.hp<=0)continue;
- let move=p.auto?aiMove(p,dt):playerMove(p);const acc=clamp(W*(p.auto?1.18:.92),380,720);if(p.dashTime<=0){p.vx+=move.x*acc*dt;p.vy+=move.y*acc*dt;let drag=Math.pow((move.x||move.y)? .925 : .895,dt*60);p.vx*=drag;p.vy*=drag;let max=clamp(W*.32,135,225);let speed=Math.hypot(p.vx,p.vy);if(speed>max){p.vx*=max/speed;p.vy*=max/speed}}
+ for(let p of players){if(p.hp>0&&!p.auto&&p.cd<=0&&time>1.25)cast(p);p.cd=Math.max(0,p.cd-dt);p.dashCd=Math.max(0,p.dashCd-dt);p.dashTime=Math.max(0,p.dashTime-dt);p.inv=Math.max(0,p.inv-dt);p.power=Math.max(0,p.power-dt);p.shield=Math.max(0,p.shield-dt);p.rapid=Math.max(0,p.rapid-dt);p.frozen=Math.max(0,(p.frozen||0)-dt);p.magnet=Math.max(0,(p.magnet||0)-dt);if(p.regen>0){const tick=Math.min(dt,p.regen);p.regen-=tick;p.regenClock+=tick;while(p.regenClock>=1){p.regenClock-=1;const gain=Math.min(3,80-p.hp);p.hp+=gain;if(gain)showDamage(p.x,p.y-p.r-13,'+'+gain,'#df6394')}}p.bumpCd=Math.max(0,p.bumpCd-dt);if(p.hp<=0)continue;
+ let move=p.auto?aiMove(p,dt):playerMove(p);const acc=clamp(W*(p.auto?1.18:.92),380,720)*(p.frozen>0?.43:1);if(p.dashTime<=0){p.vx+=move.x*acc*dt;p.vy+=move.y*acc*dt;let drag=Math.pow((move.x||move.y)? .925 : .895,dt*60);p.vx*=drag;p.vy*=drag;let max=clamp(W*.32,135,225)*(p.frozen>0?.46:1);let speed=Math.hypot(p.vx,p.vy);if(speed>max){p.vx*=max/speed;p.vy*=max/speed}}
  p.x+=p.vx*dt;p.y+=p.vy*dt;
  if(p.x<p.r){p.x=p.r;p.vx=Math.abs(p.vx)*.65}else if(p.x>W-p.r){p.x=W-p.r;p.vx=-Math.abs(p.vx)*.65}if(p.y<p.r){p.y=p.r;p.vy=Math.abs(p.vy)*.65}else if(p.y>H-p.r){p.y=H-p.r;p.vy=-Math.abs(p.vy)*.65}
  if(p.dashTime>0&&Math.random()<.65)particlesAt(p.x-p.vx*.015,p.y-p.vy*.015,COLORS[p.team],2,.55);
@@ -1083,7 +1102,7 @@ function update(dt){time+=dt;now+=dt;shake=Math.max(0,shake-dt*14);hitFlash=Math
  let a=players[0],b=players[1],d=dist(a,b),min=a.r+b.r;if(d<min&&d>0.001&&a.hp>0&&b.hp>0){let nx=(b.x-a.x)/d,ny=(b.y-a.y)/d,overlap=(min-d)*.5;a.x-=nx*overlap;a.y-=ny*overlap;b.x+=nx*overlap;b.y+=ny*overlap;let v=rng(35,55);a.vx-=nx*v;a.vy-=ny*v;b.vx+=nx*v;b.vy+=ny*v;if(a.bumpCd===0&&b.bumpCd===0&&d<min*.65){a.bumpCd=b.bumpCd=.95;particlesAt((a.x+b.x)/2,(a.y+b.y)/2,'#b8c8bd',8,.6)}}
  for(let g of graphs){g.age+=dt;if(g.age>=g.warning&&g.age<=g.warning+g.duration&&!g.hit){let target=players[1-g.team];if(graphHit(g,target)){g.hit=true;damage(target,g.damage,target.x,target.y,g)}}}
  graphs=graphs.filter(g=>g.age<g.warning+g.duration+g.fade);
- for(let i=pickups.length-1;i>=0;i--){let q=pickups[i];q.t+=dt;q.life-=dt;let who=players.find(p=>p.hp>0&&dist(p,q)<p.r+q.r);if(who){collectPickup(q,who);pickups.splice(i,1)}else if(q.life<=0){particlesAt(q.x,q.y,POWERUPS[q.kind].color,7,.38);pickups.splice(i,1)}}
+ for(let i=pickups.length-1;i>=0;i--){let q=pickups[i];q.t+=dt;q.life-=dt;for(const p of players){if(p.hp<=0||p.magnet<=0)continue;let d=Math.hypot(p.x-q.x,p.y-q.y);if(d>3&&d<W*.44){const move=Math.min(d,dt*clamp(440-d*.65,120,410));q.x+=(p.x-q.x)/d*move;q.y+=(p.y-q.y)/d*move;}}let who=players.find(p=>p.hp>0&&dist(p,q)<p.r+q.r);if(who){collectPickup(q,who);pickups.splice(i,1)}else if(q.life<=0){particlesAt(q.x,q.y,POWERUPS[q.kind].color,7,.38);pickups.splice(i,1)}}
  for(let i=gunBursts.length-1;i>=0;i--){let b=gunBursts[i];b.wait-=dt;if(b.wait<=0&&b.remaining>0){const shooter=players[b.team];if(shooter&&shooter.hp>0&&state==='playing')shootRay(shooter);b.remaining--;b.wait+=.2;}if(b.remaining<=0)gunBursts.splice(i,1)}
  for(let r of rays)r.life-=dt;rays=rays.filter(r=>r.life>0);
  for(let ring of shockwaves)ring.life-=dt;shockwaves=shockwaves.filter(r=>r.life>0);
@@ -1093,8 +1112,8 @@ function update(dt){time+=dt;now+=dt;shake=Math.max(0,shake-dt*14);hitFlash=Math
 function drawGrid(){ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);let gap=unit/2,midX=W/2,midY=H/2;ctx.lineWidth=.65;ctx.strokeStyle='#edf1ef';ctx.beginPath();for(let x=midX%gap;x<W;x+=gap){ctx.moveTo(Math.round(x)+.5,0);ctx.lineTo(Math.round(x)+.5,H)}for(let y=midY%gap;y<H;y+=gap){ctx.moveTo(0,Math.round(y)+.5);ctx.lineTo(W,Math.round(y)+.5)}ctx.stroke();ctx.strokeStyle='#e2e7e4';ctx.lineWidth=.95;ctx.beginPath();for(let x=midX%unit;x<W;x+=unit){ctx.moveTo(Math.round(x)+.5,0);ctx.lineTo(Math.round(x)+.5,H)}for(let y=midY%unit;y<H;y+=unit){ctx.moveTo(0,Math.round(y)+.5);ctx.lineTo(W,Math.round(y)+.5)}ctx.stroke();ctx.strokeStyle='#a6afb0';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(midX,0);ctx.lineTo(midX,H);ctx.moveTo(0,midY);ctx.lineTo(W,midY);ctx.stroke();ctx.fillStyle='#aab3b3';ctx.beginPath();ctx.moveTo(midX-4,8);ctx.lineTo(midX+4,8);ctx.lineTo(midX,1);ctx.fill();ctx.beginPath();ctx.moveTo(W-1,midY);ctx.lineTo(W-9,midY-4);ctx.lineTo(W-9,midY+4);ctx.fill();ctx.fillStyle='#8e9898';ctx.font='italic 14px Georgia,serif';ctx.fillText('y',midX+7,16);ctx.fillText('x',W-17,midY+17);ctx.fillStyle='#bec4c4';ctx.font='italic 11px Georgia';ctx.fillText('0',midX+5,midY+12);ctx.lineWidth=1;for(let x=midX+unit;x<W;x+=unit){ctx.beginPath();ctx.moveTo(x,midY-4);ctx.lineTo(x,midY+4);ctx.stroke()}for(let x=midX-unit;x>0;x-=unit){ctx.beginPath();ctx.moveTo(x,midY-4);ctx.lineTo(x,midY+4);ctx.stroke()}for(let y=midY+unit;y<H;y+=unit){ctx.beginPath();ctx.moveTo(midX-4,y);ctx.lineTo(midX+4,y);ctx.stroke()}for(let y=midY-unit;y>0;y-=unit){ctx.beginPath();ctx.moveTo(midX-4,y);ctx.lineTo(midX+4,y);ctx.stroke()}}
 function curvePath(g,age,reveal=1){let last=null,started=false;ctx.beginPath();
  // Attack grows from the target outward, so custom curves never silently wait off-screen.
- let radius=Math.max(18,W*clamp(reveal,0,1));let minX=Math.max(0,g.aimX-radius),maxX=Math.min(W,g.aimX+radius);
- let xstep=3.1;for(let x=minX;x<=maxX+xstep;x+=xstep){let y=curveY(g,x,age),valid=y!==null&&y>-H*.2&&y<H*1.2;
+ let radius=Math.max(18,W*clamp(reveal,0,1));let minX=Math.max(6,g.aimX-radius),maxX=Math.min(W-6,g.aimX+radius);
+ let xstep=3.1;for(let x=minX;x<=maxX+xstep;x+=xstep){let y=curveY(g,x,age),valid=y!==null&&y>=6&&y<=H-6;
   if(!valid){last=null;started=false;continue}if(!started||last!==null&&Math.abs(y-last)>Math.max(40,H*.24)){ctx.moveTo(x,y);started=true}else ctx.lineTo(x,y);last=y}return ctx}
 function drawGraphs(){ctx.save();ctx.beginPath();ctx.rect(0,0,W,H);ctx.clip();for(let g of graphs){let pre=g.age<g.warning,fadeStart=g.warning+g.duration,progress=clamp((g.age-g.warning)/g.duration,0,1),fadeProgress=clamp((g.age-fadeStart)/g.fade,0,1),alpha=g.age>fadeStart?Math.pow(1-fadeProgress,2):1,green=g.team===0,color=green?'#268f50':'#d94d57';ctx.globalAlpha=pre?.35:alpha*.92;let showAt=pre?1:1-Math.pow(1-progress,2.8);ctx.save();ctx.strokeStyle=color;ctx.lineCap='round';ctx.lineJoin='round';ctx.lineWidth=pre?2:3.8*alpha+.2;ctx.shadowColor=color;ctx.shadowBlur=pre?0:15*alpha;ctx.setLineDash(pre?[6,7]:[]);curvePath(g,pre?0:g.age,showAt);ctx.stroke();ctx.setLineDash([]);ctx.shadowBlur=0;if(!pre){ctx.globalAlpha=alpha*.15;ctx.lineWidth=11*alpha+1;curvePath(g,g.age,showAt);ctx.stroke()}ctx.restore();if(pre){let blink=.3+Math.sin(g.age*20)*.15;ctx.globalAlpha=blink;ctx.strokeStyle=color;ctx.lineWidth=1.2;ctx.setLineDash([3,5]);ctx.beginPath();ctx.arc(g.aimX,g.aimY,17+8*(1-g.age/g.warning),0,Math.PI*2);ctx.stroke();ctx.setLineDash([])}}ctx.restore();ctx.globalAlpha=1}
 function drawExtraEffects(){
@@ -1105,7 +1124,7 @@ function drawExtraEffects(){
  ctx.globalAlpha=1;
 }
 function drawPickups(){for(let q of pickups){let power=POWERUPS[q.kind],pulse=1+Math.sin(q.t*5)*.085;ctx.save();ctx.globalAlpha=clamp(q.life/.85,0,1);ctx.translate(q.x,q.y+Math.sin(q.t*3)*3);ctx.scale(.7+.3*clamp(q.life/.85,0,1),.7+.3*clamp(q.life/.85,0,1));ctx.scale(pulse,pulse);ctx.shadowColor=power.color;ctx.shadowBlur=19+Math.sin(q.t*6)*5;ctx.fillStyle='#fff';ctx.strokeStyle=power.color;ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,0,q.r,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.shadowBlur=0;ctx.fillStyle=power.color;ctx.font=q.kind==='gun'?'16px sans-serif':'bold 17px ui-sans-serif, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(power.label,0,1);ctx.restore()}}
-function drawBalls(){for(let p of players){for(let tr of p.trails){let r=p.r*(.45+tr.t*.6);ctx.beginPath();ctx.arc(tr.x,tr.y,r,0,Math.PI*2);ctx.fillStyle=p.team?`rgba(220,64,73,${tr.t*.065})`:`rgba(26,144,74,${tr.t*.065})`;ctx.fill()}if(p.hp<=0||(cinematic&&p.team!==cinematic.winner))continue;ctx.save();ctx.translate(p.x,p.y);let color=COLORS[p.team];if(p.power>0||p.shield>0||p.rapid>0){ctx.beginPath();ctx.arc(0,0,p.r+8+Math.sin(now*7)*2,0,Math.PI*2);ctx.strokeStyle=p.shield>0?'rgba(65,152,228,.85)':p.rapid>0?'rgba(239,139,45,.8)':'rgba(229,170,20,.65)';ctx.lineWidth=p.shield>0?4:2.8;ctx.setLineDash(p.shield>0?[]:[4,5]);ctx.stroke();ctx.setLineDash([])}ctx.shadowColor=color;ctx.shadowBlur=p.inv>0?25:16;ctx.fillStyle=p.team?'#fff2f2':'#effcf1';ctx.strokeStyle=color;ctx.lineWidth=p.dashTime>0?4:2.35;ctx.beginPath();ctx.arc(0,0,p.r,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.shadowBlur=0;ctx.fillStyle=p.team?'#a32638':'#20653a';let label=warzone?'P'+(p.team+1):F[p.formula].short;ctx.font=`bold italic ${label.length>4?p.r*.62:p.r*.82}px Georgia,serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,0,1.5);ctx.restore();}}
+function drawBalls(){for(let p of players){for(let tr of p.trails){let r=p.r*(.45+tr.t*.6);ctx.beginPath();ctx.arc(tr.x,tr.y,r,0,Math.PI*2);ctx.fillStyle=p.team?`rgba(220,64,73,${tr.t*.065})`:`rgba(26,144,74,${tr.t*.065})`;ctx.fill()}if(p.hp<=0||(cinematic&&p.team!==cinematic.winner))continue;ctx.save();ctx.translate(p.x,p.y);let color=COLORS[p.team];if(p.power>0||p.shield>0||p.rapid>0||p.frozen>0||p.regen>0||p.magnet>0){ctx.beginPath();ctx.arc(0,0,p.r+8+Math.sin(now*7)*2,0,Math.PI*2);ctx.strokeStyle=p.shield>0?'rgba(65,152,228,.85)':p.frozen>0?'rgba(77,188,211,.87)':p.regen>0?'rgba(249,107,157,.85)':p.magnet>0?'rgba(189,100,229,.8)':p.rapid>0?'rgba(239,139,45,.8)':'rgba(229,170,20,.65)';ctx.lineWidth=p.shield>0?4:2.8;ctx.setLineDash(p.shield>0?[]:[4,5]);ctx.stroke();ctx.setLineDash([])}ctx.shadowColor=color;ctx.shadowBlur=p.inv>0?25:16;ctx.fillStyle=p.team?'#fff2f2':'#effcf1';ctx.strokeStyle=color;ctx.lineWidth=p.dashTime>0?4:2.35;ctx.beginPath();ctx.arc(0,0,p.r,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.shadowBlur=0;ctx.fillStyle=p.team?'#a32638':'#20653a';let label=warzone?'P'+(p.team+1):F[p.formula].short;ctx.font=`bold italic ${label.length>4?p.r*.62:p.r*.82}px Georgia,serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,0,1.5);ctx.restore();}}
 function drawShards(){for(const sh of finishShards){ctx.save();ctx.translate(sh.x,sh.y);ctx.rotate(sh.rotation);ctx.globalAlpha=clamp(sh.life/.9,0,1);ctx.fillStyle=sh.color;ctx.shadowColor=sh.color;ctx.shadowBlur=12;ctx.fillRect(-sh.size/2,-sh.size*.22,sh.size,sh.size*.44);ctx.restore()}}
 function drawParticles(dt){for(let p of particles){ctx.save();ctx.globalAlpha=clamp(p.life/p.max,0,1);ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.r*(.35+.65*p.life/p.max),0,Math.PI*2);ctx.fill();ctx.restore()}for(let t of texts){ctx.save();ctx.globalAlpha=clamp(t.life/t.max,0,1);ctx.font='900 20px Inter,Arial,sans-serif';ctx.fillStyle=t.color;ctx.strokeStyle='white';ctx.lineWidth=3;ctx.textAlign='center';ctx.strokeText(t.value,t.x,t.y);ctx.fillText(t.value,t.x,t.y);ctx.restore()}}
 // Extend the coordinate paper beyond arena edges while the KO camera is zoomed.
@@ -1151,8 +1170,8 @@ function draw(){
 function drawIdlePreview(){const lf=F[selection[0]],rf=F[selection[1]];let mock=[{x:W*.22+Math.sin(performance.now()/850)*8,y:H*.52,r:clamp(W*.031,15,23),team:0,formula:selection[0],hp:80,inv:0,power:0,dashTime:0,trails:[]},{x:W*.78,y:H*.40+Math.cos(performance.now()/1200)*9,r:clamp(W*.031,15,23),team:1,formula:selection[1],hp:80,inv:0,power:0,dashTime:0,trails:[]}];let original=players;players=mock;drawBalls();players=original;ctx.save();ctx.textAlign='center';ctx.font='bold 15px system-ui';ctx.fillStyle='#b2b9b4';ctx.fillText('CHOOSE YOUR FUNCTION TO BEGIN',W/2,H*.87);ctx.restore()}
 function updateHUD(force=false){if(!players.length)return;const a=players[0],b=players[1];
  setText('leftHP',Math.ceil(a.hp)+' / 80');setText('rightHP',Math.ceil(b.hp)+' / 80');$('leftFill').style.width=(a.hp/80*100)+'%';$('rightFill').style.width=(b.hp/80*100)+'%';
- setText('leftStatus',a.hp<=0?'ELIMINATED':a.shield>0?'◆ SHIELD · '+Math.ceil(a.shield)+'s':a.rapid>0?'⚡ RAPID · '+Math.ceil(a.rapid)+'s':a.power>0?'×2 DAMAGE · '+Math.ceil(a.power)+'s':a.cd<=0?'ATTACK READY':'RECHARGING');
- setText('rightStatus',b.hp<=0?'ELIMINATED':b.shield>0?'◆ SHIELD · '+Math.ceil(b.shield)+'s':b.rapid>0?'⚡ RAPID · '+Math.ceil(b.rapid)+'s':b.power>0?'×2 DAMAGE · '+Math.ceil(b.power)+'s':b.cd<=0?'ATTACK READY':'RECHARGING');
+ setText('leftStatus',a.hp<=0?'ELIMINATED':a.shield>0?'◆ SHIELD · '+Math.ceil(a.shield)+'s':a.rapid>0?'⚡ RAPID · '+Math.ceil(a.rapid)+'s':a.frozen>0?'❄ SLOWED':a.regen>0?'♥ REGEN':a.magnet>0?'🧲 MAGNET':a.power>0?'×2 DAMAGE · '+Math.ceil(a.power)+'s':a.cd<=0?'ATTACK READY':'RECHARGING');
+ setText('rightStatus',b.hp<=0?'ELIMINATED':b.shield>0?'◆ SHIELD · '+Math.ceil(b.shield)+'s':b.rapid>0?'⚡ RAPID · '+Math.ceil(b.rapid)+'s':b.frozen>0?'❄ SLOWED':b.regen>0?'♥ REGEN':b.magnet>0?'🧲 MAGNET':b.power>0?'×2 DAMAGE · '+Math.ceil(b.power)+'s':b.cd<=0?'ATTACK READY':'RECHARGING');
  setText('matchTime',String(Math.floor(time/60)).padStart(2,'0')+':'+String(Math.floor(time%60)).padStart(2,'0'));
  let ready=a.cd<=0,dashready=a.dashCd<=0;setText('castCool',watch?'AUTO':ready?'READY':a.cd.toFixed(1)+'s COOLDOWN');setText('dashCool',watch?'AUTO':dashready?'READY':a.dashCd.toFixed(1)+'s COOLDOWN');
  $('castBtn').disabled=state!=='playing'||watch||!ready;$('dashBtn').disabled=state!=='playing'||watch||!dashready;$('castLoad').style.width=(a.cd>0?clamp(100-a.cd/F[a.formula].cd*100,0,100):100)+'%';$('dashLoad').style.width=(a.dashCd>0?clamp(100-a.dashCd/3.65*100,0,100):100)+'%';
@@ -1236,7 +1255,7 @@ function warGraphDamage(fn,p){return Math.round(clamp(10*graphStrength(fn)+(p.wa
 // Cover interrupts the shot on first contact, and discontinuities cannot bridge through cover.
 function traceWarShot(fn,team){
  const shooter=players[team],direction=team===0?1:-1;
- const limit=direction>0?W-shooter.x:shooter.x;
+ const margin=6,limit=Math.max(0,direction>0?W-margin-shooter.x:shooter.x-margin);
  const unitSize=warUnit();
  let anchor;
  try{anchor=fn(0)}catch(e){anchor=NaN}
@@ -1247,7 +1266,12 @@ function traceWarShot(fn,team){
    const x=shooter.x+direction*distance;
    let value;try{value=fn(distance/unitSize)}catch(e){value=NaN}
    const y=shooter.y-(value-anchor)*unitSize;
-   if(!Number.isFinite(y)||y<0||y>H){push();prev=null;continue}
+   if(!Number.isFinite(y)){push();prev=null;continue}
+   if(y<margin||y>H-margin){
+    const edgeY=clamp(y,margin,H-margin);if(prev&&Number.isFinite(y)&&prev.y>=margin&&prev.y<=H-margin){let t=(edgeY-prev.y)/(y-prev.y||1);t=clamp(t,0,1);impact={x:prev.x+(x-prev.x)*t,y:edgeY,travel:prev.travel+(distance-prev.travel)*t,boundary:true};segment.push(impact);push();}
+    else {impact={x:clamp(x,margin,W-margin),y:edgeY,travel:distance,boundary:true};push();}
+    break;
+   }
    if(prev&&Math.abs(prev.y-y)>H*.16){push();prev=null}
    // Trace every short segment continuously to prevent tunneling through narrow cover.
    if(prev){let collision=null;
@@ -1258,12 +1282,13 @@ function traceWarShot(fn,team){
    if(warObstacleAt(x,y,1.4)){impact={x,y,travel:distance};if(prev){segment.push(impact);push()}break}
    const point={x,y,travel:distance};segment.push(point);prev=point;
  }
+ if(!impact&&segment.length>1){let last=segment[segment.length-1];if(last.travel>=limit-2){impact={...last,boundary:true};}}
  push();return {segments,impact,direction,origin:{x:shooter.x,y:shooter.y},limit};
 }
 function revealWarImpact(s,revealTravel){if(!s.impact||s.impacted||revealTravel<s.impact.travel)return;
  s.impacted=true;const v=s.impact,c=COLORS[s.team];
  particlesAt(v.x,v.y,'#ffce77',36,1.25);particlesAt(v.x,v.y,c,20,.95);
- burstRing(v.x,v.y,'#ffce77',15,.8);showDamage(v.x,v.y-15,'BLOCKED','#b78140');
+ burstRing(v.x,v.y,'#ffce77',15,.8);showDamage(v.x,v.y-15,s.impact.boundary?'EDGE!':'BLOCKED','#b78140');
  shake=Math.max(shake,4);screenFlash=Math.max(screenFlash,.16);playSound('block',s.team);
 }
 function startWarzone(){
@@ -1388,9 +1413,14 @@ function warCpuSelectShot(team){
   add(`${fitSlope.toFixed(4)}*x + ${bend}*abs(x)`);
  }
  tries.sort((a,b)=>b.score-a.score);
+ const rule=aiRules();
+ // CPUs have fallible aim even on Expert. Occasionally make a deliberately off-target shot.
+ if(Math.random()<rule.miss){const sign=Math.random()<.5?-1:1;const off=sign*rng(2.2,4.3);const m=((rise+off)/run).toFixed(4)+'*x';try{const parsed=parseMathExpression(m);return{parsed,eq:m,score:-10,hit:false}}catch(e){}}
  const good=tries.filter(o=>o.hit&&o.score>tries[0].score-15);
- const pool=good.length?good:tries.slice(0,4);
- return pool.length?pool[Math.floor(rng(0,pool.length))]:null;
+ const pool=good.length?good:tries.slice(0,Math.max(3,Math.ceil(rule.choices*.5)));
+ if(!pool.length)return null;
+ const bestCount=aiDifficulty==='expert'?2:aiDifficulty==='hard'?4:aiDifficulty==='normal'?8:12;
+ return pool[Math.floor(rng(0,Math.min(bestCount,pool.length)))];
 }
 // A grid-based A* navigator avoids the former 'spin at the same wall' movement.
 function warAiPath(p,flag){
@@ -1437,12 +1467,12 @@ function resolveWarBallBump(dt){
 function updateWarzone(dt){time+=dt;now+=dt;shake=Math.max(0,shake-dt*11);screenFlash=Math.max(0,screenFlash-dt*1.1);const z=warzone;
  for(let p of players){p.dashCd=Math.max(0,p.dashCd-dt);p.dashTime=Math.max(0,p.dashTime-dt);p.inv=Math.max(0,p.inv-dt);p.warSprint=Math.max(0,(p.warSprint||0)-dt);p.warBump=Math.max(0,(p.warBump||0)-dt);for(let tr of p.trails)tr.t-=dt;p.trails=p.trails.filter(x=>x.t>0)}
  if(z.phase==='turn'){if(players[z.turn].auto){z.cpuWait-=dt;if(z.cpuWait<=0){const attack=warCpuSelectShot(z.turn);if(attack)submitWarShot(z.turn,attack.parsed,attack.eq);else z.cpuWait=.8}}}
- if(z.phase==='fire'){z.timer-=dt;for(let s of z.shots){s.age+=dt;if(s.age>.16&&s.age<1.7)warShotHits(s,clamp((s.age-.16)/.98,0,1)*s.limit)}if(z.timer<=0){z.shots.length=0;if(z.turns%2===0){z.phase='move';z.timer=5;z.turn=0;z.round++;spawnWarPickups();playSound('phase');log('FLAG RUSH! 5 seconds to move and dash.','gold')}else{z.phase='turn';z.turn=1;z.cpuWait=rng(.75,1.45);playSound('phase')}warzoneHUD()}}
+ if(z.phase==='fire'){z.timer-=dt;for(let s of z.shots){s.age+=dt;if(s.age>.16&&s.age<1.7)warShotHits(s,clamp((s.age-.16)/.98,0,1)*s.limit)}if(z.timer<=0){z.shots.length=0;if(z.turns%2===0){z.phase='move';z.timer=5;z.turn=0;z.round++;spawnWarPickups();playSound('phase');log('FLAG RUSH! 5 seconds to move and dash.','gold')}else{z.phase='turn';z.turn=1;z.cpuWait=rng(...aiRules().think)*2.1;playSound('phase')}warzoneHUD()}}
  if(z.phase==='move'){z.timer-=dt;
  for(let p of players){if(p.hp<=0)continue;const mv=p.auto?warAiMove(p,dt):playerMove(p);const acc=clamp(W*1.22,360,920)*(p.warSprint>0?1.4:1)*(p.warBump>0?.45:1);if(p.dashTime<=0){p.vx=(p.vx+mv.x*acc*dt)*Math.pow(.945,dt*60);p.vy=(p.vy+mv.y*acc*dt)*Math.pow(.945,dt*60);let v=Math.hypot(p.vx,p.vy),max=clamp(W*.41,180,290)*(p.warSprint>0?1.3:1)*(p.warBump>0?.58:1);if(v>max){p.vx*=max/v;p.vy*=max/v}}p.x=clamp(p.x+p.vx*dt,p.r,W-p.r);p.y=clamp(p.y+p.vy*dt,p.r,H-p.r);moveAroundCover(p);for(const item of z.items)if(!item.claimed&&Math.hypot(p.x-item.x,p.y-item.y)<p.r+17)pickupWarItem(p,item);if(p.dashTime>0&&Math.random()<.6)particlesAt(p.x,p.y,COLORS[p.team],2,.65);p.trails.push({x:p.x,y:p.y,t:.43});if(p.trails.length>14)p.trails.shift();
  const enemyFlag=z.flag[1-p.team];if(Math.hypot(p.x-enemyFlag.x,p.y-enemyFlag.y)<p.r+22){log('PLAYER '+(p.team+1)+' CAPTURED THE ENEMY FLAG!','gold');playSound('capture',p.team);endMatch(p.team,'flag');break}}
  if(state==='playing')resolveWarBallBump(dt);
- if(state==='playing'&&z.timer<=0){z.shots.length=0;z.phase='turn';z.turn=0;z.cpuWait=.85;for(let p of players)p.vx=p.vy=0;log('Movement over. P1: take your graph shot!','gold');playSound('phase');warzoneHUD()}}
+ if(state==='playing'&&z.timer<=0){z.shots.length=0;z.phase='turn';z.turn=0;z.cpuWait=rng(...aiRules().think)*2.1;for(let p of players)p.vx=p.vy=0;log('Movement over. P1: take your graph shot!','gold');playSound('phase');warzoneHUD()}}
  z.shots=z.shots.filter(s=>s.age<2.3);for(const item of z.items){item.t+=dt;item.life-=dt}z.items=z.items.filter(i=>!i.claimed&&i.life>0);for(let p of particles){p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=Math.pow(.96,dt*60);p.vy+=50*dt;p.life-=dt}particles=particles.filter(p=>p.life>0);
  for(let ring of shockwaves)ring.life-=dt;shockwaves=shockwaves.filter(x=>x.life>0);
  for(let t of texts){t.y+=t.vy*dt;t.life-=dt}texts=texts.filter(t=>t.life>0);
@@ -1450,8 +1480,8 @@ function updateWarzone(dt){time+=dt;now+=dt;shake=Math.max(0,shake-dt*11);screen
 }
 function warAiMove(p,dt){
  const flag=warzone.flag[1-p.team],nav=p.warNav||(p.warNav={path:[],clock:0,stuck:0,oldX:p.x,oldY:p.y});
- nav.clock-=dt;
- if(nav.clock<=0||!nav.path.length){nav.path=warAiPath(p,flag);nav.clock=.55+rng(0,.18)}
+ const rule=aiRules();nav.clock-=dt;
+ if(nav.clock<=0||!nav.path.length){nav.path=warAiPath(p,flag);nav.clock=(.55+rng(0,.18))*(aiDifficulty==='easy'?1.7:aiDifficulty==='normal'?1.25:1)}
  while(nav.path.length>1&&Math.hypot(p.x-nav.path[0].x,p.y-nav.path[0].y)<Math.max(14,p.r+6))nav.path.shift();
  let target=nav.path[0]||flag;
  // Skip unnecessary bends only if there is a truly unobstructed corridor.
@@ -1463,8 +1493,9 @@ function warAiMove(p,dt){
   if(travelled<7){nav.path=[];nav.clock=0;const side=p.team?1:-1;x=.3*x+.7*side;y=(y||1)*.4+side*.6;let n=Math.hypot(x,y)||1;x/=n;y/=n}
   nav.stuck=0;nav.oldX=p.x;nav.oldY=p.y;
  }
+ if(Math.random()<dt*rule.miss*.9){const r=rng(-.95,.95);let xx=x*Math.cos(r)-y*Math.sin(r),yy=x*Math.sin(r)+y*Math.cos(r);x=xx;y=yy;}
  p.dirX=x;p.dirY=y;
- if(p.dashCd<=0&&p.warBump<=0&&d>80&&warLineClear(p,{x:p.x+x*Math.min(d,115),y:p.y+y*Math.min(d,115)},p.r+5)&&Math.random()<dt*1.3)dash(p);
+ if(p.dashCd<=0&&p.warBump<=0&&d>80&&warLineClear(p,{x:p.x+x*Math.min(d,115),y:p.y+y*Math.min(d,115)},p.r+5)&&Math.random()<dt*1.3*rule.dash)dash(p);
  return {x,y};
 }
 function drawWarzoneBackground(){
@@ -1518,7 +1549,7 @@ function bind(){
 
  $('warDash0').onclick=()=>{if(warzone&&warzone.phase==='move'&&players[0]){unlockAudio();dash(players[0])}};
  $('warDash1').onclick=()=>{if(warzone&&warzone.phase==='move'&&local&&players[1]){unlockAudio();dash(players[1])}};
- $('modeWarzone').onclick=()=>setMode('warzone');$('warzonePlayers').onchange=()=>{};$('warzoneFire').onclick=warzoneFire;
+ $('modeWarzone').onclick=()=>setMode('warzone');$('warzonePlayers').onchange=showAiDifficulty;$('aiDifficulty').onchange=()=>{aiDifficulty=$('aiDifficulty').value;showAiDifficulty();};$('warzoneFire').onclick=warzoneFire;
  $('warAddVar').onclick=()=>{if(!warzone||warzone.phase!=='turn'||players[warzone.turn].auto)return;const vars=warzone.variables[warzone.turn];if(vars.length>=8)return;let i=vars.length;const taken=new Set(vars.map(v=>v.name));let name=['a','b','c','d','speed','k','m','n'].find(n=>!taken.has(n))||'v'+i;vars.push({name,value:'1'});$('warVarDetails').open=true;renderWarVariables();$('warVarList').lastElementChild?.querySelector('input')?.focus()};
  $('startBtn').onclick=()=>start();$('modePlay').onclick=()=>setMode('cpu');$('modeLocal').onclick=()=>setMode('local');$('modeWatch').onclick=()=>setMode('watch');$('setupClose').onclick=closeModal;$('resultChange').onclick=()=>{state='menu';setModal('setup')};$('resultRematch').onclick=()=>start();
  $('menuBtn').onclick=()=>{if(state==='playing'){state='paused';$('pauseOverlay').classList.add('active');keys.clear()}setModal('setup')};$('pauseBtn').onclick=togglePause;$('resumeBtn').onclick=togglePause;
@@ -1554,7 +1585,7 @@ function bind(){
  for(let ev of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(ev,e=>{for(let p of [pointer[0],pointer[1]])if(p.id===e.pointerId){p.down=false;p.id=null}});
  window.addEventListener('resize',scheduleResponsiveViewport);window.addEventListener('orientationchange',scheduleResponsiveViewport);window.visualViewport?.addEventListener('resize',scheduleResponsiveViewport);if(window.ResizeObserver)new ResizeObserver(scheduleResponsiveViewport).observe($('stage'));document.addEventListener('contextmenu',e=>{if(e.target===canvas)e.preventDefault()});
 }
-setupRoster();setMode('watch');bind();autoChooseDevice();syncResponsiveViewport();requestAnimationFrame(loop);setModal('setup');setEditorSide(0);
+setupRoster();setMode('watch');bind();showAiDifficulty();autoChooseDevice();syncResponsiveViewport();requestAnimationFrame(loop);setModal('setup');setEditorSide(0);
 })();
 </script>
 </body>
