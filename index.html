@@ -340,6 +340,69 @@ body.online-match.online-classic .online-game-label{background:#effaf4;border-co
 @media(max-width:730px){.mode-switch.lobby-modes{grid-template-columns:repeat(2,minmax(0,1fr))}.lobby-modes button,.mode-switch #modeWarzone{min-height:91px}.lobby-head h1{font-size:clamp(25px,6vw,32px)}}
 @media(max-width:390px){.lobby-modes button small{font-size:9px}.online-panel{padding:11px}}
 
+/* V21 — cohesive compact design. Keeps controls usable on touch screens. */
+:root{--bg:#f4f6f5;--paper:#fff;--ink:#202c29;--sub:#73817a;--line:#e0e8e3;--shadow:0 9px 28px rgba(32,49,39,.045);--green:#258954;--red:#d7505c}
+body{background:var(--bg);color:var(--ink)}
+.shell{max-width:1300px;padding:14px 18px 8px}
+.topbar{margin-bottom:11px;gap:8px}
+.brand{gap:9px}.brand-mark{width:34px;height:34px;border:1px solid #d1ddd4;border-radius:9px;box-shadow:none;padding:3px}
+.brand-name{font-size:18px;letter-spacing:-.5px}.brand-sub{font-size:9px;letter-spacing:.9px;margin-top:1px}
+.topactions{gap:6px}.top-pill,.icon-btn{height:32px;border-radius:9px;font-size:11px;padding:0 10px;background:#fff;box-shadow:none}.icon-btn{width:32px;font-size:15px}
+.layout{grid-template-columns:minmax(0,1fr) 248px;gap:12px}
+.stage-head{padding:8px 13px;border-radius:13px 13px 0 0}
+.fighter-title{gap:8px}.fighter-big{width:38px;height:38px;font-size:15px;box-shadow:none;border-width:1.5px}
+.fighter-detail strong{font-size:10px;letter-spacing:.75px}.fighter-detail small{font-size:10px;margin-top:2px}.vs{font-size:21px}
+.stage{border-color:#d5ded8;box-shadow:none}.battle-bottom{padding:10px 13px;border-radius:0 0 13px 13px;box-shadow:var(--shadow)}
+.health-row{gap:18px}.health-track{height:9px;border:0;border-radius:20px;background:#eaf0ec}.health-fill{border-radius:20px}
+.bar-top{font-size:10px;margin-bottom:4px}.readout-row{margin-top:8px;gap:8px;font-size:10px}.readout-row .math-tag{font-size:11px}
+.controls{gap:7px;margin-top:8px}.action{min-height:45px;padding:9px 10px;border-radius:10px}.action b{font-size:11px}.action small{font-size:9px}.action kbd{font-size:10px;padding:3px 6px}
+.sidebar{gap:9px}.panel{border-radius:12px;padding:12px;box-shadow:none}.panel-heading{margin-bottom:8px}.eyebrow{letter-spacing:.9px;font-size:9px}.panel-heading .light{font-size:9px}
+.formula-card{margin-top:6px;padding:10px;border-radius:9px}.formula-card .eq{font-size:22px}.formula-card p,.hint{font-size:10px;line-height:1.4}.panel .hint{margin-top:8px!important}
+.move-list{gap:4px}.move-item{gap:7px;padding:7px;border-radius:8px}.move-icon{width:27px;height:27px;border-radius:7px;font-size:14px}.move-item strong{font-size:10px}.move-item small,.keytag{font-size:9px}
+.event-feed{max-height:90px;min-height:42px;gap:4px}.event-item{font-size:10px}.scoreline{padding-top:9px;margin-top:9px;gap:4px}.scoreline b{font-size:19px}.scoreline small{font-size:8px}
+footer{margin-top:10px;font-size:9px}
+.modal-bg{padding:12px;background:#1b2b2485;backdrop-filter:blur(6px)}
+.modal{border-radius:17px;border-color:#e0e6e2;box-shadow:0 24px 60px #152a1e30}
+#setupPage{min-height:0}
+.mf-lobby{padding:15px 19px 13px;background:#fcfdfc}
+.lobby-head{padding:1px 0 10px;gap:10px;align-items:center}.lobby-head h1{font-size:clamp(24px,3vw,30px);letter-spacing:-.9px;margin:3px 0}.lobby-head p{font-size:11px;line-height:1.3}
+.lobby-eyebrow{font-size:9px;letter-spacing:1px}.lobby-section-label{font-size:10px;letter-spacing:.8px;margin:12px 0 7px}
+.mode-switch.lobby-modes{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:0}
+.lobby-modes button,.mode-switch #modeWarzone{padding:11px 12px;min-height:73px;gap:3px;border-radius:11px;background:#fff;box-shadow:none}
+.lobby-modes button:hover{transform:none;box-shadow:0 4px 12px #1a44300a}
+.lobby-modes button.active{border-width:1.5px;box-shadow:inset 0 0 0 1px #3599661c;background:#effaf3}
+.lobby-modes .mode-emoji{font-size:17px;line-height:1;margin-bottom:2px}
+.lobby-modes button strong{font-size:10px;line-height:1.25;letter-spacing:0}
+.lobby-modes button small{font-size:9px;line-height:1.25;color:#76837d}
+.lobby-mode-caption{font-size:10px;line-height:1.4;margin:9px 0}
+.ai-difficulty-box{padding:9px 11px;gap:9px;border-radius:10px;margin:9px 0}
+.ai-difficulty-copy strong{font-size:10px}.ai-difficulty-copy span{font-size:10px}
+#localControlHelp{font-size:10px;margin:8px 0}
+.lobby-fighters{gap:10px}.lobby-fighters .setup-fighter,body.online-lobby-classic .setup-fighter{padding:11px 11px 5px;border-radius:11px}
+.choose-label{font-size:9px;letter-spacing:.8px;margin-bottom:7px}
+.roster{gap:5px;margin-bottom:9px}.roster-btn,.lobby-fighters .roster-btn{padding:9px 3px 8px;border-width:1px;border-radius:8px}
+.roster-btn .roster-eq{font-size:17px}.roster-btn .roster-note{margin-top:4px;font-size:8px}
+.roster-btn.selected,.roster-btn.rival-selected{box-shadow:inset 0 0 0 1px currentColor}
+.custom-row{padding:9px;margin-top:7px}.custom-row label{font-size:10px}.custom-entry input{min-height:34px}
+.online-panel{margin:9px 0;padding:11px 12px;border-radius:11px;background:#f8fcf9}
+.online-panel-head{gap:6px}.online-panel-head strong{font-size:11px}.online-panel-head small{font-size:10px}
+.online-panel>p{font-size:10px;margin:6px 0 9px}
+.online-room-actions{gap:7px}.online-room-actions button,.online-room-status button{min-height:36px;padding:8px 10px;border-radius:8px;font-size:10px}
+.online-room-actions input{min-height:36px;border-radius:8px}.online-room-status{padding:10px;border-radius:9px;margin-top:8px}
+.lobby-audio{margin:7px 0}.lobby-footer,.setup-footer{padding:10px 14px calc(10px + env(safe-area-inset-bottom));box-shadow:none}
+.lobby-footer button{min-height:42px;padding:10px 16px;border-radius:10px}
+.warzone-setup{padding:10px 12px;border-radius:9px}.warzone-setup p{font-size:10px;line-height:1.4}
+body.online-match .online-game-label{padding:6px 10px;margin-bottom:5px;border-radius:9px;font-size:10px;background:#f0f8f3;border-color:#dbece0}
+.warzone-hud{padding:7px 11px;font-size:10px}
+.disconnect-notice[hidden]{display:none!important}
+.disconnect-notice{display:flex;align-items:center;gap:10px;margin:0 0 12px;padding:12px;border-radius:11px;border:1px solid #efcab5;background:#fff7f1;color:#754b31}
+.disconnect-icon{display:grid;place-items:center;width:30px;height:30px;flex:none;border-radius:9px;background:#ffe4d3;color:#ad5d38;font-size:19px;font-weight:800}
+.disconnect-copy{min-width:0;flex:1;display:flex;flex-direction:column;gap:2px}.disconnect-copy strong{font-size:12px}.disconnect-copy span{font-size:11px;line-height:1.35}
+.disconnect-notice button{border:0;background:transparent;color:#ad7960;font-size:21px;min-width:30px;min-height:30px;border-radius:8px}
+@media(max-width:980px){.layout{grid-template-columns:minmax(0,1fr) 220px;gap:9px}.shell{padding:10px}}
+@media(max-width:730px){.layout{display:block}.sidebar{margin-top:8px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.sidebar .panel{min-width:0}.mode-switch.lobby-modes{grid-template-columns:repeat(2,minmax(0,1fr))}.lobby-modes button,.mode-switch #modeWarzone{min-height:66px;padding:9px 10px}.mf-lobby{padding:13px 12px 9px}.lobby-head h1{font-size:24px}.lobby-fighters{gap:8px}}
+@media(max-width:480px){.shell{padding:8px 7px}.topbar{margin-bottom:7px}.brand-mark{height:31px;width:31px}.brand-sub{display:none}.top-pill,.icon-btn{height:30px}.modal-bg{padding:6px}.modal{border-radius:12px;max-height:calc(100dvh - 12px)}.lobby-head h1{font-size:23px}.lobby-head p{font-size:10px}.lobby-modes button,.mode-switch #modeWarzone{min-height:62px;padding:8px 9px}.lobby-modes button small{font-size:9px}.sidebar{grid-template-columns:1fr}.sidebar .panel{padding:10px}.stage-head{padding:6px 9px}.fighter-big{width:33px;height:33px;font-size:13px}.fight-title{gap:5px}.fighter-detail strong{font-size:9px}.fighter-detail small{font-size:9px}.vs{font-size:17px}.battle-bottom{padding:8px}.health-row{gap:10px}.readout-row{gap:5px}.controls{gap:5px}.action{padding:7px 6px;min-height:43px}.action kbd{display:none}.lobby-footer button{min-height:42px}.online-panel{padding:10px}.online-room-actions{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -393,19 +456,20 @@ body.online-match.online-classic .online-game-label{background:#effaf4;border-co
 <div class="modal-bg" id="modalBg"><div class="modal" id="modal">
  <div id="setupPage">
   <div class="setup-scroll mf-lobby">
-    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V20 · SMOOTH ONLINE</span></div><h1>Choose your battle.</h1><p>Choose a mode, pick a function, and fight.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
+    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V21 · REFINED</span></div><h1>Choose your battle.</h1><p>Select a mode and fight.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
+    <div class="disconnect-notice" id="disconnectNotice" hidden role="alert"><div class="disconnect-icon">↪</div><div class="disconnect-copy"><strong>Match ended</strong><span id="disconnectMessage">The other player left the match.</span></div><button type="button" id="disconnectDismiss" aria-label="Dismiss disconnect notice">×</button></div>
     <div class="lobby-section-label"><span>01</span> CHOOSE A MODE</div>
     <div class="mode-switch lobby-modes" role="group" aria-label="Battle mode">
-      <button id="modeWatch" class="active"><span class="mode-emoji">🤖</span><strong>CPU BATTLE</strong><small>Watch two smart AIs fight</small></button>
-      <button id="modePlay"><span class="mode-emoji">🎮</span><strong>SOLO</strong><small>Fight against the CPU</small></button>
-      <button id="modeLocal"><span class="mode-emoji">⚔️</span><strong>LOCAL 1V1</strong><small>Play with a friend</small></button>
+      <button id="modeWatch" class="active"><span class="mode-emoji">🤖</span><strong>CPU BATTLE</strong><small>Two CPUs</small></button>
+      <button id="modePlay"><span class="mode-emoji">🎮</span><strong>SOLO</strong><small>You vs CPU</small></button>
+      <button id="modeLocal"><span class="mode-emoji">⚔️</span><strong>LOCAL 1V1</strong><small>Same device</small></button>
       <button id="modeWarzone"><span class="mode-emoji">🏁</span><strong>THE WARZONE</strong><small>Turns, cover & flags</small></button>
-      <button id="modeOnline" type="button"><span class="mode-emoji">🌐</span><strong>ONLINE WARZONE</strong><small>Turns, cover & flags · Online</small></button>
-       <button id="modeOnlineClassic" type="button"><span class="mode-emoji">⚡</span><strong>ONLINE CLASSIC</strong><small>Real-time graph battle · Online</small></button>
+      <button id="modeOnline" type="button"><span class="mode-emoji">🌐</span><strong>ONLINE WARZONE</strong><small>Online · tactical turns</small></button>
+       <button id="modeOnlineClassic" type="button"><span class="mode-emoji">⚡</span><strong>ONLINE CLASSIC</strong><small>Online · live battle</small></button>
     </div>
     <section class="online-panel" id="onlinePanel" hidden aria-label="Online multiplayer lobby">
       <div class="online-panel-head"><strong>PLAY ONLINE</strong><small id="onlineModeCaption">Warzone · Private two-player room</small></div>
-      <p>Create a room and send the code to a friend. Both players fight on their own devices.</p>
+      <p>Share a room code to battle from separate devices.</p>
       <div class="online-room-actions" id="onlineRoomActions">
         <button id="onlineCreate" type="button">+ CREATE ROOM</button>
         <label>JOIN WITH CODE <input id="onlineCode" maxlength="10" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="ROOM CODE" aria-label="Online room code"></label>
@@ -442,7 +506,7 @@ body.online-match.online-classic .online-game-label{background:#effaf4;border-co
     </div>
  <div class="warzone-setup" id="warzoneSetup" hidden><div class="warzone-setup-head">⚔ THE WARZONE <span>TACTICAL FUNCTION BATTLES</span></div><p>Alternate equation shots on the coordinate grid. Every two shots unlock a 5-second flag rush. Variables can reference other variables (for example, a = b * 2). Grab tactical pickups, hide behind cover, capture the flag or defeat your opponent.</p><label for="warzonePlayers">OPPONENT</label><select id="warzonePlayers"><option value="cpu">Fight a smart CPU</option><option value="local">Local 1v1 friend</option></select></div>    <div class="lobby-audio"><div class="sound-controls"><label for="soundVolume">♫ AUDIO</label><input id="soundVolume" type="range" min="0" max="100" value="85" step="1" aria-label="Sound effects volume"><span id="soundValue">85%</span><button type="button" id="soundTest">▶ TEST</button><span class="sound-state" id="soundState" aria-live="polite">Tap Test Sound to enable</span></div></div>
   </div>
-  <div class="setup-footer lobby-footer"><button class="primary" id="startBtn">WATCH CPU BATTLE →</button><p class="help-line">Pick up power-ups · Damage scales with graph intensity</p></div>
+  <div class="setup-footer lobby-footer"><button class="primary" id="startBtn">WATCH CPU BATTLE →</button><p class="help-line"></p></div>
  </div>
  <div id="resultPage" style="display:none"><div class="eyebrow" id="resultEyebrow">MATCH COMPLETE</div><h1 id="resultTitle">Victory!</h1><p class="modal-sub" id="resultDetail">You survived the showdown.</p><div class="result-score"><div><div class="score-eq" id="resultEqA">tan x</div><div class="score-num team-green" id="resultHpA">6</div><small>HP REMAINING</small></div><div class="colon">VS</div><div><div class="score-eq" id="resultEqB">eˣ</div><div class="score-num team-red" id="resultHpB">0</div><small>HP REMAINING</small></div></div><div class="result-actions"><button class="secondary" id="resultChange">CHANGE MATCHUP</button><button class="primary" id="resultRematch">REMATCH ↻</button></div></div>
  </div></div>
@@ -1841,9 +1905,19 @@ const auth=getAuth(app),db=getDatabase(app),bridge=window.MFOnlineBridge;
 const $=id=>document.getElementById(id);
 const errors=$('onlineError'),status=$('onlineStatus');
 let uid=null,room='',host=false,gameMode='warzone',unsub=[],busy=false,controlTimer=null,lastSent=0,lastShot=0,dashCount=0,snapshotBusy=false,matchId=0,loadoutWait=null;
-let snapshotSeq=0;let sendingControls=false,lastControls='',lastControlsAt=0;
+let snapshotSeq=0;let sendingControls=false,lastControls='',lastControlsAt=0,leaving=false,disconnected=false;
 const roomPath=(suffix='')=>`rooms/${room}${suffix?'/'+suffix:''}`;
 function notify(message,bad=false){errors.textContent=message;errors.classList.toggle('bad',bad)}
+function hideDisconnectNotice(){const box=$('disconnectNotice');if(box)box.hidden=true;}
+function showDisconnectNotice(reason){$('disconnectMessage').textContent=reason;$('disconnectNotice').hidden=false;}
+$('disconnectDismiss').addEventListener('click',hideDisconnectNotice);
+function endOnOpponentExit(reason){
+  if(!room||leaving||disconnected)return;
+  disconnected=true;
+  // One shutdown path for browser close, network loss, and the Leave Room button.
+  void leave(reason);
+}
+
 function checkError(e){const msg=(e?.code||e?.message||'Unknown problem').toString();if(msg.includes('permission_denied')||msg.includes('PERMISSION_DENIED'))return 'Database permission denied. Publish the mathfight-database.rules.json rules in Firebase Realtime Database → Rules.';if(msg.includes('auth/operation-not-allowed'))return 'Enable Anonymous under Firebase Authentication → Sign-in method.';if(msg.includes('auth/unauthorized-domain'))return 'Add kevinkevinsonbooyah.github.io in Authentication → Settings → Authorized domains.';return msg;}
 function setBusy(value){busy=value;$('onlineCreate').disabled=value;$('onlineJoin').disabled=value}
 function updateLobby(message){status.textContent=message;$('onlineRoomCode').textContent=room||'—';$('onlineRoomStatus').hidden=!room;$('onlineRoomActions').hidden=!!room;$('onlineStart').hidden=!host||!room||!window.MFRoomHasGuest;}
@@ -1854,12 +1928,28 @@ function resetUI(){room='';host=false;window.MFRoomHasGuest=false;document.body.
 function listenRoom(){
   const error=e=>{notify(checkError(e),true);if(bridge.active)$('onlineGameStatus').textContent='CONNECTION ERROR'};
   unsub.push(onValue(ref(db,roomPath('guestUid')),snap=>{if(host){window.MFRoomHasGuest=!!snap.val();updateLobby(snap.val()?'Friend joined. Waiting for their connection...':'Waiting for your friend to enter the room code...');}},error));
-  unsub.push(onValue(ref(db,roomPath('hostOnline')),snap=>{if(!host&&snap.val()!==true){updateLobby('The host disconnected or closed the room.');$('onlineGameStatus').textContent='HOST DISCONNECTED';if(bridge.active)notify('Host disconnected. Use Matchup to leave and find a new room.',true)}},error));
-  unsub.push(onValue(ref(db,roomPath('guestOnline')),snap=>{if(host){window.MFRoomHasGuest=!!snap.val();if(!bridge.active)updateLobby(snap.val()?'Your friend is connected. You can start the match.':'Waiting for your friend to connect...');if(snap.val()&&bridge.active)$('onlineGameStatus').textContent='CONNECTED';else if(bridge.active)$('onlineGameStatus').textContent='GUEST DISCONNECTED'}},error));
+  unsub.push(onValue(ref(db,roomPath('hostOnline')),snap=>{
+    if(!host&&snap.val()!==true){
+      $('onlineGameStatus').textContent='HOST LEFT';
+      endOnOpponentExit('The host left or lost connection. The match has stopped.');
+    }
+  },error));
+  unsub.push(onValue(ref(db,roomPath('guestOnline')),snap=>{
+    if(!host)return;
+    const connected=snap.val()===true;
+    window.MFRoomHasGuest=connected;
+    if(bridge.active&&!connected){
+      $('onlineGameStatus').textContent='PLAYER 2 LEFT';
+      endOnOpponentExit('Player 2 left or lost connection. The match has stopped.');
+      return;
+    }
+    if(!bridge.active)updateLobby(connected?'Your friend is connected. You can start.':'Waiting for Player 2...');
+    else $('onlineGameStatus').textContent='CONNECTED';
+  },error));
   unsub.push(onValue(ref(db,roomPath('status')),async snap=>{
     const value=snap.val();
     if(!host&&value==='playing'&&!bridge.active){bridge.startOnline(false,room,gameMode);updateLobby('Connected! You are Player 2.');$('resultRematch').textContent='WAIT FOR HOST';$('resultRematch').disabled=true;}
-    if(value==='closed'&&!host){notify('The room was closed by the host. Return to the lobby to join another.',true);await leave();}
+    if(value==='closed'&&!host){endOnOpponentExit('The host closed the room. The match has stopped.');}
   },error));
   if(host){
     unsub.push(onValue(ref(db,roomPath('inputs/guest')),snap=>{const data=snap.val();if(data)bridge.hostControls(data)},error));
@@ -1914,7 +2004,7 @@ bridge.loadoutChanged=side=>{
  if(side!==1||!room||host||gameMode!=='classic'||bridge.active)return;
  clearTimeout(loadoutWait);loadoutWait=setTimeout(sendGuestLoadout,350);
 };
-async function createRoom(){if(busy||room)return;setBusy(true);notify('Connecting to Firebase...');try{
+async function createRoom(){if(busy||room||leaving)return;hideDisconnectNotice();disconnected=false;setBusy(true);notify('Connecting to Firebase...');try{
   await ensureUser();gameMode=window.MFSelectedLobbyMode==='onlineClassic'?'classic':'warzone';let code='',created=false;
   for(let i=0;i<5;i++){code=codeGenerator();const node=ref(db,'rooms/'+code);const tx=await runTransaction(node,current=>current===null?{hostUid:uid,createdAt:Date.now(),hostOnline:true,gameMode,status:'waiting'}:undefined,{applyLocally:false});if(tx.committed){created=true;break}}
   if(!created)throw Error('Could not find a free room code. Try again.');
@@ -1922,7 +2012,7 @@ async function createRoom(){if(busy||room)return;setBusy(true);notify('Connectin
   await onDisconnect(ref(db,roomPath('hostOnline'))).set(false);listenRoom();updateLobby('Room created. Send the code to your friend.');notify('Room ready. Waiting for Player 2.');
  }catch(e){notify(checkError(e),true);}finally{setBusy(false)}
 }
-async function joinRoom(){if(busy||room)return;const code=$('onlineCode').value.toUpperCase().trim().replace(/[^A-Z2-9]/g,'');if(code.length!==8){notify('Enter the 8-character code your friend shared.',true);return}setBusy(true);notify('Joining room...');try{
+async function joinRoom(){if(busy||room||leaving)return;hideDisconnectNotice();disconnected=false;const code=$('onlineCode').value.toUpperCase().trim().replace(/[^A-Z2-9]/g,'');if(code.length!==8){notify('Enter the 8-character code your friend shared.',true);return}setBusy(true);notify('Joining room...');try{
  await ensureUser();const node=ref(db,'rooms/'+code),found=await get(node);if(!found.exists())throw Error('Room not found. Check the code.');
  const details=found.val();if(details.hostUid===uid)throw Error('This browser already owns that room. Open the other player in a separate browser or device.');
  if(details.guestUid&&details.guestUid!==uid)throw Error('Room is full (2 players).');gameMode=details.gameMode==='classic'?'classic':'warzone';bridge.prepareLobby(false,gameMode);
@@ -1933,11 +2023,27 @@ async function joinRoom(){if(busy||room)return;const code=$('onlineCode').value.
 }
 async function startOnline(){if(!host||!room||!window.MFRoomHasGuest)return;try{matchId++;bridge.startOnline(true,room,gameMode);$('resultRematch').textContent='REMATCH ↻';$('resultRematch').disabled=false;await set(ref(db,roomPath('state')),{...bridge.capture(),matchId,seq:++snapshotSeq});await set(ref(db,roomPath('status')),'playing');notify('Match started. Good luck!');}catch(e){notify(checkError(e),true)}}
 async function rematch(){if(!bridge.active)return;if(!host){notify('Only the room host can restart the online match.');return;}try{matchId++;bridge.startOnline(true,room,gameMode);await set(ref(db,roomPath('state')),{...bridge.capture(),matchId,seq:++snapshotSeq});notify('Rematch started!')}catch(e){notify(checkError(e),true)}}
-async function leave(){const code=room,isHost=host;
- unsubscribe();clearTimeout(loadoutWait);bridge.hostTick=()=>{};bridge.guestTick=()=>{};bridge.end();resetUI();$('resultRematch').disabled=false;$('resultRematch').textContent='REMATCH ↻';
- if(!code)return;
- try{if(isHost){await remove(ref(db,`rooms/${code}`));}else{await set(ref(db,`rooms/${code}/guestOnline`),false);}}catch(e){notify(checkError(e),true)}
+async function leave(reason=''){
+ if(leaving)return;
+ leaving=true;
+ const code=room,isHost=host;
+ unsubscribe();clearTimeout(loadoutWait);
+ bridge.hostTick=()=>{};bridge.guestTick=()=>{};bridge.guestFire=()=>{};
+ bridge.end();resetUI();
+ $('resultRematch').disabled=false;$('resultRematch').textContent='REMATCH ↻';
+ if(reason){showDisconnectNotice(reason);notify('Online match ended: opponent disconnected.',true);}
+ else{hideDisconnectNotice();notify('Left the room. Create or join a new match.');}
+ // Prioritize stopping locally; a slow/offline database write must not keep the game running.
+ try{
+  if(code){
+   const onlineRef=ref(db,`rooms/${code}/${isHost?'hostOnline':'guestOnline'}`);
+   await onDisconnect(onlineRef).cancel().catch(()=>{});
+   if(isHost)await remove(ref(db,`rooms/${code}`));
+   else await set(ref(db,`rooms/${code}/guestOnline`),false);
+  }
+ }catch(e){if(!reason)notify(checkError(e),true)}finally{leaving=false;disconnected=false;}
 }
+
 bridge.leave=leave;bridge.rematch=rematch;
 // A room's game type is fixed when created; leave before selecting another mode.
 for(const button of document.querySelectorAll('.lobby-modes button'))button.addEventListener('click',event=>{
@@ -1951,6 +2057,12 @@ $('onlineStart').addEventListener('click',startOnline);
 $('onlineLeave').addEventListener('click',leave);
 $('onlineCopy').addEventListener('click',()=>{if(room)navigator.clipboard?.writeText(room).then(()=>notify('Room code copied!')).catch(()=>notify('Select the code and copy it.'))});
 $('onlineCode').addEventListener('keydown',e=>{if(e.key==='Enter')joinRoom()});
+window.addEventListener('pagehide',()=>{
+ if(!room)return;
+ // onDisconnect is installed for both players and reliably clears presence after socket closure.
+ const onlineRef=ref(db,roomPath(host?'hostOnline':'guestOnline'));
+ void set(onlineRef,false).catch(()=>{});
+});
 // Explicitly do not claim a connection until the SDK has signed in and database rules permit it.
 notify('Ready to connect. Anonymous Authentication and the room rules must be enabled in Firebase.');
 
