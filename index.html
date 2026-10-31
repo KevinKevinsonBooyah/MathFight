@@ -291,6 +291,55 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom))}
 }
 .ai-difficulty-box{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 15px;margin:10px 0;border-radius:13px;background:#f0f4fb;border:1px solid #dbe2f3}.ai-difficulty-copy{display:flex;flex-direction:column;gap:4px;min-width:0}.ai-difficulty-copy strong{font-size:11px;letter-spacing:.7px;color:#354c7f}.ai-difficulty-copy span{font-size:11px;color:#637494;line-height:1.3}.ai-difficulty-box select{max-width:130px;min-width:100px;padding:9px;border:1px solid #bccce3;border-radius:9px;background:white;color:#354c7f;font-size:12px;font-weight:800;flex-shrink:0}.ai-difficulty-box[hidden]{display:none!important}@media(max-width:370px){.ai-difficulty-box{gap:8px;padding:10px}.ai-difficulty-box select{min-width:90px;max-width:100px}}
 .online-panel{border:1px solid #c9d9e6;background:linear-gradient(145deg,#f4faff,#f6fff9);border-radius:16px;padding:17px;margin:14px 0}.online-panel[hidden]{display:none!important}.online-panel-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.online-panel-head strong{font-size:14px;color:#335376}.online-panel-head small{font-size:11px;color:#678098}.online-panel p{font-size:12px;line-height:1.5;color:#526a79}.online-room-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;align-items:end}.online-room-actions label{display:flex;flex-direction:column;gap:5px;font-size:10px;font-weight:850;color:#496578}.online-room-actions input{width:100%;border:1px solid #b8cbd9;border-radius:9px;min-width:0;padding:12px 9px;letter-spacing:2px;font-size:14px;text-transform:uppercase}.online-room-actions button,.online-room-status button{padding:11px 12px;border-radius:10px;background:#295e96;color:white;font-size:11px;font-weight:850}.online-room-actions #onlineJoin{background:#26975b}.online-room-status{background:white;border:1px solid #dbe6e9;border-radius:13px;padding:14px;margin-top:12px}.online-room-status[hidden]{display:none!important}.online-room-status>div{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.online-room-status strong{font-size:21px;letter-spacing:3px;color:#234b83}.online-room-status small{font-size:10px;color:#748ba0}.online-room-status #onlineStart{background:#249658;margin:6px 6px 6px 0}.online-room-status #onlineLeave{background:#e6eef5;color:#416077}.online-panel .online-error{font-size:11px;color:#7c5a45}.online-panel .online-error.bad{color:#cb3a52}.online-room-actions[hidden],.online-room-status button[hidden]{display:none!important}.online-game-label{display:none}body.online-match .online-game-label{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 12px;background:#ecf7ff;border:1px solid #c6dfe9;color:#365775;font-size:12px;font-weight:800;border-radius:11px;margin-bottom:7px}body.online-guest #joystick0,body.online-host #joystick1{display:none!important}body.online-guest #warDash0,body.online-host #warDash1{display:none!important}body.online-match #pauseBtn{display:none!important}#startBtn[hidden]{display:none!important}@media(max-width:600px){.online-room-actions{grid-template-columns:1fr}.online-room-actions input{font-size:16px}.online-panel{padding:12px}.online-room-status strong{font-size:17px}}
+
+/* V19 clean interface — one clear action per panel and consistent soft surfaces. */
+:root{--mf-ink:#23312d;--mf-accent:#278d59;--mf-border:#dfe9e4}
+.shell{max-width:1440px}
+.mf-lobby{background:#fcfdfc}
+.lobby-head{padding-bottom:10px}
+.lobby-head h1{letter-spacing:-1.2px;font-weight:850}
+.lobby-head p{color:#74837c}
+.mode-switch.lobby-modes{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.lobby-modes button,.mode-switch #modeWarzone{background:white;border:1px solid #e2e9e5;box-shadow:0 3px 12px rgba(22,50,36,.035);border-radius:15px;min-height:105px;transition:transform .16s,border-color .16s,background .16s,box-shadow .16s}
+.lobby-modes button:hover{transform:translateY(-2px);border-color:#9bd3ad;box-shadow:0 8px 22px #325e4010}
+.lobby-modes button.active{background:#ecf7f0;border:2px solid #32995f;box-shadow:0 0 0 3px #2d975617}
+.lobby-modes button strong{letter-spacing:.15px}
+.lobby-modes button small{opacity:.83;font-weight:550}
+.lobby-section-label{margin:16px 0 10px}
+.online-panel{background:#f8fcfa;border:1px solid #d7e8dd;box-shadow:none;padding:16px}
+.online-room-actions button,.online-room-status button{box-shadow:none}
+.online-room-actions #onlineCreate{background:#23764c}
+.online-room-actions #onlineJoin{background:#295f80}
+.online-room-status{box-shadow:none}
+.ai-difficulty-box{background:#f5f8fb;border-color:#e5ebf2}
+.lobby-fighters .setup-fighter{box-shadow:none;border:1px solid #e6ece9}
+.lobby-fighters .roster-btn{border-radius:11px}
+.warzone-setup{background:#f8f7fc}
+.lobby-audio{margin:10px 0}
+.lobby-footer{box-shadow:0 -3px 12px #283d3108}
+.lobby-footer .help-line{display:none}
+.stage{box-shadow:0 9px 30px #253f3410}
+.panel{box-shadow:none}
+.online-panel[hidden],.ai-difficulty-box[hidden]{display:none!important}
+body.online-match.online-classic .controls.versus .action.cast{display:none!important}
+body.online-match.online-classic.online-host #dashBtn2,body.online-match.online-classic.online-guest #dashBtn{display:none!important}
+body.online-match.online-classic.online-guest #dashBtn2{display:flex!important}
+body.online-match.online-classic #castBtn,body.online-match.online-classic #castBtn2{display:none!important}
+body.online-match.online-classic #fightControls{display:flex!important}
+body.online-lobby-classic.online-room-host #setupFighter1,body.online-lobby-classic.online-room-guest #setupFighter0{display:none!important}
+body.online-lobby-classic.online-room-host #setupFighter0,body.online-lobby-classic.online-room-guest #setupFighter1{display:block!important}
+body.online-lobby-classic.online-room-host #mobilePlayerTabs,body.online-lobby-classic.online-room-guest #mobilePlayerTabs{display:none!important}
+body.online-lobby-classic:not(.online-room-host):not(.online-room-guest) #mobilePlayerTabs{display:none!important}
+body.online-lobby-classic .setup-fighter{padding:15px 14px}
+body.online-lobby-classic .lobby-fighters{grid-template-columns:1fr}
+body.online-lobby-classic .lobby-fighters .setup-fighter{max-width:680px;width:100%;margin-inline:auto}
+body.online-lobby-classic .lobby-fighters{opacity:1;filter:none;max-height:none;pointer-events:auto}
+body.online-lobby-classic .lobby-fighters:after{display:none}
+body.online-classic.online-guest #joystick0,body.online-classic.online-host #joystick1{display:none!important}
+body.online-match.online-classic .online-game-label{background:#effaf4;border-color:#d6eadd}
+@media(max-width:730px){.mode-switch.lobby-modes{grid-template-columns:repeat(2,minmax(0,1fr))}.lobby-modes button,.mode-switch #modeWarzone{min-height:91px}.lobby-head h1{font-size:clamp(25px,6vw,32px)}}
+@media(max-width:390px){.lobby-modes button small{font-size:9px}.online-panel{padding:11px}}
+
 </style>
 </head>
 <body>
@@ -335,34 +384,35 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom))}
   <button class="mobile-details-toggle" id="mobileDetailsToggle" aria-expanded="false">ⓘ Match details <span>⌄</span></button>
   </main>
   <aside class="sidebar">
-  <section class="panel"><div class="panel-heading"><span class="eyebrow">CURRENT FUNCTION</span><span class="light" id="funcType">ASYMPTOTIC</span></div><div class="formula-card"><div class="eq" id="formulaEq">y = tan x</div><p id="formulaDesc">Repeated vertical asymptotes cut through the arena.</p></div><p class="hint" id="functionHint" style="margin-top:12px">Graph attacks are <b>dashed while charging</b>, then solid when dangerous. Collect <b>power-up orbs</b> for shields, faster attacks, healing, double damage or the five-shot Gun, plus five new pickups.</p></section>
+  <section class="panel"><div class="panel-heading"><span class="eyebrow">CURRENT FUNCTION</span><span class="light" id="funcType">ASYMPTOTIC</span></div><div class="formula-card"><div class="eq" id="formulaEq">y = tan x</div><p id="formulaDesc">Repeated vertical asymptotes cut through the arena.</p></div><p class="hint" id="functionHint" style="margin-top:12px">Dashed = charging · Solid = dangerous · Grab power-ups for an edge.</p></section>
   <section class="panel"><div class="panel-heading"><span class="eyebrow">MATCH LOG</span><span class="light">LIVE</span></div><div class="event-feed" id="feed"></div><div class="scoreline"><div><b id="totalWins">0</b><small id="statLabel1">WINS</small></div><div><b id="streak">0</b><small id="statLabel2">STREAK</small></div><div><b id="best">0</b><small id="statLabel3">BEST</small></div></div></section>
  </aside>
 </div>
-<footer>MathFight · Arena & The Warzone · Real graph battles · Mobile and PC</footer>
+<footer>MathFight · Functions become weapons · PC & mobile</footer>
 </div>
 <div class="modal-bg" id="modalBg"><div class="modal" id="modal">
  <div id="setupPage">
   <div class="setup-scroll mf-lobby">
-    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V18 · ONLINE WARZONE</span></div><h1>Choose your battle.</h1><p>Pick a mode, customize the fighters, then launch. Every graph is a weapon.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
-    <div class="lobby-section-label"><span>01</span> GAME MODE</div>
+    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V19 · ONLINE CLASSIC</span></div><h1>Choose your battle.</h1><p>Choose a mode, pick a function, and fight.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
+    <div class="lobby-section-label"><span>01</span> CHOOSE A MODE</div>
     <div class="mode-switch lobby-modes" role="group" aria-label="Battle mode">
       <button id="modeWatch" class="active"><span class="mode-emoji">🤖</span><strong>CPU BATTLE</strong><small>Watch two smart AIs fight</small></button>
       <button id="modePlay"><span class="mode-emoji">🎮</span><strong>SOLO</strong><small>Fight against the CPU</small></button>
       <button id="modeLocal"><span class="mode-emoji">⚔️</span><strong>LOCAL 1V1</strong><small>Play with a friend</small></button>
       <button id="modeWarzone"><span class="mode-emoji">🏁</span><strong>THE WARZONE</strong><small>Turns, cover & flags</small></button>
-      <button id="modeOnline" type="button"><span class="mode-emoji">🌐</span><strong>ONLINE WARZONE</strong><small>2 players · Separate devices</small></button>
+      <button id="modeOnline" type="button"><span class="mode-emoji">🌐</span><strong>ONLINE WARZONE</strong><small>Turns, cover & flags · Online</small></button>
+       <button id="modeOnlineClassic" type="button"><span class="mode-emoji">⚡</span><strong>ONLINE CLASSIC</strong><small>Real-time graph battle · Online</small></button>
     </div>
     <section class="online-panel" id="onlinePanel" hidden aria-label="Online multiplayer lobby">
-      <div class="online-panel-head"><strong>🌐 PLAY WITH A FRIEND</strong><small>Online Warzone · Room code required</small></div>
-      <p>One player creates a room. Your friend enters its code on their computer or phone. The room host controls the shared match.</p>
+      <div class="online-panel-head"><strong>PLAY ONLINE</strong><small id="onlineModeCaption">Warzone · Private two-player room</small></div>
+      <p>Create a room and send the code to a friend. Both players fight on their own devices.</p>
       <div class="online-room-actions" id="onlineRoomActions">
         <button id="onlineCreate" type="button">+ CREATE ROOM</button>
         <label>JOIN WITH CODE <input id="onlineCode" maxlength="10" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="ROOM CODE" aria-label="Online room code"></label>
         <button id="onlineJoin" type="button">JOIN ROOM</button>
       </div>
-      <div class="online-room-status" id="onlineRoomStatus" hidden><div><small>YOUR ROOM</small><strong id="onlineRoomCode">—</strong><button id="onlineCopy" type="button">COPY CODE</button></div><p id="onlineStatus">Connecting...</p><button type="button" id="onlineStart" hidden>START ONLINE WARZONE</button><button type="button" id="onlineLeave">LEAVE ROOM</button></div>
-      <p class="online-error" id="onlineError" role="status" aria-live="polite">Connecting requires anonymous Firebase sign-in and the MathFight Realtime Database rules.</p>
+      <div class="online-room-status" id="onlineRoomStatus" hidden><div><small>YOUR ROOM</small><strong id="onlineRoomCode">—</strong><button id="onlineCopy" type="button">COPY CODE</button></div><p id="onlineStatus">Connecting...</p><button type="button" id="onlineStart" hidden>START ONLINE MATCH</button><button type="button" id="onlineLeave">LEAVE ROOM</button></div>
+      <p class="online-error" id="onlineError" role="status" aria-live="polite">Sign in anonymously to play with a friend.</p>
     </section>
     <div class="ai-difficulty-box" id="aiDifficultyBox">
       <div class="ai-difficulty-copy"><strong>🤖 CPU DIFFICULTY</strong><span id="aiDifficultyDescription">Normal · Smart enough to fight back, but still makes mistakes.</span></div>
@@ -370,7 +420,7 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom))}
     </div>
     <p class="mode-description lobby-mode-caption" id="modeDescription">Two AI fighters. Choose their equations and enjoy the battle.</p>
     <details id="localControlHelp"><summary>❔ Controls for local 1v1</summary><div class="help-controls"><div><strong>🟢 Player 1</strong> — Move <kbd>WASD</kbd>, dash <kbd>Left Shift</kbd>. Graphs fire automatically.</div><div><strong>🔴 Player 2</strong> — Move <kbd>Arrow Keys</kbd>, dash <kbd>Right Shift</kbd>. Graphs fire automatically.</div></div><p style="margin:7px 0 0">Mobile: use the two joysticks and the dash buttons. In Warzone, type a function, take turns firing, then rush the flags for 5 seconds.</p></details>
-    <div class="lobby-section-label" id="fighterSectionLabel"><span>02</span> EQUATIONS <small id="lobbyFighterHint">Pick a preset or write your own</small></div>
+    <div class="lobby-section-label" id="fighterSectionLabel"><span>02</span> EQUATIONS <small id="lobbyFighterHint">Select a function</small></div>
     <div id="warzoneLockNotice" class="warzone-lock-notice" hidden>🔒 <strong>Functions are chosen during the battle.</strong> Warzone fighters enter as Player 1 and Player 2, and take turns typing equations with variables.</div>
     <div class="mobile-player-tabs" id="mobilePlayerTabs"><button type="button" id="editPlayer0" class="active" aria-pressed="true"><span class="tab-dot green-dot"></span> Fighter 1</button><button type="button" id="editPlayer1" aria-pressed="false"><span class="tab-dot red-dot"></span> Fighter 2</button></div>
     <div id="lobbyFighters" class="lobby-fighters">
@@ -793,9 +843,10 @@ for(let side=0;side<2;side++){
 const rosterIds=['tan','exp','sin','quad','abs','custom'],COLORS=['#238a47','#dd3f4c'];
 let warzone=null,cinematic=null,screenFlash=0,ambientSparks=[],shotTrails=[],finishShards=[];
 let aiDifficulty='normal';
+let onlineGame='warzone'; // selected room type, independent from the local simulation mode
 const AI_LEVELS={easy:{name:'Casual',miss:.43,think:[.54,.91],choices:5,dodge:.27,dash:.14,pickup:.36,noise:1.9},normal:{name:'Normal',miss:.27,think:[.37,.64],choices:8,dodge:.53,dash:.36,pickup:.66,noise:.9},hard:{name:'Hard',miss:.15,think:[.23,.42],choices:12,dodge:.79,dash:.66,pickup:.85,noise:.4},expert:{name:'Expert',miss:.085,think:[.16,.28],choices:16,dodge:1,dash:.87,pickup:1,noise:.12}};
 function aiRules(){return AI_LEVELS[aiDifficulty]||AI_LEVELS.normal}
-function showAiDifficulty(){const visible=mode==='cpu'||mode==='watch'||(mode==='warzone'&&$('warzonePlayers').value==='cpu');$('aiDifficultyBox').hidden=!visible;let a=aiRules();$('aiDifficultyDescription').textContent=({'easy':'Relaxed reactions · lots of mistakes and misses.','normal':'A good fight, but plenty of mistakes.','hard':'Faster dodges and smarter decisions.','expert':'Very sharp tactics, but still misses sometimes.'}[aiDifficulty]);}
+function showAiDifficulty(){const visible=!['online','onlineClassic'].includes(window.MFSelectedLobbyMode)&&(mode==='cpu'||mode==='watch'||(mode==='warzone'&&$('warzonePlayers').value==='cpu')); $('aiDifficultyBox').hidden=!visible;let a=aiRules();$('aiDifficultyDescription').textContent=({'easy':'Relaxed reactions · lots of mistakes and misses.','normal':'A good fight, but plenty of mistakes.','hard':'Faster dodges and smarter decisions.','expert':'Very sharp tactics, but still misses sometimes.'}[aiDifficulty]);}
 let selection=['tan','exp'],mode='cpu',watch=false,local=false,localWins=[0,0],state='menu',players=[],graphs=[],particles=[],texts=[],pickups=[],rays=[],gunBursts=[],shockwaves=[],feedItems=[],W=800,H=620,unit=58,now=0,prev=0,round=1,time=0,shake=0,pickupClock=0,totalStats={wins:0,streak:0,best:0};
 let touch=null,keys=new Set(),holding=[false,false],stick=[{x:0,y:0,active:false,id:null},{x:0,y:0,active:false,id:null}],pointer={0:{down:false,x:0,y:0,id:null},1:{down:false,x:0,y:0,id:null}},audio=null,sound=true,hitFlash=0,lastHud=0,id=0,orientation=1;
 try{let saved=JSON.parse(localStorage.getItem('mathBallFightStats')||'null');if(saved&&typeof saved==='object')totalStats={...totalStats,...saved}}catch(e){}
@@ -837,10 +888,10 @@ function recomputeCustom(side){
   drawCustomPreview(side,true);
   let opReasons=analyzeOpFunction('custom'+side),insight=$('opInsight'+side);insight.classList.toggle('active',opReasons.length>0);insight.textContent=opReasons.length?'⚡ Potential OP graph: '+opReasons.join(' · '):'';
  }catch(err){customValid[side]=false;feedback.textContent=err.message;feedback.className='custom-feedback error';drawCustomPreview(side,false);$('opInsight'+side).classList.remove('active')}
- drawRoster();setLabels();
+ drawRoster();setLabels();window.MFOnlineBridge?.loadoutChanged?.(side);
 }
 function setupRoster(){for(let side=0;side<2;side++){
- let root=$(side?'rivalRoster':'playerRoster');root.innerHTML='';for(let fid of rosterIds){let key=getRosterFunction(fid,side),f=F[key],b=document.createElement('button');b.type='button';b.className='roster-btn';let eq=document.createElement('div');eq.className='roster-eq';eq.textContent=f.short;let note=document.createElement('div');note.className='roster-note';note.textContent=f.note;b.append(eq,note);b.addEventListener('click',()=>{selection[side]=key;drawRoster();setLabels();playSound('click')});root.appendChild(b)}
+ let root=$(side?'rivalRoster':'playerRoster');root.innerHTML='';for(let fid of rosterIds){let key=getRosterFunction(fid,side),f=F[key],b=document.createElement('button');b.type='button';b.className='roster-btn';let eq=document.createElement('div');eq.className='roster-eq';eq.textContent=f.short;let note=document.createElement('div');note.className='roster-note';note.textContent=f.note;b.append(eq,note);b.addEventListener('click',()=>{selection[side]=key;drawRoster();setLabels();window.MFOnlineBridge?.loadoutChanged?.(side);playSound('click')});root.appendChild(b)}
  const input=$('customInput'+side);input.value=customExpressions[side];
  input.addEventListener('input',()=>recomputeCustom(side));
  $('addVar'+side).addEventListener('click',()=>{
@@ -882,11 +933,26 @@ function drawRoster(){for(let side=0;side<2;side++){
  $('customEditor'+side).hidden=selection[side]!=='custom'+side;
 }}
 function setMode(next){
- if(next==='online'){
-   setMode('warzone');$('warzoneSetup').hidden=true;$('onlinePanel').hidden=false;$('modeOnline').classList.add('active');$('modeWarzone').classList.remove('active');$('startBtn').hidden=true;
+ if(next==='online'||next==='onlineClassic'){
+   onlineGame=next==='onlineClassic'?'classic':'warzone';
+   // Reuse the existing local engines; a separate online transport supplies each human's inputs.
+   setMode(onlineGame==='classic'?'local':'warzone');
+   window.MFSelectedLobbyMode=next;
+   $('warzoneSetup').hidden=true;
+   $('onlinePanel').hidden=false;
+   $('modeOnline').classList.toggle('active',onlineGame==='warzone');
+   $('modeOnlineClassic').classList.toggle('active',onlineGame==='classic');
+   $('modeWarzone').classList.remove('active');$('modeLocal').classList.remove('active');
+   $('startBtn').hidden=true;$('aiDifficultyBox').hidden=true;
+   $('onlineModeCaption').textContent=onlineGame==='classic'?'Classic · Real-time 1v1':'Warzone · Turn-based 1v1';
+   $('lobbyFighters').classList.toggle('online-customizable',onlineGame==='classic');
+   document.body.classList.toggle('online-lobby-classic',onlineGame==='classic');
+   setText('modeDescription',onlineGame==='classic'?'Both players choose a function. Move, dash, dodge and collect power-ups in real time.':'Take turns firing equations and racing for the flags.');
    return;
  }
- $('onlinePanel').hidden=true;$('modeOnline').classList.remove('active');$('startBtn').hidden=false;
+ window.MFSelectedLobbyMode=null;
+ document.body.classList.remove('online-lobby-classic');
+ $('onlinePanel').hidden=true;$('modeOnline').classList.remove('active');$('modeOnlineClassic').classList.remove('active');$('startBtn').hidden=false;
  mode=next;watch=mode==='watch';local=mode==='local';$('modePlay').classList.toggle('active',mode==='cpu');$('modeLocal').classList.toggle('active',local);$('modeWatch').classList.toggle('active',watch);$('modeWarzone').classList.toggle('active',mode==='warzone');
  showAiDifficulty();
  $('warzoneSetup').hidden=mode!=='warzone';$('warzoneHud').hidden=mode!=='warzone';$('warzonePanel').hidden=mode!=='warzone';document.body.classList.toggle('warzone-mode',mode==='warzone');document.body.classList.toggle('auto-combat',mode!=='warzone');
@@ -912,7 +978,7 @@ function closeModal(){if(state==='playing'||state==='paused')$('modalBg').classL
 function setLabels(){let a=F[selection[0]],b=F[selection[1]];
  setText('leftFormula',a.short);setText('rightFormula',b.short);setText('leftHealthLabel',a.short);setText('rightHealthLabel',b.short);
  setText('leftName',watch?'CPU ALPHA':local?'PLAYER 1':'YOU');setText('rightName',watch?'CPU OMEGA':local?'PLAYER 2':'CPU');
- setText('spellInfo','[ y = '+a.eq+' ]');setText('enemyInfo','[ y = '+b.eq+' ]');setText('formulaEq','y = '+a.eq);setText('formulaDesc',a.desc);setText('funcType',a.type);setText('functionHint','Graph attacks fade smoothly after firing. Power-up orbs provide shields, healing, rapid fire, double damage or the five-shot Gun, plus five new pickups.')
+ setText('spellInfo','[ y = '+a.eq+' ]');setText('enemyInfo','[ y = '+b.eq+' ]');setText('formulaEq','y = '+a.eq);setText('formulaDesc',a.desc);setText('funcType',a.type);setText('functionHint','Dashed lines charge up. Solid lines can hurt. Pick up glowing orbs for bonuses.')
 }
 function resize(){
  const rect=canvas.getBoundingClientRect();
@@ -1049,7 +1115,7 @@ function cast(p){if(state!=='playing'||p.hp<=0||p.cd>0)return false;
  p.vx-=p.dirX*16;particlesAt(p.x,p.y,COLORS[p.team],20,1);burstRing(p.x,p.y,COLORS[p.team],p.r+4,.5);playSound('cast',p.team,p.formula);if(Math.random()<.28)log((p.team?'Red':'Green')+' drew y = '+f.eq,p.team?'red':'green');return true
 }
 function calcFn(type,u){try{const y=F[type].fn(u);return typeof y==='number'&&Number.isFinite(y)?y:NaN}catch(e){return NaN}}
-function curveY(g,x,age){let u=(x-g.x0-(Math.max(0,age-g.warning)*g.velocity))/unit,val=calcFn(g.formula,u);if(!Number.isFinite(val))return null;let y=g.aimY-(val-g.anchor)*unit*g.scaleY;if(!Number.isFinite(y)||y<-H*.4||y>H*1.4)return null;return y}
+function curveY(g,x,age){let u=(x-g.x0-(Math.max(0,age-g.warning)*g.velocity))/unit,val=calcFn(g.formula,u);if(!Number.isFinite(val))return null;let y=g.aimY-(val-g.anchor)*unit*g.scaleY;if(!Number.isFinite(y)||Math.abs(y)>1e8)return null;return y}
 function graphHit(g,p){if(g.hit||p.hp<=0)return false;for(let i=-8;i<=8;i++){let x=p.x+(i/8)*(p.r+8),y=curveY(g,x,g.age);if(y===null||y<6||y>H-6||x<6||x>W-6)continue;let dx=x-p.x,dy=y-p.y;if(dx*dx+dy*dy<(p.r+4)*(p.r+4))return true}return false}
 function damage(p,n,x,y,source,ignoreInv=false){if(p.hp<=0||(!ignoreInv&&p.inv>.02))return;let dealt=p.shield>0?Math.max(1,Math.ceil(n*.5)):n;let actual=Math.min(p.hp,dealt);p.hp=Math.max(0,p.hp-dealt);p.inv=ignoreInv?Math.min(p.inv,.07):.22;let attacker=players[1-p.team];attacker.score+=actual;showDamage(x,y,'-'+actual,p.team?'#d83b44':'#26854c');particlesAt(x,y,COLORS[p.team],23,1.2);burstRing(x,y,COLORS[p.team],20,.35);shake=Math.max(shake,4.3);hitFlash=.14;if(!ignoreInv)playSound('hit',p.team);if(p.hp<=0)endMatch(1-p.team)}
 function clearTransientEffects(){graphs=[];pickups=[];rays=[];gunBursts=[];shockwaves=[];particles=[];texts=[];finishShards=[];hitFlash=0;shake=0;screenFlash=0;if(warzone)warzone.shots=[];for(const p of players)p.trails=[];}
@@ -1063,7 +1129,7 @@ function endMatch(winner,reason='knockout'){if(state!=='playing')return;state='f
  $('resultEyebrow').textContent=warzone?'WARZONE · '+(reason==='flag'?'FLAG CAPTURE':'KNOCKOUT'):watch?'AUTOBATTLE COMPLETE':local?'LOCAL MATCH COMPLETE':'MATCH COMPLETE';$('resultTitle').textContent=warzone?'Player '+(winner+1)+' wins!':local?'Player '+(winner+1)+' wins!':watch?((p.formula.startsWith('custom')?'Player '+(winner+1):F[p.formula].short)+' wins!'):(isVictory?'Victory!':'Defeat!');$('resultTitle').style.color=isVictory?'#278249':'#d64852';$('resultDetail').textContent=(warzone?(reason==='flag'?'Enemy flag captured!':'A perfect graph knocked out the enemy!'):local?'Good game!':watch?'The battle is over.':isVictory?'Your graphing skills prevailed.':'The rival function took the round.')+' Winner finished with '+Math.ceil(p.hp)+' HP.';$('resultEqA').textContent=warzone?(warzone.last[0]||'No shot fired'):(players[0].formula.startsWith('custom')?'y = '+F[players[0].formula].eq:F[players[0].formula].short);$('resultEqB').textContent=warzone?(warzone.last[1]||'No shot fired'):(players[1].formula.startsWith('custom')?'y = '+F[players[1].formula].eq:F[players[1].formula].short);setText('resultHpA',Math.ceil(players[0].hp));setText('resultHpB',Math.ceil(players[1].hp));log((winner?'Red':'Green')+' won the battle!','gold');playSound('win',winner);if(!local&&!watch&&winner===1)playSound('lose',0);/* result appears when cinematic completes */}
 function dash(p){if(state!=='playing'||(warzone&&warzone.phase!=='move')||p.hp<=0||p.dashCd>0)return;let mx=p.dirX,my=p.dirY,l=Math.hypot(mx,my);if(l<.1){mx=p.team?-1:1;my=0;l=1}const dashSpeed=warzone?clamp(W*.84,320,600):clamp(W*.96,310,650);p.vx=mx/l*dashSpeed;p.vy=my/l*dashSpeed;p.dashTime=.18;p.inv=Math.max(p.inv,.31);p.dashCd=3.65;particlesAt(p.x,p.y,COLORS[p.team],20,1.05);playSound('dash',p.team)}
 function playerMove(p){
- if(window.MFOnlineBridge?.active&&window.MFOnlineBridge.host&&p.team===1)return window.MFOnlineBridge.remoteMove();let dx=0,dy=0;
+ if(window.MFOnlineBridge?.active&&window.MFOnlineBridge.host&&p.team===1){const move=window.MFOnlineBridge.remoteMove();if(Math.hypot(move.x,move.y)>.05){p.dirX=move.x;p.dirY=move.y}return move;}let dx=0,dy=0;
  if(p.team===0){if(keys.has('a')||!local&&keys.has('arrowleft'))dx--;if(keys.has('d')||!local&&keys.has('arrowright'))dx++;if(keys.has('w')||!local&&keys.has('arrowup'))dy--;if(keys.has('s')||!local&&keys.has('arrowdown'))dy++}
  else if(local){if(keys.has('arrowleft'))dx--;if(keys.has('arrowright'))dx++;if(keys.has('arrowup'))dy--;if(keys.has('arrowdown'))dy++}
  let control=pointer[p.team];if(stick[p.team].active){dx=stick[p.team].x;dy=stick[p.team].y}else if(control.down){dx=control.x-p.x;dy=control.y-p.y;if(Math.hypot(dx,dy)<p.r*.7){dx=0;dy=0}}
@@ -1134,8 +1200,8 @@ function drawGrid(){ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);let gap=unit/2,mi
 function curvePath(g,age,reveal=1){let last=null,started=false;ctx.beginPath();
  // Attack grows from the target outward, so custom curves never silently wait off-screen.
  let radius=Math.max(18,W*clamp(reveal,0,1));let minX=Math.max(6,g.aimX-radius),maxX=Math.min(W-6,g.aimX+radius);
- let xstep=3.1;for(let x=minX;x<=maxX+xstep;x+=xstep){let y=curveY(g,x,age),valid=y!==null&&y>=6&&y<=H-6;
-  if(!valid){last=null;started=false;continue}if(!started||last!==null&&Math.abs(y-last)>Math.max(40,H*.24)){ctx.moveTo(x,y);started=true}else ctx.lineTo(x,y);last=y}return ctx}
+ let xstep=3.1;for(let x=minX;x<=maxX+xstep;x+=xstep){let y=curveY(g,x,age),valid=y!==null;
+  if(!valid){last=null;started=false;continue}if(!started||last!==null&&Math.abs(y-last)>Math.max(300,H*2.1)){ctx.moveTo(x,y);started=true}else ctx.lineTo(x,y);last=y}return ctx}
 function drawGraphs(){ctx.save();ctx.beginPath();ctx.rect(0,0,W,H);ctx.clip();for(let g of graphs){let pre=g.age<g.warning,fadeStart=g.warning+g.duration,progress=clamp((g.age-g.warning)/g.duration,0,1),fadeProgress=clamp((g.age-fadeStart)/g.fade,0,1),alpha=g.age>fadeStart?Math.pow(1-fadeProgress,2):1,green=g.team===0,color=green?'#268f50':'#d94d57';ctx.globalAlpha=pre?.35:alpha*.92;let showAt=pre?1:1-Math.pow(1-progress,2.8);ctx.save();ctx.strokeStyle=color;ctx.lineCap='round';ctx.lineJoin='round';ctx.lineWidth=pre?2:3.8*alpha+.2;ctx.shadowColor=color;ctx.shadowBlur=pre?0:15*alpha;ctx.setLineDash(pre?[6,7]:[]);curvePath(g,pre?0:g.age,showAt);ctx.stroke();ctx.setLineDash([]);ctx.shadowBlur=0;if(!pre){ctx.globalAlpha=alpha*.15;ctx.lineWidth=11*alpha+1;curvePath(g,g.age,showAt);ctx.stroke()}ctx.restore();if(pre){let blink=.3+Math.sin(g.age*20)*.15;ctx.globalAlpha=blink;ctx.strokeStyle=color;ctx.lineWidth=1.2;ctx.setLineDash([3,5]);ctx.beginPath();ctx.arc(g.aimX,g.aimY,17+8*(1-g.age/g.warning),0,Math.PI*2);ctx.stroke();ctx.setLineDash([])}}ctx.restore();ctx.globalAlpha=1}
 function drawExtraEffects(){
  for(const ring of shockwaves){let t=1-ring.life/ring.max;
@@ -1578,7 +1644,7 @@ function bind(){
 
  $('warDash0').onclick=()=>{if(warzone&&warzone.phase==='move'&&players[0]){unlockAudio();dash(players[0])}};
  $('warDash1').onclick=()=>{if(window.MFOnlineBridge?.active&&!window.MFOnlineBridge.host){window.MFOnlineBridge.guestDash();return;}if(warzone&&warzone.phase==='move'&&local&&players[1]){unlockAudio();dash(players[1])}};
- $('modeWarzone').onclick=()=>setMode('warzone');$('modeOnline').onclick=()=>setMode('online');$('warzonePlayers').onchange=showAiDifficulty;$('aiDifficulty').onchange=()=>{aiDifficulty=$('aiDifficulty').value;showAiDifficulty();};$('warzoneFire').onclick=warzoneFire;
+ $('modeWarzone').onclick=()=>setMode('warzone');$('modeOnline').onclick=()=>setMode('online');$('modeOnlineClassic').onclick=()=>setMode('onlineClassic');$('warzonePlayers').onchange=showAiDifficulty;$('aiDifficulty').onchange=()=>{aiDifficulty=$('aiDifficulty').value;showAiDifficulty();};$('warzoneFire').onclick=warzoneFire;
  $('warAddVar').onclick=()=>{if(!warzone||warzone.phase!=='turn'||players[warzone.turn].auto)return;const vars=warzone.variables[warzone.turn];if(vars.length>=8)return;let i=vars.length;const taken=new Set(vars.map(v=>v.name));let name=['a','b','c','d','speed','k','m','n'].find(n=>!taken.has(n))||'v'+i;vars.push({name,value:'1'});$('warVarDetails').open=true;renderWarVariables();$('warVarList').lastElementChild?.querySelector('input')?.focus()};
  $('startBtn').onclick=()=>start();$('modePlay').onclick=()=>setMode('cpu');$('modeLocal').onclick=()=>setMode('local');$('modeWatch').onclick=()=>setMode('watch');$('setupClose').onclick=closeModal;$('resultChange').onclick=()=>{if(window.MFOnlineBridge?.active)window.MFOnlineBridge.leave();state='menu';setModal('setup')};$('resultRematch').onclick=()=>{if(window.MFOnlineBridge?.active){window.MFOnlineBridge.rematch();return;}start()};
  $('menuBtn').onclick=()=>{if(window.MFOnlineBridge?.active){window.MFOnlineBridge.leave();state='menu';setModal('setup');return;}if(state==='playing'){state='paused';$('pauseOverlay').classList.add('active');keys.clear()}setModal('setup')};$('pauseBtn').onclick=()=>{if(!window.MFOnlineBridge?.active)togglePause();};$('resumeBtn').onclick=togglePause;
@@ -1587,7 +1653,7 @@ function bind(){
  for(const [side,btnId] of [[0,'castBtn'],[1,'castBtn2']]){const btn=$(btnId);
   btn.addEventListener('pointerdown',e=>{holding[side]=true;unlockAudio();if(players[side]&&!players[side].auto)cast(players[side])});
   for(const ev of ['pointerup','pointercancel','pointerleave'])btn.addEventListener(ev,()=>{holding[side]=false});
- }$('dashBtn2').onclick=()=>{unlockAudio();if(local&&players[1])dash(players[1])};
+ }$('dashBtn2').onclick=()=>{unlockAudio();if(window.MFOnlineBridge?.active&&!window.MFOnlineBridge.host){window.MFOnlineBridge.guestDash();return;}if(local&&players[1])dash(players[1])};
  $('soundBtn').onclick=()=>{sound=!sound;window.MathFightSFX.setEnabled(sound);setText('soundBtn',sound?'♫':'♪̸');$('soundBtn').setAttribute('aria-pressed',String(sound));if(sound)playSound('click')};
  $('soundVolume').addEventListener('input',e=>{let n=Number(e.target.value);window.MathFightSFX.setVolume(n/100);setText('soundValue',n+'%')});
  $('soundTest').onclick=()=>{if(!sound){sound=true;window.MathFightSFX.setEnabled(true);setText('soundBtn','♫')}unlockAudio();playSound('pickup');setText('soundState','Test played · If silent, check iPhone media volume');};
@@ -1597,41 +1663,129 @@ function bind(){
  if([' ','arrowup','arrowdown','arrowleft','arrowright','shift','enter'].includes(key)&&state==='playing')e.preventDefault();
  if(window.MFOnlineBridge?.active&&(key==='p'||key==='escape'))return;if(key==='p'||key==='escape'){if(!$('modalBg').classList.contains('hidden')&&state==='paused'){closeModal();return}togglePause();return}
  if(key==='r'&&state==='over'){start();return}if(state!=='playing'||watch)return;keys.add(key);
- if(warzone){if(!e.repeat&&key==='enter'&&warzone.phase==='turn')warzoneFire();if(!e.repeat&&window.MFOnlineBridge?.active&&!window.MFOnlineBridge.host&&e.code.startsWith('Shift')){window.MFOnlineBridge.guestDash();return;}if(!e.repeat&&e.code==='ShiftLeft'&&players[0]&&warzone.phase==='move')dash(players[0]);if(!e.repeat&&local&&e.code==='ShiftRight'&&players[1]&&warzone.phase==='move'&&!window.MFOnlineBridge?.active)dash(players[1]);return;}if(!e.repeat){if(key===' '&&!players[0]?.auto&&false)cast(players[0]);if(e.code==='ShiftLeft')dash(players[0]);if(local&&key==='enter')cast(players[1]);if(local&&e.code==='ShiftRight')dash(players[1])}
+ if(warzone){if(!e.repeat&&key==='enter'&&warzone.phase==='turn')warzoneFire();if(!e.repeat&&window.MFOnlineBridge?.active&&!window.MFOnlineBridge.host&&e.code.startsWith('Shift')){window.MFOnlineBridge.guestDash();return;}if(!e.repeat&&e.code==='ShiftLeft'&&players[0]&&warzone.phase==='move')dash(players[0]);if(!e.repeat&&local&&e.code==='ShiftRight'&&players[1]&&warzone.phase==='move'&&!window.MFOnlineBridge?.active)dash(players[1]);return;}if(!e.repeat){if(key===' '&&!players[0]?.auto&&false)cast(players[0]);if(!e.repeat&&e.code==='ShiftLeft'&&(!window.MFOnlineBridge?.active||window.MFOnlineBridge.host))dash(players[0]);if(local&&key==='enter'&&!window.MFOnlineBridge?.active)cast(players[1]);if(local&&e.code==='ShiftRight'&&!window.MFOnlineBridge?.active)dash(players[1]);if(!e.repeat&&window.MFOnlineBridge?.active&&!window.MFOnlineBridge.host&&e.code.startsWith('Shift'))window.MFOnlineBridge.guestDash()}
  });
  window.addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));window.addEventListener('blur',()=>{keys.clear();holding[0]=holding[1]=false;pointer[0].down=pointer[1].down=false;if(!window.MFOnlineBridge?.active&&state==='playing')togglePause()});document.addEventListener('visibilitychange',()=>{if(document.hidden&&!window.MFOnlineBridge?.active&&state==='playing')togglePause()});
  for(let team=0;team<2;team++){
   const zone=$('joystick'+team),knob=zone.querySelector('.joystick-knob');
   const reset=()=>{let st=stick[team];st.active=false;st.id=null;st.x=st.y=0;knob.style.transform='translate(-50%,-50%)'};
   const setStick=e=>{const rect=zone.querySelector('.joystick-base').getBoundingClientRect();let dx=e.clientX-(rect.left+rect.width/2),dy=e.clientY-(rect.top+rect.height/2);let max=rect.width*.33,len=Math.hypot(dx,dy),k=Math.min(1,max/(len||1));dx*=k;dy*=k;stick[team].x=dx/max;stick[team].y=dy/max;knob.style.transform=`translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px))`};
-  zone.addEventListener('pointerdown',e=>{if(state!=='playing'||(warzone&&warzone.phase!=='move')||watch||(team===1&&!local))return;e.preventDefault();stick[team].active=true;stick[team].id=e.pointerId;setStick(e);unlockAudio();zone.setPointerCapture(e.pointerId)});
+  zone.addEventListener('pointerdown',e=>{if(state!=='playing'||(warzone&&warzone.phase!=='move')||watch||(team===1&&!local)||window.MFOnlineBridge?.active&&team!==(window.MFOnlineBridge.host?0:1))return;e.preventDefault();stick[team].active=true;stick[team].id=e.pointerId;setStick(e);unlockAudio();zone.setPointerCapture(e.pointerId)});
   zone.addEventListener('pointermove',e=>{if(stick[team].active&&stick[team].id===e.pointerId){e.preventDefault();setStick(e)}});
   for(let ev of ['pointerup','pointercancel','lostpointercapture'])zone.addEventListener(ev,e=>{if(stick[team].id===e.pointerId)reset()});
  }
  const movePointer=(e,p)=>{let rect=canvas.getBoundingClientRect();p.x=clamp(e.clientX-rect.left,0,W);p.y=clamp(e.clientY-rect.top,0,H)};
- canvas.addEventListener('pointerdown',e=>{if(watch||state!=='playing'||warzone&&warzone.phase!=='move')return;e.preventDefault();let rect=canvas.getBoundingClientRect(),team=local&&e.clientX>rect.left+rect.width/2?1:0,p=pointer[team];if(p.down)return;p.down=true;p.id=e.pointerId;movePointer(e,p);try{canvas.setPointerCapture(e.pointerId)}catch(ex){}unlockAudio()});
+ canvas.addEventListener('pointerdown',e=>{if(watch||state!=='playing'||warzone&&warzone.phase!=='move')return;e.preventDefault();let rect=canvas.getBoundingClientRect(),team=window.MFOnlineBridge?.active?(window.MFOnlineBridge.host?0:1):local&&e.clientX>rect.left+rect.width/2?1:0,p=pointer[team];if(p.down)return;p.down=true;p.id=e.pointerId;movePointer(e,p);try{canvas.setPointerCapture(e.pointerId)}catch(ex){}unlockAudio()});
  canvas.addEventListener('pointermove',e=>{for(let p of [pointer[0],pointer[1]])if(p.down&&p.id===e.pointerId)movePointer(e,p)});
  for(let ev of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(ev,e=>{for(let p of [pointer[0],pointer[1]])if(p.id===e.pointerId){p.down=false;p.id=null}});
  window.addEventListener('resize',scheduleResponsiveViewport);window.addEventListener('orientationchange',scheduleResponsiveViewport);window.visualViewport?.addEventListener('resize',scheduleResponsiveViewport);if(window.ResizeObserver)new ResizeObserver(scheduleResponsiveViewport).observe($('stage'));document.addEventListener('contextmenu',e=>{if(e.target===canvas)e.preventDefault()});
 }
-// Online Warzone bridge. Simulation and collision authority remain with the room host.
-window.MFOnlineBridge={active:false,host:false,room:'',input:{dx:0,dy:0,dash:0,time:0},lastDash:-1,guestShot:null,hostTick:()=>{},guestTick:()=>{},guestFire:()=>{},guestDash:()=>{},leave:()=>{},rematch:()=>{},remoteMove(){const r=this.input;if(Date.now()-r.time>1100)return{x:0,y:0};return{x:clamp(Number(r.dx)||0,-1,1),y:clamp(Number(r.dy)||0,-1,1)}},
- startOnline(isHost,room){this.active=true;this.host=isHost;this.room=room;this.lastDash=-1;setMode('warzone');$('warzonePlayers').value='local';startWarzone();document.body.classList.toggle('online-host',isHost);document.body.classList.toggle('online-guest',!isHost);document.body.classList.add('online-match');setText('onlineGameCode','🌐 ROOM '+room+' · '+(isHost?'PLAYER 1':'PLAYER 2'));setText('onlineGameStatus','CONNECTED');setText('leftName','PLAYER 1');setText('rightName','PLAYER 2');warzoneHUD();return true;},
- hostShotFromGuest(payload){if(!this.active||!this.host||warzone?.turn!==1||warzone.phase!=='turn')return false;try{if(!payload||typeof payload.eq!=='string'||payload.eq.length>90)throw Error('Invalid shot');const defs=Array.isArray(payload.vars)?payload.vars.slice(0,8).map(v=>({name:String(v.name||'').slice(0,12),value:String(v.value||'').slice(0,90)})):[];const parsed=parseMathExpression(payload.eq,resolveVariableDefinitions(defs));warzone.variables[1]=defs;return submitWarShot(1,parsed,payload.eq)}catch(e){log('Guest equation rejected: '+e.message,'red');return false}},
- hostControls(data){this.input={dx:Number(data?.dx)||0,dy:Number(data?.dy)||0,dash:Number(data?.dash)||0,time:Date.now()};if(this.active&&this.host&&this.input.dash>this.lastDash){if(this.lastDash>=0&&state==='playing'&&warzone?.phase==='move')dash(players[1]);this.lastDash=this.input.dash;}},
+// Shared online engine bridge. The host alone runs simulation, damage and power-up logic.
+window.MFOnlineBridge={
+ active:false,host:false,room:'',gameMode:'warzone',input:{dx:0,dy:0,dash:0,time:0},lastDash:-1,lastMatchId:-1,
+ hostTick:()=>{},guestTick:()=>{},guestFire:()=>{},guestDash:()=>{},loadoutChanged:()=>{},leave:()=>{},rematch:()=>{},
+ prepareLobby(isHost,kind){setMode(kind==='classic'?'onlineClassic':'online');if(kind==='classic')setEditorSide(isHost?0:1);},
+ remoteMove(){const r=this.input;if(Date.now()-r.time>1100)return {x:0,y:0};return {x:clamp(Number(r.dx)||0,-1,1),y:clamp(Number(r.dy)||0,-1,1)}},
+ decorateOnline(isHost,room){this.active=true;this.host=isHost;this.room=room;document.body.classList.toggle('online-host',isHost);document.body.classList.toggle('online-guest',!isHost);document.body.classList.toggle('online-classic',this.gameMode==='classic');document.body.classList.add('online-match');setText('onlineGameCode','ROOM '+room+' · '+(isHost?'PLAYER 1':'PLAYER 2'));setText('onlineGameStatus','CONNECTED');setText('leftName','PLAYER 1');setText('rightName','PLAYER 2');},
+ startOnline(isHost,room,kind='warzone'){
+  this.gameMode=kind==='classic'?'classic':'warzone';this.lastDash=-1;this.input={dx:0,dy:0,dash:0,time:0};
+  if(this.gameMode==='classic'){
+   setMode('local'); // both are human-controlled; the host receives P2 input from Firebase.
+   if(!customValid[0]&&selection[0]==='custom0')selection[0]='tan';
+   if(!customValid[1]&&selection[1]==='custom1')selection[1]='sin';
+   start(true);
+   players[0].auto=false;players[1].auto=false;
+  } else {
+   setMode('warzone');$('warzonePlayers').value='local';startWarzone();
+  }
+  this.decorateOnline(isHost,room);
+  if(warzone)warzoneHUD();else{setLabels();setText('roundIndicator','ONLINE CLASSIC');feedItems=[];log('Online Classic · Dodge graphs, collect pickups and win the battle.');updateHUD(true)}
+  return true;
+ },
+ hostReceiveLoadout(payload){
+  if(this.active||!payload||payload.kind!=='loadout')return false;
+  try{
+   if(payload.id&&['tan','exp','sin','quad','abs'].includes(payload.id)){selection[1]=payload.id;}
+   else{
+    if(typeof payload.eq!=='string'||payload.eq.length<1||payload.eq.length>90)throw Error('Invalid custom function');
+    const defs=Array.isArray(payload.vars)?payload.vars.slice(0,8).map(v=>({name:String(v.name||'').slice(0,12),value:String(v.value||'').slice(0,90)})):[];
+    const parsed=parseMathExpression(payload.eq,resolveVariableDefinitions(defs));
+    F.custom1.fn=parsed.fn;F.custom1.eq=parsed.eq;customValid[1]=true;customVariables[1]=defs;customExpressions[1]=payload.eq;selection[1]='custom1';
+   }
+   drawRoster();setLabels();log('Player 2 chose '+F[selection[1]].short,'red');return true;
+  }catch(e){log('Player 2 function rejected: '+e.message,'red');return false}
+ },
+ hostShotFromGuest(payload){
+  if(!this.active||!this.host||this.gameMode!=='warzone'||warzone?.turn!==1||warzone.phase!=='turn')return false;
+  try{if(!payload||typeof payload.eq!=='string'||payload.eq.length>90)throw Error('Invalid shot');
+   const defs=Array.isArray(payload.vars)?payload.vars.slice(0,8).map(v=>({name:String(v.name||'').slice(0,12),value:String(v.value||'').slice(0,90)})):[];
+   const parsed=parseMathExpression(payload.eq,resolveVariableDefinitions(defs));warzone.variables[1]=defs;
+   return submitWarShot(1,parsed,payload.eq)
+  }catch(e){log('Guest equation rejected: '+e.message,'red');return false}
+ },
+ hostControls(data){this.input={dx:Number(data?.dx)||0,dy:Number(data?.dy)||0,dash:Number(data?.dash)||0,time:Date.now()};
+  if(this.active&&this.host&&this.input.dash>this.lastDash){if(this.lastDash>=0&&state==='playing'&&(!warzone||warzone.phase==='move')){const p=players[1];if(p)dash(p)}this.lastDash=this.input.dash;}
+ },
  guestControls(){const x=(keys.has('d')||keys.has('arrowright')?1:0)-(keys.has('a')||keys.has('arrowleft')?1:0),y=(keys.has('s')||keys.has('arrowdown')?1:0)-(keys.has('w')||keys.has('arrowup')?1:0);const stickMove=stick[1].active?stick[1]:stick[0].active?stick[0]:null;const dx=stickMove?stickMove.x:x,dy=stickMove?stickMove.y:y;const len=Math.max(1,Math.hypot(dx,dy));return {dx:Math.round(dx/len*100)/100,dy:Math.round(dy/len*100)/100}},
- getOwnVariables(){return (warzone?.variables?.[1]||[]).map(v=>({...v}));},
- animateGuest(dt){now+=dt;time+=dt;for(const shot of warzone?.shots||[])shot.age=Math.min(shot.life||2.3,shot.age+dt);warzoneHUD();updateHUD();},
- capture(){if(!warzone||!players.length)return null;const f=(o)=>o?{...o}:null;const fields=['x','y','vx','vy','r','hp','dashCd','dashTime','dirX','dirY','warArmor','warSurge','warSprint','warBump','inv','team'];const ps=players.map(p=>Object.fromEntries(fields.map(k=>[k,Number(p[k])||0])));const z=warzone;return {w:W,h:H,seq:Math.floor(performance.now()),state,phase:z.phase,turn:z.turn,turns:z.turns,round:z.round,timer:z.timer,players:ps,flag:z.flag.map(f),obstacles:z.obstacles.map(f),items:z.items.map(f),last:z.last,shots:z.shots.map(shot=>({team:shot.team,age:shot.age,life:shot.life,eq:shot.eq,hit:shot.hit,impacted:shot.impacted,impact:shot.impact,origin:shot.origin,direction:shot.direction,limit:shot.limit,power:shot.power,segments:shot.segments.map(seg=>seg.filter((v,i)=>i%3===0||i===seg.length-1).map(v=>({x:+v.x.toFixed(1),y:+v.y.toFixed(1),travel:+v.travel.toFixed(1)})))})),winner:cinematic?.winner??null,reason:document.getElementById('resultEyebrow').textContent.includes('FLAG')?'flag':'knockout'}},
- applySnapshot(packet){if(!this.active||this.host||!packet||!warzone)return;const sx=W/(packet.w||W),sy=H/(packet.h||H);const xy=o=>({...(o||{}),x:(o?.x||0)*sx,y:(o?.y||0)*sy});const dims=o=>({...xy(o),r:o?.r?o.r*Math.min(sx,sy):o?.r,w:o?.w?o.w*sx:o?.w,h:o?.h?o.h*sy:o?.h});if(packet.state==='finishing'&&state==='playing'){endMatch(packet.winner??0,packet.reason||'knockout');return;}if(packet.state==='playing'&&state==='finishing'){clearTransientEffects();$('koOverlay').classList.remove('show');$('stage').classList.remove('cinematic');cinematic=null;startWarzone();document.body.classList.add('online-match','online-guest');}if(state==='over'&&packet.state==='playing'){startWarzone();document.body.classList.add('online-match','online-guest');}
- const z=warzone;z.phase=packet.phase||'turn';z.turn=Number(packet.turn)||0;z.turns=Number(packet.turns)||0;z.round=Number(packet.round)||1;z.timer=Number(packet.timer)||0;z.flag=(packet.flag||[]).map(xy);z.obstacles=(packet.obstacles||[]).map(dims);z.items=(packet.items||[]).map(dims);z.shots=(packet.shots||[]).map(shot=>({...shot,origin:xy(shot.origin),impact:shot.impact?xy(shot.impact):null,limit:(shot.limit||0)*sx,segments:(shot.segments||[]).map(seg=>seg.map(v=>({...xy(v),travel:(v.travel||0)*sx})))}));z.last=packet.last||['',''];for(let i=0;i<2;i++){const target=packet.players?.[i];if(!target||!players[i])continue;for(const [k,v] of Object.entries(target)){if(k==='x'||k==='y')continue;players[i][k]=k==='r'?clamp(W*.024,10,17):k==='vx'?v*sx:k==='vy'?v*sy:v}players[i].x=Number(target.x)*sx;players[i].y=Number(target.y)*sy;}warzoneHUD();updateHUD(true);},
- end(){this.active=false;this.host=false;this.room='';this.input={dx:0,dy:0,dash:0,time:0};document.body.classList.remove('online-host','online-guest','online-match');$('onlineGameStatus').textContent='Disconnected';if(warzone){state='menu';warzone=null;}clearTransientEffects();$('stage').classList.remove('warzone','cinematic');$('koOverlay').classList.remove('show');cinematic=null;setMode('online');setModal('setup');}
+ getOwnVariables(){return (warzone?.variables?.[1]||[]).map(v=>({...v}))},
+ getOwnLoadout(){const f=F[selection[1]],custom=selection[1]==='custom1';if(custom&&!customValid[1])return null;
+  return {kind:'loadout',id:custom?'custom':selection[1],eq:custom?customExpressions[1]:f.eq,vars:custom?customVariables[1].map(v=>({name:String(v.name),value:String(v.value)})):[]}
+ },
+ animateGuest(dt){now+=dt;time+=dt;
+  if(warzone){for(const shot of warzone.shots)shot.age=Math.min(shot.life||2.3,shot.age+dt);warzoneHUD()}
+  else{for(const graph of graphs)graph.age+=dt;for(const q of pickups)q.t+=dt;for(const ring of shockwaves)ring.life=Math.max(0,ring.life-dt);for(const p of players){for(const tr of p.trails||[])tr.t-=dt;p.trails=(p.trails||[]).filter(t=>t.t>0)}}
+  updateHUD();
+ },
+ capture(){
+  if(!players.length)return null;
+  const fields=['x','y','vx','vy','r','hp','cd','dashCd','dashTime','dirX','dirY','power','shield','rapid','frozen','magnet','regen','inv','warArmor','warSurge','warSprint','warBump','team','score'];
+  const ps=players.map(p=>Object.fromEntries(fields.map(k=>[k,Number(p[k])||0])));
+  const base={gameMode:this.gameMode,w:W,h:H,seq:Math.floor(performance.now()),state,phase:warzone?.phase||'classic',turn:warzone?.turn||0,round:warzone?.round||round,players:ps,winner:cinematic?.winner??null,reason:document.getElementById('resultEyebrow').textContent.includes('FLAG')?'flag':'knockout'};
+  if(this.gameMode==='classic')return {...base,time:time,functions:players.map(p=>({id:p.formula,eq:F[p.formula].eq,vars:p.formula==='custom'+p.team?customVariables[p.team]:[]})),
+   graphs:graphs.slice(-16).map(g=>({...g})),pickups:pickups.slice(0,6).map(q=>({...q})),rays:rays.slice(-25).map(q=>({...q})),shockwaves:shockwaves.slice(-20).map(q=>({...q}))};
+  if(!warzone)return null;
+  const z=warzone;return {...base,flag:z.flag.map(o=>({...o})),obstacles:z.obstacles.map(o=>({...o})),items:z.items.map(o=>({...o})),last:z.last,
+    shots:z.shots.map(shot=>({team:shot.team,age:shot.age,life:shot.life,eq:shot.eq,hit:shot.hit,impacted:shot.impacted,impact:shot.impact,origin:shot.origin,direction:shot.direction,limit:shot.limit,power:shot.power,
+     segments:shot.segments.map(seg=>seg.filter((v,i)=>i%3===0||i===seg.length-1).map(v=>({x:+v.x.toFixed(1),y:+v.y.toFixed(1),travel:+v.travel.toFixed(1)})))}))};
+ },
+ applySnapshot(packet){
+  if(!this.active||this.host||!packet)return;
+  const kind=packet.gameMode==='classic'?'classic':'warzone';
+  if(kind!==this.gameMode)return; // Ignore mismatched/stale rooms.
+  const sx=W/(packet.w||W),sy=H/(packet.h||H),smin=Math.min(sx,sy),xy=o=>({...(o||{}),x:(Number(o?.x)||0)*sx,y:(Number(o?.y)||0)*sy}),dims=o=>({...xy(o),r:o?.r?o.r*smin:o?.r,w:o?.w?o.w*sx:o?.w,h:o?.h?o.h*sy:o?.h});
+  if(packet.state==='finishing'&&state==='playing'){endMatch(packet.winner??0,packet.reason||'knockout');return}
+  if(packet.state==='playing'&&state!=='playing'){
+   if(this.gameMode==='classic')this.startOnline(false,this.room,'classic');else this.startOnline(false,this.room,'warzone');
+  }
+  if(this.gameMode==='classic'){
+   for(let i=0;i<2;i++){
+    const data=packet.functions?.[i],p=players[i];if(!p)continue;
+    if(data&&F[data.id]){
+     if(data.id==='custom'+i&&typeof data.eq==='string'){
+      try{const scope=resolveVariableDefinitions(Array.isArray(data.vars)?data.vars:[]);const parsed=parseMathExpression(data.eq,scope);F[data.id].fn=parsed.fn;F[data.id].eq=parsed.eq;}catch(e){}
+     }
+     p.formula=data.id;selection[i]=data.id;
+    }
+   }
+   time=Number(packet.time)||time;
+   graphs=(packet.graphs||[]).map(g=>({...g,x0:(g.x0||0)*sx,base:(g.base||0)*sy,aimX:(g.aimX||0)*sx,aimY:(g.aimY||0)*sy,velocity:(g.velocity||0)*sx,scaleY:(g.scaleY||0)*sy/sx}));
+   pickups=(packet.pickups||[]).map(dims);rays=(packet.rays||[]).map(q=>({...q,sx:(q.sx||0)*sx,ex:(q.ex||0)*sx,sy:(q.sy||0)*sy,ey:(q.ey||0)*sy}));
+   shockwaves=(packet.shockwaves||[]).map(dims);
+  }else{
+   if(!warzone)return;const z=warzone;z.phase=packet.phase||'turn';z.turn=Number(packet.turn)||0;z.turns=Number(packet.turns)||0;z.round=Number(packet.round)||1;z.timer=Number(packet.timer)||0;
+   z.flag=(packet.flag||[]).map(xy);z.obstacles=(packet.obstacles||[]).map(dims);z.items=(packet.items||[]).map(dims);
+   z.shots=(packet.shots||[]).map(shot=>({...shot,origin:xy(shot.origin),impact:shot.impact?xy(shot.impact):null,limit:(shot.limit||0)*sx,segments:(shot.segments||[]).map(seg=>seg.map(v=>({...xy(v),travel:(v.travel||0)*sx})))}));z.last=packet.last||['',''];
+  }
+  for(let i=0;i<2;i++){const target=packet.players?.[i];if(!target||!players[i])continue;for(const [k,v] of Object.entries(target)){if(k==='x'||k==='y')continue;players[i][k]=k==='r'?clamp(W*(warzone?0.024:0.031),warzone?10:15,warzone?17:23):k==='vx'?v*sx:k==='vy'?v*sy:v}players[i].x=Number(target.x)*sx;players[i].y=Number(target.y)*sy;}
+  if(warzone)warzoneHUD();else setLabels();updateHUD(true);
+ },
+ end(){this.active=false;this.host=false;this.room='';this.input={dx:0,dy:0,dash:0,time:0};state='menu';warzone=null;document.body.classList.remove('online-host','online-guest','online-classic','online-match','online-room-host','online-room-guest');$('onlineGameStatus').textContent='Disconnected';clearTransientEffects();$('stage').classList.remove('warzone','cinematic');$('koOverlay').classList.remove('show');cinematic=null;setMode(onlineGame==='classic'?'onlineClassic':'online');setModal('setup');}
 };
 setupRoster();setMode('watch');bind();showAiDifficulty();autoChooseDevice();syncResponsiveViewport();requestAnimationFrame(loop);setModal('setup');setEditorSide(0);
 })();
 </script>
 <script type="module">
-// MathFight Online Warzone — Firebase Realtime Database room transport.
+// MathFight online transport: both Classic and Warzone share room codes and authenticated player inputs.
 // Host owns physics, damage, turns and collisions; guest sends input intents.
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
 import { getAuth, signInAnonymously, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
@@ -1650,7 +1804,7 @@ const app=initializeApp(cfg);
 const auth=getAuth(app),db=getDatabase(app),bridge=window.MFOnlineBridge;
 const $=id=>document.getElementById(id);
 const errors=$('onlineError'),status=$('onlineStatus');
-let uid=null,room='',host=false,unsub=[],busy=false,controlTimer=null,lastSent=0,lastShot=0,dashCount=0,snapshotBusy=false,matchId=0;
+let uid=null,room='',host=false,gameMode='warzone',unsub=[],busy=false,controlTimer=null,lastSent=0,lastShot=0,dashCount=0,snapshotBusy=false,matchId=0,loadoutWait=null;
 let snapshotSeq=0;
 const roomPath=(suffix='')=>`rooms/${room}${suffix?'/'+suffix:''}`;
 function notify(message,bad=false){errors.textContent=message;errors.classList.toggle('bad',bad)}
@@ -1660,7 +1814,7 @@ function updateLobby(message){status.textContent=message;$('onlineRoomCode').tex
 async function ensureUser(){if(auth.currentUser){uid=auth.currentUser.uid;return uid;}const result=await signInAnonymously(auth);uid=result.user.uid;return uid;}
 function codeGenerator(){const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',bytes=new Uint8Array(8);crypto.getRandomValues(bytes);return [...bytes].map(n=>chars[n%chars.length]).join('');}
 function unsubscribe(){for(const u of unsub)try{u()}catch{}unsub=[];clearInterval(controlTimer);controlTimer=null;}
-function resetUI(){room='';host=false;window.MFRoomHasGuest=false;updateLobby('Create a room or enter a code to join.');$('onlineRoomStatus').hidden=true;$('onlineRoomActions').hidden=false;}
+function resetUI(){room='';host=false;window.MFRoomHasGuest=false;document.body.classList.remove('online-room-host','online-room-guest');updateLobby('Create a room or enter a code to join.');$('onlineRoomStatus').hidden=true;$('onlineRoomActions').hidden=false;}
 function listenRoom(){
   const error=e=>{notify(checkError(e),true);if(bridge.active)$('onlineGameStatus').textContent='CONNECTION ERROR'};
   unsub.push(onValue(ref(db,roomPath('guestUid')),snap=>{if(host){window.MFRoomHasGuest=!!snap.val();updateLobby(snap.val()?'Friend joined. Waiting for their connection...':'Waiting for your friend to enter the room code...');}},error));
@@ -1668,17 +1822,17 @@ function listenRoom(){
   unsub.push(onValue(ref(db,roomPath('guestOnline')),snap=>{if(host){window.MFRoomHasGuest=!!snap.val();if(!bridge.active)updateLobby(snap.val()?'Your friend is connected. You can start the match.':'Waiting for your friend to connect...');if(snap.val()&&bridge.active)$('onlineGameStatus').textContent='CONNECTED';else if(bridge.active)$('onlineGameStatus').textContent='GUEST DISCONNECTED'}},error));
   unsub.push(onValue(ref(db,roomPath('status')),async snap=>{
     const value=snap.val();
-    if(!host&&value==='playing'&&!bridge.active){bridge.startOnline(false,room);updateLobby('Connected! You are Player 2.');$('resultRematch').textContent='WAIT FOR HOST';$('resultRematch').disabled=true;}
+    if(!host&&value==='playing'&&!bridge.active){bridge.startOnline(false,room,gameMode);updateLobby('Connected! You are Player 2.');$('resultRematch').textContent='WAIT FOR HOST';$('resultRematch').disabled=true;}
     if(value==='closed'&&!host){notify('The room was closed by the host. Return to the lobby to join another.',true);await leave();}
   },error));
   if(host){
     unsub.push(onValue(ref(db,roomPath('inputs/guest')),snap=>{const data=snap.val();if(data)bridge.hostControls(data)},error));
-    unsub.push(onValue(ref(db,roomPath('shots/guest')),snap=>{const data=snap.val();if(!data||!bridge.active)return;if(Number(data.seq)>lastShot){lastShot=Number(data.seq);bridge.hostShotFromGuest(data);}},error));
+    unsub.push(onValue(ref(db,roomPath('shots/guest')),snap=>{const data=snap.val();if(!data)return;if(gameMode==='classic'){if(!bridge.active&&data.kind==='loadout')bridge.hostReceiveLoadout(data);return;}if(!bridge.active)return;if(Number(data.seq)>lastShot){lastShot=Number(data.seq);bridge.hostShotFromGuest(data);}},error));
     let accumulation=0;
     bridge.hostTick=dt=>{
       if(!bridge.active)return;
       accumulation+=dt;
-      if(accumulation<.16||snapshotBusy)return;
+      if(accumulation<(gameMode==='classic'?.105:.16)||snapshotBusy)return;
       accumulation=0;
       const state=bridge.capture();if(!state)return;
       state.matchId=matchId;
@@ -1694,44 +1848,60 @@ function listenRoom(){
       if(bridge.active){bridge.applySnapshot(snapshot);}
     },error));
     bridge.guestFire=async()=>{
-      if(!bridge.active)return;
+      if(!bridge.active||gameMode!=='warzone')return;
       const input=$('warzoneInput');const eq=input.value.trim();if(!eq){$('warzoneError').textContent='Enter an equation first.';return;}
       // Vars belong to P2 and are validated again on the host.
       const vars=bridge.getOwnVariables();
-      const action={seq:++lastShot,eq:eq.slice(0,90),vars:vars.slice(0,8).map(v=>({name:String(v.name).slice(0,12),value:String(v.value).slice(0,90)}))};
+      const action={kind:'shot',seq:++lastShot,eq:eq.slice(0,90),vars:vars.slice(0,8).map(v=>({name:String(v.name).slice(0,12),value:String(v.value).slice(0,90)}))};
       try{await set(ref(db,roomPath('shots/guest')),action);$('warzoneError').textContent='Shot sent! Waiting for the host...';input.value='';}catch(e){notify(checkError(e),true);$('warzoneError').textContent='Could not send your shot.';}
     };
     bridge.guestDash=()=>{if(!bridge.active)return;dashCount++;sendControls();};
     async function sendControls(){if(!bridge.active)return;const move=bridge.guestControls();try{await set(ref(db,roomPath('inputs/guest')),{...move,dash:dashCount,seq:++lastSent});}catch(e){notify(checkError(e),true);}}
-    controlTimer=setInterval(sendControls,110);
+    controlTimer=setInterval(sendControls,gameMode==='classic'?85:110);
     bridge.guestTick=dt=>{bridge.animateGuest(dt)};
   }
 }
+async function sendGuestLoadout(){
+ if(!room||host||gameMode!=='classic'||bridge.active)return;
+ const loadout=bridge.getOwnLoadout();if(!loadout){notify('Finish your custom function before starting.',true);return;}
+ try{await set(ref(db,roomPath('shots/guest')),{...loadout,seq:++lastShot});notify('Your function is shared with the room host.');}
+ catch(e){notify(checkError(e),true)}
+}
+bridge.loadoutChanged=side=>{
+ if(side!==1||!room||host||gameMode!=='classic'||bridge.active)return;
+ clearTimeout(loadoutWait);loadoutWait=setTimeout(sendGuestLoadout,350);
+};
 async function createRoom(){if(busy||room)return;setBusy(true);notify('Connecting to Firebase...');try{
-  await ensureUser();let code='',created=false;
-  for(let i=0;i<5;i++){code=codeGenerator();const node=ref(db,'rooms/'+code);const tx=await runTransaction(node,current=>current===null?{hostUid:uid,createdAt:Date.now(),hostOnline:true,status:'waiting'}:undefined,{applyLocally:false});if(tx.committed){created=true;break}}
+  await ensureUser();gameMode=window.MFSelectedLobbyMode==='onlineClassic'?'classic':'warzone';let code='',created=false;
+  for(let i=0;i<5;i++){code=codeGenerator();const node=ref(db,'rooms/'+code);const tx=await runTransaction(node,current=>current===null?{hostUid:uid,createdAt:Date.now(),hostOnline:true,gameMode,status:'waiting'}:undefined,{applyLocally:false});if(tx.committed){created=true;break}}
   if(!created)throw Error('Could not find a free room code. Try again.');
-  room=code;host=true;window.MFRoomHasGuest=false;lastShot=0;dashCount=0;
+  room=code;host=true;window.MFRoomHasGuest=false;lastShot=0;dashCount=0;document.body.classList.add('online-room-host');document.body.classList.remove('online-room-guest');bridge.prepareLobby(true,gameMode);
   await onDisconnect(ref(db,roomPath('hostOnline'))).set(false);listenRoom();updateLobby('Room created. Send the code to your friend.');notify('Room ready. Waiting for Player 2.');
  }catch(e){notify(checkError(e),true);}finally{setBusy(false)}
 }
 async function joinRoom(){if(busy||room)return;const code=$('onlineCode').value.toUpperCase().trim().replace(/[^A-Z2-9]/g,'');if(code.length!==8){notify('Enter the 8-character code your friend shared.',true);return}setBusy(true);notify('Joining room...');try{
  await ensureUser();const node=ref(db,'rooms/'+code),found=await get(node);if(!found.exists())throw Error('Room not found. Check the code.');
  const details=found.val();if(details.hostUid===uid)throw Error('This browser already owns that room. Open the other player in a separate browser or device.');
- if(details.guestUid&&details.guestUid!==uid)throw Error('Room is full (2 players).');
+ if(details.guestUid&&details.guestUid!==uid)throw Error('Room is full (2 players).');gameMode=details.gameMode==='classic'?'classic':'warzone';bridge.prepareLobby(false,gameMode);
  const join=await runTransaction(ref(db,`rooms/${code}/guestUid`),value=>value===null||value===uid?uid:undefined,{applyLocally:false});if(!join.committed)throw Error('Another player joined first. Room is full.');
- room=code;host=false;lastShot=0;dashCount=0;await set(ref(db,roomPath('guestOnline')),true);await onDisconnect(ref(db,roomPath('guestOnline'))).set(false);
- listenRoom();updateLobby('Joined! Waiting for the host to start online Warzone.');notify('Connected as Player 2.');
+ room=code;host=false;lastShot=0;dashCount=0;document.body.classList.add('online-room-guest');document.body.classList.remove('online-room-host');bridge.prepareLobby(false,gameMode);await set(ref(db,roomPath('guestOnline')),true);await onDisconnect(ref(db,roomPath('guestOnline'))).set(false);
+ listenRoom();updateLobby('Joined! Waiting for the host to start '+(gameMode==='classic'?'Online Classic':'Online Warzone')+'.');notify('Connected as Player 2.');if(gameMode==='classic')await sendGuestLoadout();
  }catch(e){notify(checkError(e),true)}finally{setBusy(false)}
 }
-async function startOnline(){if(!host||!room||!window.MFRoomHasGuest)return;try{matchId++;bridge.startOnline(true,room);$('resultRematch').textContent='REMATCH ↻';$('resultRematch').disabled=false;await set(ref(db,roomPath('state')),{...bridge.capture(),matchId});await set(ref(db,roomPath('status')),'playing');notify('Match started. Good luck!');}catch(e){notify(checkError(e),true)}}
-async function rematch(){if(!bridge.active)return;if(!host){notify('Only the room host can restart the online match.');return;}try{matchId++;bridge.startOnline(true,room);await set(ref(db,roomPath('state')),{...bridge.capture(),matchId});notify('Rematch started!')}catch(e){notify(checkError(e),true)}}
+async function startOnline(){if(!host||!room||!window.MFRoomHasGuest)return;try{matchId++;bridge.startOnline(true,room,gameMode);$('resultRematch').textContent='REMATCH ↻';$('resultRematch').disabled=false;await set(ref(db,roomPath('state')),{...bridge.capture(),matchId});await set(ref(db,roomPath('status')),'playing');notify('Match started. Good luck!');}catch(e){notify(checkError(e),true)}}
+async function rematch(){if(!bridge.active)return;if(!host){notify('Only the room host can restart the online match.');return;}try{matchId++;bridge.startOnline(true,room,gameMode);await set(ref(db,roomPath('state')),{...bridge.capture(),matchId});notify('Rematch started!')}catch(e){notify(checkError(e),true)}}
 async function leave(){const code=room,isHost=host;
- unsubscribe();bridge.hostTick=()=>{};bridge.guestTick=()=>{};bridge.end();resetUI();$('resultRematch').disabled=false;$('resultRematch').textContent='REMATCH ↻';
+ unsubscribe();clearTimeout(loadoutWait);bridge.hostTick=()=>{};bridge.guestTick=()=>{};bridge.end();resetUI();$('resultRematch').disabled=false;$('resultRematch').textContent='REMATCH ↻';
  if(!code)return;
  try{if(isHost){await remove(ref(db,`rooms/${code}`));}else{await set(ref(db,`rooms/${code}/guestOnline`),false);}}catch(e){notify(checkError(e),true)}
 }
 bridge.leave=leave;bridge.rematch=rematch;
+// A room's game type is fixed when created; leave before selecting another mode.
+for(const button of document.querySelectorAll('.lobby-modes button'))button.addEventListener('click',event=>{
+ if(!room)return;
+ event.preventDefault();event.stopImmediatePropagation();
+ notify('Leave your current room before changing game modes.',true);
+},true);
 $('onlineCreate').addEventListener('click',createRoom);
 $('onlineJoin').addEventListener('click',joinRoom);
 $('onlineStart').addEventListener('click',startOnline);
