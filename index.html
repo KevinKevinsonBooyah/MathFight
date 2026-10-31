@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#f6f7f4">
 <title>MathFight</title>
 <meta name="apple-mobile-web-app-title" content="MathFight">
-<link rel="icon" type="image/png" href="favicon.png?v=17">
-<link rel="apple-touch-icon" href="favicon.png?v=17">
+<link rel="icon" type="image/png" href="favicon.png?v=18">
+<link rel="apple-touch-icon" href="favicon.png?v=18">
 <style>
 :root{--ink:#232735;--sub:#7e8591;--line:#e1e5e3;--paper:#fff;--bg:#f5f7f5;--green:#23834b;--red:#d8424a;--yellow:#d8a326;--shadow:0 16px 55px rgba(29,48,41,.075)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;user-select:none;-webkit-user-select:none}
@@ -290,6 +290,7 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom))}
  .device-mobile .joystick-p2{transform-origin:bottom right}
 }
 .ai-difficulty-box{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 15px;margin:10px 0;border-radius:13px;background:#f0f4fb;border:1px solid #dbe2f3}.ai-difficulty-copy{display:flex;flex-direction:column;gap:4px;min-width:0}.ai-difficulty-copy strong{font-size:11px;letter-spacing:.7px;color:#354c7f}.ai-difficulty-copy span{font-size:11px;color:#637494;line-height:1.3}.ai-difficulty-box select{max-width:130px;min-width:100px;padding:9px;border:1px solid #bccce3;border-radius:9px;background:white;color:#354c7f;font-size:12px;font-weight:800;flex-shrink:0}.ai-difficulty-box[hidden]{display:none!important}@media(max-width:370px){.ai-difficulty-box{gap:8px;padding:10px}.ai-difficulty-box select{min-width:90px;max-width:100px}}
+.online-panel{border:1px solid #c9d9e6;background:linear-gradient(145deg,#f4faff,#f6fff9);border-radius:16px;padding:17px;margin:14px 0}.online-panel[hidden]{display:none!important}.online-panel-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.online-panel-head strong{font-size:14px;color:#335376}.online-panel-head small{font-size:11px;color:#678098}.online-panel p{font-size:12px;line-height:1.5;color:#526a79}.online-room-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;align-items:end}.online-room-actions label{display:flex;flex-direction:column;gap:5px;font-size:10px;font-weight:850;color:#496578}.online-room-actions input{width:100%;border:1px solid #b8cbd9;border-radius:9px;min-width:0;padding:12px 9px;letter-spacing:2px;font-size:14px;text-transform:uppercase}.online-room-actions button,.online-room-status button{padding:11px 12px;border-radius:10px;background:#295e96;color:white;font-size:11px;font-weight:850}.online-room-actions #onlineJoin{background:#26975b}.online-room-status{background:white;border:1px solid #dbe6e9;border-radius:13px;padding:14px;margin-top:12px}.online-room-status[hidden]{display:none!important}.online-room-status>div{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.online-room-status strong{font-size:21px;letter-spacing:3px;color:#234b83}.online-room-status small{font-size:10px;color:#748ba0}.online-room-status #onlineStart{background:#249658;margin:6px 6px 6px 0}.online-room-status #onlineLeave{background:#e6eef5;color:#416077}.online-panel .online-error{font-size:11px;color:#7c5a45}.online-panel .online-error.bad{color:#cb3a52}.online-room-actions[hidden],.online-room-status button[hidden]{display:none!important}.online-game-label{display:none}body.online-match .online-game-label{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 12px;background:#ecf7ff;border:1px solid #c6dfe9;color:#365775;font-size:12px;font-weight:800;border-radius:11px;margin-bottom:7px}body.online-guest #joystick0,body.online-host #joystick1{display:none!important}body.online-guest #warDash0,body.online-host #warDash1{display:none!important}body.online-match #pauseBtn{display:none!important}#startBtn[hidden]{display:none!important}@media(max-width:600px){.online-room-actions{grid-template-columns:1fr}.online-room-actions input{font-size:16px}.online-panel{padding:12px}.online-room-status strong{font-size:17px}}
 </style>
 </head>
 <body>
@@ -309,6 +310,7 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom))}
     <div class="ko-overlay" id="koOverlay" aria-hidden="true">K.O.!</div>
     <div class="joystick-zone" id="joystick0" aria-label="Player 1 move joystick"><div class="joystick-base"><div class="joystick-knob"></div></div><span class="joystick-label">MOVE</span></div>
     <div class="joystick-zone joystick-p2" id="joystick1" aria-label="Player 2 move joystick"><div class="joystick-base"><div class="joystick-knob"></div></div><span class="joystick-label">P2 MOVE</span></div><div class="stage-overlay" id="pauseOverlay"><strong>PAUSED</strong><small>Take your time. Math can wait.</small><button id="resumeBtn">RESUME BATTLE</button></div></div>
+<div id="onlineGameLabel" class="online-game-label"><span id="onlineGameCode">🌐 ONLINE WARZONE</span><span id="onlineGameStatus">Connected</span></div>
   <div class="warzone-hud" id="warzoneHud" hidden><span id="warzonePhase">⚔ WARZONE</span><span id="warzoneRound">ROUND 1</span><span id="warzoneTimer">YOUR TURN</span></div>
   <div class="battle-bottom">
    <div class="health-row">
@@ -342,14 +344,26 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom))}
 <div class="modal-bg" id="modalBg"><div class="modal" id="modal">
  <div id="setupPage">
   <div class="setup-scroll mf-lobby">
-    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V17 · BALANCED BATTLES</span></div><h1>Choose your battle.</h1><p>Pick a mode, customize the fighters, then launch. Every graph is a weapon.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
+    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V18 · ONLINE WARZONE</span></div><h1>Choose your battle.</h1><p>Pick a mode, customize the fighters, then launch. Every graph is a weapon.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
     <div class="lobby-section-label"><span>01</span> GAME MODE</div>
     <div class="mode-switch lobby-modes" role="group" aria-label="Battle mode">
       <button id="modeWatch" class="active"><span class="mode-emoji">🤖</span><strong>CPU BATTLE</strong><small>Watch two smart AIs fight</small></button>
       <button id="modePlay"><span class="mode-emoji">🎮</span><strong>SOLO</strong><small>Fight against the CPU</small></button>
       <button id="modeLocal"><span class="mode-emoji">⚔️</span><strong>LOCAL 1V1</strong><small>Play with a friend</small></button>
       <button id="modeWarzone"><span class="mode-emoji">🏁</span><strong>THE WARZONE</strong><small>Turns, cover & flags</small></button>
+      <button id="modeOnline" type="button"><span class="mode-emoji">🌐</span><strong>ONLINE WARZONE</strong><small>2 players · Separate devices</small></button>
     </div>
+    <section class="online-panel" id="onlinePanel" hidden aria-label="Online multiplayer lobby">
+      <div class="online-panel-head"><strong>🌐 PLAY WITH A FRIEND</strong><small>Online Warzone · Room code required</small></div>
+      <p>One player creates a room. Your friend enters its code on their computer or phone. The room host controls the shared match.</p>
+      <div class="online-room-actions" id="onlineRoomActions">
+        <button id="onlineCreate" type="button">+ CREATE ROOM</button>
+        <label>JOIN WITH CODE <input id="onlineCode" maxlength="10" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="ROOM CODE" aria-label="Online room code"></label>
+        <button id="onlineJoin" type="button">JOIN ROOM</button>
+      </div>
+      <div class="online-room-status" id="onlineRoomStatus" hidden><div><small>YOUR ROOM</small><strong id="onlineRoomCode">—</strong><button id="onlineCopy" type="button">COPY CODE</button></div><p id="onlineStatus">Connecting...</p><button type="button" id="onlineStart" hidden>START ONLINE WARZONE</button><button type="button" id="onlineLeave">LEAVE ROOM</button></div>
+      <p class="online-error" id="onlineError" role="status" aria-live="polite">Connecting requires anonymous Firebase sign-in and the MathFight Realtime Database rules.</p>
+    </section>
     <div class="ai-difficulty-box" id="aiDifficultyBox">
       <div class="ai-difficulty-copy"><strong>🤖 CPU DIFFICULTY</strong><span id="aiDifficultyDescription">Normal · Smart enough to fight back, but still makes mistakes.</span></div>
       <select id="aiDifficulty" aria-label="CPU difficulty"><option value="easy">Casual</option><option value="normal" selected>Normal</option><option value="hard">Hard</option><option value="expert">Expert</option></select>
@@ -867,7 +881,13 @@ function drawRoster(){for(let side=0;side<2;side++){
  [...root.children].forEach((b,i)=>{let fid=getRosterFunction(rosterIds[i],side);b.className='roster-btn'+(fid===selection[side]?(side?' rival-selected':' selected'):'')+(rosterIds[i]==='custom'&&fid===selection[side]?' custom-selected':'')});
  $('customEditor'+side).hidden=selection[side]!=='custom'+side;
 }}
-function setMode(next){mode=next;watch=mode==='watch';local=mode==='local';$('modePlay').classList.toggle('active',mode==='cpu');$('modeLocal').classList.toggle('active',local);$('modeWatch').classList.toggle('active',watch);$('modeWarzone').classList.toggle('active',mode==='warzone');
+function setMode(next){
+ if(next==='online'){
+   setMode('warzone');$('warzoneSetup').hidden=true;$('onlinePanel').hidden=false;$('modeOnline').classList.add('active');$('modeWarzone').classList.remove('active');$('startBtn').hidden=true;
+   return;
+ }
+ $('onlinePanel').hidden=true;$('modeOnline').classList.remove('active');$('startBtn').hidden=false;
+ mode=next;watch=mode==='watch';local=mode==='local';$('modePlay').classList.toggle('active',mode==='cpu');$('modeLocal').classList.toggle('active',local);$('modeWatch').classList.toggle('active',watch);$('modeWarzone').classList.toggle('active',mode==='warzone');
  showAiDifficulty();
  $('warzoneSetup').hidden=mode!=='warzone';$('warzoneHud').hidden=mode!=='warzone';$('warzonePanel').hidden=mode!=='warzone';document.body.classList.toggle('warzone-mode',mode==='warzone');document.body.classList.toggle('auto-combat',mode!=='warzone');
  $('fightControls').classList.toggle('versus',local);if(mode==='warzone'){$('fightControls').classList.remove('versus');}$('stage').classList.toggle('local-touch',local);for(let id of ['castBtn2','dashBtn2'])$(id).classList.toggle('visible',local);
@@ -1042,7 +1062,8 @@ function endMatch(winner,reason='knockout'){if(state!=='playing')return;state='f
  if(warzone){if(local)localWins[winner]++;updateStats()}else if(local){localWins[winner]++;updateStats()}else if(!watch){if(isVictory){totalStats.wins++;totalStats.streak++;totalStats.best=Math.max(totalStats.streak,totalStats.best)}else totalStats.streak=0;saveStats();updateStats()}
  $('resultEyebrow').textContent=warzone?'WARZONE · '+(reason==='flag'?'FLAG CAPTURE':'KNOCKOUT'):watch?'AUTOBATTLE COMPLETE':local?'LOCAL MATCH COMPLETE':'MATCH COMPLETE';$('resultTitle').textContent=warzone?'Player '+(winner+1)+' wins!':local?'Player '+(winner+1)+' wins!':watch?((p.formula.startsWith('custom')?'Player '+(winner+1):F[p.formula].short)+' wins!'):(isVictory?'Victory!':'Defeat!');$('resultTitle').style.color=isVictory?'#278249':'#d64852';$('resultDetail').textContent=(warzone?(reason==='flag'?'Enemy flag captured!':'A perfect graph knocked out the enemy!'):local?'Good game!':watch?'The battle is over.':isVictory?'Your graphing skills prevailed.':'The rival function took the round.')+' Winner finished with '+Math.ceil(p.hp)+' HP.';$('resultEqA').textContent=warzone?(warzone.last[0]||'No shot fired'):(players[0].formula.startsWith('custom')?'y = '+F[players[0].formula].eq:F[players[0].formula].short);$('resultEqB').textContent=warzone?(warzone.last[1]||'No shot fired'):(players[1].formula.startsWith('custom')?'y = '+F[players[1].formula].eq:F[players[1].formula].short);setText('resultHpA',Math.ceil(players[0].hp));setText('resultHpB',Math.ceil(players[1].hp));log((winner?'Red':'Green')+' won the battle!','gold');playSound('win',winner);if(!local&&!watch&&winner===1)playSound('lose',0);/* result appears when cinematic completes */}
 function dash(p){if(state!=='playing'||(warzone&&warzone.phase!=='move')||p.hp<=0||p.dashCd>0)return;let mx=p.dirX,my=p.dirY,l=Math.hypot(mx,my);if(l<.1){mx=p.team?-1:1;my=0;l=1}const dashSpeed=warzone?clamp(W*.84,320,600):clamp(W*.96,310,650);p.vx=mx/l*dashSpeed;p.vy=my/l*dashSpeed;p.dashTime=.18;p.inv=Math.max(p.inv,.31);p.dashCd=3.65;particlesAt(p.x,p.y,COLORS[p.team],20,1.05);playSound('dash',p.team)}
-function playerMove(p){let dx=0,dy=0;
+function playerMove(p){
+ if(window.MFOnlineBridge?.active&&window.MFOnlineBridge.host&&p.team===1)return window.MFOnlineBridge.remoteMove();let dx=0,dy=0;
  if(p.team===0){if(keys.has('a')||!local&&keys.has('arrowleft'))dx--;if(keys.has('d')||!local&&keys.has('arrowright'))dx++;if(keys.has('w')||!local&&keys.has('arrowup'))dy--;if(keys.has('s')||!local&&keys.has('arrowdown'))dy++}
  else if(local){if(keys.has('arrowleft'))dx--;if(keys.has('arrowright'))dx++;if(keys.has('arrowup'))dy--;if(keys.has('arrowdown'))dy++}
  let control=pointer[p.team];if(stick[p.team].active){dx=stick[p.team].x;dy=stick[p.team].y}else if(control.down){dx=control.x-p.x;dy=control.y-p.y;if(Math.hypot(dx,dy)<p.r*.7){dx=0;dy=0}}
@@ -1346,9 +1367,17 @@ function warzoneHUD(){if(!warzone)return;const z=warzone,t=z.turn;
  $('warMoveActions').classList.toggle('active',moving);$('warDash1').style.display=local?'block':'none';
  $('joystick0').style.pointerEvents=moving?'auto':'none';$('joystick1').style.pointerEvents=moving?'auto':'none';
  $('joystick0').style.opacity=moving?'1':'.25';$('joystick1').style.opacity=moving?'1':'.25';
+ if(window.MFOnlineBridge?.active){
+  const mine=window.MFOnlineBridge.host?0:1,canFire=turn&&t===mine;
+  $('warzoneInput').disabled=!canFire;$('warzoneFire').disabled=!canFire;
+  $('warVarDetails').hidden=!canFire;
+  $('warDash0').style.display=mine===0?'block':'none';$('warDash1').style.display=mine===1?'block':'none';
+  if(turn&&!canFire)$('warzoneHint').textContent='Waiting for your opponent to fire...';
+ }
 }
 function formatXY(p){const c=warCoords(p.x,p.y);return `x=${c.x.toFixed(1)}, y=${c.y.toFixed(1)}`}
-function warzoneFire(){if(!warzone||state!=='playing'||warzone.phase!=='turn')return;const z=warzone,team=z.turn,p=players[team];if(p.auto)return;
+function warzoneFire(){if(!warzone||state!=='playing'||warzone.phase!=='turn')return;
+ if(window.MFOnlineBridge?.active&&!window.MFOnlineBridge.host){window.MFOnlineBridge.guestFire();return;}const z=warzone,team=z.turn,p=players[team];if(p.auto)return;
  let raw=$('warzoneInput').value.trim();try{const parsed=parseMathExpression(raw,getWarVariableScope(team));submitWarShot(team,parsed,raw)}catch(e){$('warzoneError').textContent=e.message;$('warzoneError').classList.add('bad');playSound('warning')}}
 function submitWarShot(team,parsed,raw){const z=warzone;if(!z||state!=='playing'||z.phase!=='turn'||z.turn!==team)return false;
  const p=players[team];let path;try{path=traceWarShot(parsed.fn,team)}catch(err){$('warzoneError').textContent=err.message;$('warzoneError').classList.add('bad');return false}
@@ -1533,7 +1562,7 @@ function drawWarzone(){const z=warzone;if(!z)return;
  drawExtraEffects();drawBalls();drawParticles();drawShards();
  if(z.phase==='move'&&!cinematic){ctx.save();ctx.textAlign='center';ctx.font='900 '+clamp(W*.065,23,45)+'px system-ui';ctx.fillStyle='#6951a2';ctx.globalAlpha=.37;ctx.fillText(Math.max(0,z.timer).toFixed(1),W/2,H*.14);ctx.restore()}
 }
-function loop(t){if(!prev)prev=t;let dt=Math.min(.034,(t-prev)/1000);prev=t;if(state==='playing'){if(warzone)updateWarzone(dt);else update(dt)}else if(state==='finishing')updateCinematic(dt);draw();if(t-lastHud>65){updateHUD();lastHud=t}requestAnimationFrame(loop)}
+function loop(t){if(!prev)prev=t;let dt=Math.min(.034,(t-prev)/1000);prev=t;if(state==='playing'){if(window.MFOnlineBridge?.active&&!window.MFOnlineBridge.host){window.MFOnlineBridge.guestTick(dt)}else if(warzone)updateWarzone(dt);else update(dt)}else if(state==='finishing')updateCinematic(dt);if(window.MFOnlineBridge?.active&&window.MFOnlineBridge.host)window.MFOnlineBridge.hostTick(dt);draw();if(t-lastHud>65){updateHUD();lastHud=t}requestAnimationFrame(loop)}
 function bind(){
  $('deviceToggle').onclick=showDeviceChooser;
  $('chooseMobile').onclick=()=>chooseDevice('mobile');
@@ -1548,11 +1577,11 @@ function bind(){
  $('opContinue').onclick=()=>start(true);
 
  $('warDash0').onclick=()=>{if(warzone&&warzone.phase==='move'&&players[0]){unlockAudio();dash(players[0])}};
- $('warDash1').onclick=()=>{if(warzone&&warzone.phase==='move'&&local&&players[1]){unlockAudio();dash(players[1])}};
- $('modeWarzone').onclick=()=>setMode('warzone');$('warzonePlayers').onchange=showAiDifficulty;$('aiDifficulty').onchange=()=>{aiDifficulty=$('aiDifficulty').value;showAiDifficulty();};$('warzoneFire').onclick=warzoneFire;
+ $('warDash1').onclick=()=>{if(window.MFOnlineBridge?.active&&!window.MFOnlineBridge.host){window.MFOnlineBridge.guestDash();return;}if(warzone&&warzone.phase==='move'&&local&&players[1]){unlockAudio();dash(players[1])}};
+ $('modeWarzone').onclick=()=>setMode('warzone');$('modeOnline').onclick=()=>setMode('online');$('warzonePlayers').onchange=showAiDifficulty;$('aiDifficulty').onchange=()=>{aiDifficulty=$('aiDifficulty').value;showAiDifficulty();};$('warzoneFire').onclick=warzoneFire;
  $('warAddVar').onclick=()=>{if(!warzone||warzone.phase!=='turn'||players[warzone.turn].auto)return;const vars=warzone.variables[warzone.turn];if(vars.length>=8)return;let i=vars.length;const taken=new Set(vars.map(v=>v.name));let name=['a','b','c','d','speed','k','m','n'].find(n=>!taken.has(n))||'v'+i;vars.push({name,value:'1'});$('warVarDetails').open=true;renderWarVariables();$('warVarList').lastElementChild?.querySelector('input')?.focus()};
- $('startBtn').onclick=()=>start();$('modePlay').onclick=()=>setMode('cpu');$('modeLocal').onclick=()=>setMode('local');$('modeWatch').onclick=()=>setMode('watch');$('setupClose').onclick=closeModal;$('resultChange').onclick=()=>{state='menu';setModal('setup')};$('resultRematch').onclick=()=>start();
- $('menuBtn').onclick=()=>{if(state==='playing'){state='paused';$('pauseOverlay').classList.add('active');keys.clear()}setModal('setup')};$('pauseBtn').onclick=togglePause;$('resumeBtn').onclick=togglePause;
+ $('startBtn').onclick=()=>start();$('modePlay').onclick=()=>setMode('cpu');$('modeLocal').onclick=()=>setMode('local');$('modeWatch').onclick=()=>setMode('watch');$('setupClose').onclick=closeModal;$('resultChange').onclick=()=>{if(window.MFOnlineBridge?.active)window.MFOnlineBridge.leave();state='menu';setModal('setup')};$('resultRematch').onclick=()=>{if(window.MFOnlineBridge?.active){window.MFOnlineBridge.rematch();return;}start()};
+ $('menuBtn').onclick=()=>{if(window.MFOnlineBridge?.active){window.MFOnlineBridge.leave();state='menu';setModal('setup');return;}if(state==='playing'){state='paused';$('pauseOverlay').classList.add('active');keys.clear()}setModal('setup')};$('pauseBtn').onclick=()=>{if(!window.MFOnlineBridge?.active)togglePause();};$('resumeBtn').onclick=togglePause;
  $('castBtn').onclick=()=>{unlockAudio();if(!warzone&&players[0])cast(players[0])};$('dashBtn').onclick=()=>{unlockAudio();if(players[0])dash(players[0])};
  $('castBtn2').onclick=()=>{unlockAudio();if(local&&players[1])cast(players[1])};
  for(const [side,btnId] of [[0,'castBtn'],[1,'castBtn2']]){const btn=$(btnId);
@@ -1566,11 +1595,11 @@ function bind(){
  $('roundIndicator').onclick=()=>{if(state==='playing')togglePause()};
  window.addEventListener('keydown',e=>{if(!$('opWarning').hidden||!$('deviceOverlay').hidden)return;let key=e.key.toLowerCase();if(['input','textarea','select'].includes(document.activeElement?.tagName?.toLowerCase())){if(warzone&&e.key==='Enter'&&document.activeElement===$('warzoneInput')){e.preventDefault();warzoneFire();}return;}
  if([' ','arrowup','arrowdown','arrowleft','arrowright','shift','enter'].includes(key)&&state==='playing')e.preventDefault();
- if(key==='p'||key==='escape'){if(!$('modalBg').classList.contains('hidden')&&state==='paused'){closeModal();return}togglePause();return}
+ if(window.MFOnlineBridge?.active&&(key==='p'||key==='escape'))return;if(key==='p'||key==='escape'){if(!$('modalBg').classList.contains('hidden')&&state==='paused'){closeModal();return}togglePause();return}
  if(key==='r'&&state==='over'){start();return}if(state!=='playing'||watch)return;keys.add(key);
- if(warzone){if(!e.repeat&&key==='enter'&&warzone.phase==='turn')warzoneFire();if(!e.repeat&&e.code==='ShiftLeft'&&players[0]&&warzone.phase==='move')dash(players[0]);if(!e.repeat&&local&&e.code==='ShiftRight'&&players[1]&&warzone.phase==='move')dash(players[1]);return;}if(!e.repeat){if(key===' '&&!players[0]?.auto&&false)cast(players[0]);if(e.code==='ShiftLeft')dash(players[0]);if(local&&key==='enter')cast(players[1]);if(local&&e.code==='ShiftRight')dash(players[1])}
+ if(warzone){if(!e.repeat&&key==='enter'&&warzone.phase==='turn')warzoneFire();if(!e.repeat&&window.MFOnlineBridge?.active&&!window.MFOnlineBridge.host&&e.code.startsWith('Shift')){window.MFOnlineBridge.guestDash();return;}if(!e.repeat&&e.code==='ShiftLeft'&&players[0]&&warzone.phase==='move')dash(players[0]);if(!e.repeat&&local&&e.code==='ShiftRight'&&players[1]&&warzone.phase==='move'&&!window.MFOnlineBridge?.active)dash(players[1]);return;}if(!e.repeat){if(key===' '&&!players[0]?.auto&&false)cast(players[0]);if(e.code==='ShiftLeft')dash(players[0]);if(local&&key==='enter')cast(players[1]);if(local&&e.code==='ShiftRight')dash(players[1])}
  });
- window.addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));window.addEventListener('blur',()=>{keys.clear();holding[0]=holding[1]=false;pointer[0].down=pointer[1].down=false;if(state==='playing')togglePause()});document.addEventListener('visibilitychange',()=>{if(document.hidden&&state==='playing')togglePause()});
+ window.addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));window.addEventListener('blur',()=>{keys.clear();holding[0]=holding[1]=false;pointer[0].down=pointer[1].down=false;if(!window.MFOnlineBridge?.active&&state==='playing')togglePause()});document.addEventListener('visibilitychange',()=>{if(document.hidden&&!window.MFOnlineBridge?.active&&state==='playing')togglePause()});
  for(let team=0;team<2;team++){
   const zone=$('joystick'+team),knob=zone.querySelector('.joystick-knob');
   const reset=()=>{let st=stick[team];st.active=false;st.id=null;st.x=st.y=0;knob.style.transform='translate(-50%,-50%)'};
@@ -1585,8 +1614,133 @@ function bind(){
  for(let ev of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(ev,e=>{for(let p of [pointer[0],pointer[1]])if(p.id===e.pointerId){p.down=false;p.id=null}});
  window.addEventListener('resize',scheduleResponsiveViewport);window.addEventListener('orientationchange',scheduleResponsiveViewport);window.visualViewport?.addEventListener('resize',scheduleResponsiveViewport);if(window.ResizeObserver)new ResizeObserver(scheduleResponsiveViewport).observe($('stage'));document.addEventListener('contextmenu',e=>{if(e.target===canvas)e.preventDefault()});
 }
+// Online Warzone bridge. Simulation and collision authority remain with the room host.
+window.MFOnlineBridge={active:false,host:false,room:'',input:{dx:0,dy:0,dash:0,time:0},lastDash:-1,guestShot:null,hostTick:()=>{},guestTick:()=>{},guestFire:()=>{},guestDash:()=>{},leave:()=>{},rematch:()=>{},remoteMove(){const r=this.input;if(Date.now()-r.time>1100)return{x:0,y:0};return{x:clamp(Number(r.dx)||0,-1,1),y:clamp(Number(r.dy)||0,-1,1)}},
+ startOnline(isHost,room){this.active=true;this.host=isHost;this.room=room;this.lastDash=-1;setMode('warzone');$('warzonePlayers').value='local';startWarzone();document.body.classList.toggle('online-host',isHost);document.body.classList.toggle('online-guest',!isHost);document.body.classList.add('online-match');setText('onlineGameCode','🌐 ROOM '+room+' · '+(isHost?'PLAYER 1':'PLAYER 2'));setText('onlineGameStatus','CONNECTED');setText('leftName','PLAYER 1');setText('rightName','PLAYER 2');warzoneHUD();return true;},
+ hostShotFromGuest(payload){if(!this.active||!this.host||warzone?.turn!==1||warzone.phase!=='turn')return false;try{if(!payload||typeof payload.eq!=='string'||payload.eq.length>90)throw Error('Invalid shot');const defs=Array.isArray(payload.vars)?payload.vars.slice(0,8).map(v=>({name:String(v.name||'').slice(0,12),value:String(v.value||'').slice(0,90)})):[];const parsed=parseMathExpression(payload.eq,resolveVariableDefinitions(defs));warzone.variables[1]=defs;return submitWarShot(1,parsed,payload.eq)}catch(e){log('Guest equation rejected: '+e.message,'red');return false}},
+ hostControls(data){this.input={dx:Number(data?.dx)||0,dy:Number(data?.dy)||0,dash:Number(data?.dash)||0,time:Date.now()};if(this.active&&this.host&&this.input.dash>this.lastDash){if(this.lastDash>=0&&state==='playing'&&warzone?.phase==='move')dash(players[1]);this.lastDash=this.input.dash;}},
+ guestControls(){const x=(keys.has('d')||keys.has('arrowright')?1:0)-(keys.has('a')||keys.has('arrowleft')?1:0),y=(keys.has('s')||keys.has('arrowdown')?1:0)-(keys.has('w')||keys.has('arrowup')?1:0);const stickMove=stick[1].active?stick[1]:stick[0].active?stick[0]:null;const dx=stickMove?stickMove.x:x,dy=stickMove?stickMove.y:y;const len=Math.max(1,Math.hypot(dx,dy));return {dx:Math.round(dx/len*100)/100,dy:Math.round(dy/len*100)/100}},
+ getOwnVariables(){return (warzone?.variables?.[1]||[]).map(v=>({...v}));},
+ animateGuest(dt){now+=dt;time+=dt;for(const shot of warzone?.shots||[])shot.age=Math.min(shot.life||2.3,shot.age+dt);warzoneHUD();updateHUD();},
+ capture(){if(!warzone||!players.length)return null;const f=(o)=>o?{...o}:null;const fields=['x','y','vx','vy','r','hp','dashCd','dashTime','dirX','dirY','warArmor','warSurge','warSprint','warBump','inv','team'];const ps=players.map(p=>Object.fromEntries(fields.map(k=>[k,Number(p[k])||0])));const z=warzone;return {w:W,h:H,seq:Math.floor(performance.now()),state,phase:z.phase,turn:z.turn,turns:z.turns,round:z.round,timer:z.timer,players:ps,flag:z.flag.map(f),obstacles:z.obstacles.map(f),items:z.items.map(f),last:z.last,shots:z.shots.map(shot=>({team:shot.team,age:shot.age,life:shot.life,eq:shot.eq,hit:shot.hit,impacted:shot.impacted,impact:shot.impact,origin:shot.origin,direction:shot.direction,limit:shot.limit,power:shot.power,segments:shot.segments.map(seg=>seg.filter((v,i)=>i%3===0||i===seg.length-1).map(v=>({x:+v.x.toFixed(1),y:+v.y.toFixed(1),travel:+v.travel.toFixed(1)})))})),winner:cinematic?.winner??null,reason:document.getElementById('resultEyebrow').textContent.includes('FLAG')?'flag':'knockout'}},
+ applySnapshot(packet){if(!this.active||this.host||!packet||!warzone)return;const sx=W/(packet.w||W),sy=H/(packet.h||H);const xy=o=>({...(o||{}),x:(o?.x||0)*sx,y:(o?.y||0)*sy});const dims=o=>({...xy(o),r:o?.r?o.r*Math.min(sx,sy):o?.r,w:o?.w?o.w*sx:o?.w,h:o?.h?o.h*sy:o?.h});if(packet.state==='finishing'&&state==='playing'){endMatch(packet.winner??0,packet.reason||'knockout');return;}if(packet.state==='playing'&&state==='finishing'){clearTransientEffects();$('koOverlay').classList.remove('show');$('stage').classList.remove('cinematic');cinematic=null;startWarzone();document.body.classList.add('online-match','online-guest');}if(state==='over'&&packet.state==='playing'){startWarzone();document.body.classList.add('online-match','online-guest');}
+ const z=warzone;z.phase=packet.phase||'turn';z.turn=Number(packet.turn)||0;z.turns=Number(packet.turns)||0;z.round=Number(packet.round)||1;z.timer=Number(packet.timer)||0;z.flag=(packet.flag||[]).map(xy);z.obstacles=(packet.obstacles||[]).map(dims);z.items=(packet.items||[]).map(dims);z.shots=(packet.shots||[]).map(shot=>({...shot,origin:xy(shot.origin),impact:shot.impact?xy(shot.impact):null,limit:(shot.limit||0)*sx,segments:(shot.segments||[]).map(seg=>seg.map(v=>({...xy(v),travel:(v.travel||0)*sx})))}));z.last=packet.last||['',''];for(let i=0;i<2;i++){const target=packet.players?.[i];if(!target||!players[i])continue;for(const [k,v] of Object.entries(target)){if(k==='x'||k==='y')continue;players[i][k]=k==='r'?clamp(W*.024,10,17):k==='vx'?v*sx:k==='vy'?v*sy:v}players[i].x=Number(target.x)*sx;players[i].y=Number(target.y)*sy;}warzoneHUD();updateHUD(true);},
+ end(){this.active=false;this.host=false;this.room='';this.input={dx:0,dy:0,dash:0,time:0};document.body.classList.remove('online-host','online-guest','online-match');$('onlineGameStatus').textContent='Disconnected';if(warzone){state='menu';warzone=null;}clearTransientEffects();$('stage').classList.remove('warzone','cinematic');$('koOverlay').classList.remove('show');cinematic=null;setMode('online');setModal('setup');}
+};
 setupRoster();setMode('watch');bind();showAiDifficulty();autoChooseDevice();syncResponsiveViewport();requestAnimationFrame(loop);setModal('setup');setEditorSide(0);
 })();
+</script>
+<script type="module">
+// MathFight Online Warzone — Firebase Realtime Database room transport.
+// Host owns physics, damage, turns and collisions; guest sends input intents.
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
+import { getAuth, signInAnonymously, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
+import { getDatabase, ref, get, set, onValue, runTransaction, onDisconnect, remove } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js';
+
+const cfg = {
+  apiKey: 'AIzaSyCPLXQAVgXu6ULV7d6TSR0CTJtjGaGlcOQ',
+  authDomain: 'mathfight-online.firebaseapp.com',
+  projectId: 'mathfight-online',
+  databaseURL: 'https://mathfight-online-default-rtdb.firebaseio.com',
+  storageBucket: 'mathfight-online.firebasestorage.app',
+  messagingSenderId: '1053031307732',
+  appId: '1:1053031307732:web:9c9851c7ae9897acb6de41'
+};
+const app=initializeApp(cfg);
+const auth=getAuth(app),db=getDatabase(app),bridge=window.MFOnlineBridge;
+const $=id=>document.getElementById(id);
+const errors=$('onlineError'),status=$('onlineStatus');
+let uid=null,room='',host=false,unsub=[],busy=false,controlTimer=null,lastSent=0,lastShot=0,dashCount=0,snapshotBusy=false,matchId=0;
+let snapshotSeq=0;
+const roomPath=(suffix='')=>`rooms/${room}${suffix?'/'+suffix:''}`;
+function notify(message,bad=false){errors.textContent=message;errors.classList.toggle('bad',bad)}
+function checkError(e){const msg=(e?.code||e?.message||'Unknown problem').toString();if(msg.includes('permission_denied')||msg.includes('PERMISSION_DENIED'))return 'Database permission denied. Publish the mathfight-database.rules.json rules in Firebase Realtime Database → Rules.';if(msg.includes('auth/operation-not-allowed'))return 'Enable Anonymous under Firebase Authentication → Sign-in method.';if(msg.includes('auth/unauthorized-domain'))return 'Add kevinkevinsonbooyah.github.io in Authentication → Settings → Authorized domains.';return msg;}
+function setBusy(value){busy=value;$('onlineCreate').disabled=value;$('onlineJoin').disabled=value}
+function updateLobby(message){status.textContent=message;$('onlineRoomCode').textContent=room||'—';$('onlineRoomStatus').hidden=!room;$('onlineRoomActions').hidden=!!room;$('onlineStart').hidden=!host||!room||!window.MFRoomHasGuest;}
+async function ensureUser(){if(auth.currentUser){uid=auth.currentUser.uid;return uid;}const result=await signInAnonymously(auth);uid=result.user.uid;return uid;}
+function codeGenerator(){const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',bytes=new Uint8Array(8);crypto.getRandomValues(bytes);return [...bytes].map(n=>chars[n%chars.length]).join('');}
+function unsubscribe(){for(const u of unsub)try{u()}catch{}unsub=[];clearInterval(controlTimer);controlTimer=null;}
+function resetUI(){room='';host=false;window.MFRoomHasGuest=false;updateLobby('Create a room or enter a code to join.');$('onlineRoomStatus').hidden=true;$('onlineRoomActions').hidden=false;}
+function listenRoom(){
+  const error=e=>{notify(checkError(e),true);if(bridge.active)$('onlineGameStatus').textContent='CONNECTION ERROR'};
+  unsub.push(onValue(ref(db,roomPath('guestUid')),snap=>{if(host){window.MFRoomHasGuest=!!snap.val();updateLobby(snap.val()?'Friend joined. Waiting for their connection...':'Waiting for your friend to enter the room code...');}},error));
+  unsub.push(onValue(ref(db,roomPath('hostOnline')),snap=>{if(!host&&snap.val()!==true){updateLobby('The host disconnected or closed the room.');$('onlineGameStatus').textContent='HOST DISCONNECTED';if(bridge.active)notify('Host disconnected. Use Matchup to leave and find a new room.',true)}},error));
+  unsub.push(onValue(ref(db,roomPath('guestOnline')),snap=>{if(host){window.MFRoomHasGuest=!!snap.val();if(!bridge.active)updateLobby(snap.val()?'Your friend is connected. You can start the match.':'Waiting for your friend to connect...');if(snap.val()&&bridge.active)$('onlineGameStatus').textContent='CONNECTED';else if(bridge.active)$('onlineGameStatus').textContent='GUEST DISCONNECTED'}},error));
+  unsub.push(onValue(ref(db,roomPath('status')),async snap=>{
+    const value=snap.val();
+    if(!host&&value==='playing'&&!bridge.active){bridge.startOnline(false,room);updateLobby('Connected! You are Player 2.');$('resultRematch').textContent='WAIT FOR HOST';$('resultRematch').disabled=true;}
+    if(value==='closed'&&!host){notify('The room was closed by the host. Return to the lobby to join another.',true);await leave();}
+  },error));
+  if(host){
+    unsub.push(onValue(ref(db,roomPath('inputs/guest')),snap=>{const data=snap.val();if(data)bridge.hostControls(data)},error));
+    unsub.push(onValue(ref(db,roomPath('shots/guest')),snap=>{const data=snap.val();if(!data||!bridge.active)return;if(Number(data.seq)>lastShot){lastShot=Number(data.seq);bridge.hostShotFromGuest(data);}},error));
+    let accumulation=0;
+    bridge.hostTick=dt=>{
+      if(!bridge.active)return;
+      accumulation+=dt;
+      if(accumulation<.16||snapshotBusy)return;
+      accumulation=0;
+      const state=bridge.capture();if(!state)return;
+      state.matchId=matchId;
+      state.seq=++snapshotSeq;
+      snapshotBusy=true;
+      // Keep network snapshots bounded: Firebase refuses undefined fields.
+      const safe=JSON.parse(JSON.stringify(state));
+      set(ref(db,roomPath('state')),safe).catch(error).finally(()=>snapshotBusy=false);
+    };
+  }else{
+    unsub.push(onValue(ref(db,roomPath('state')),snap=>{
+      const snapshot=snap.val();if(!snapshot)return;
+      if(bridge.active){bridge.applySnapshot(snapshot);}
+    },error));
+    bridge.guestFire=async()=>{
+      if(!bridge.active)return;
+      const input=$('warzoneInput');const eq=input.value.trim();if(!eq){$('warzoneError').textContent='Enter an equation first.';return;}
+      // Vars belong to P2 and are validated again on the host.
+      const vars=bridge.getOwnVariables();
+      const action={seq:++lastShot,eq:eq.slice(0,90),vars:vars.slice(0,8).map(v=>({name:String(v.name).slice(0,12),value:String(v.value).slice(0,90)}))};
+      try{await set(ref(db,roomPath('shots/guest')),action);$('warzoneError').textContent='Shot sent! Waiting for the host...';input.value='';}catch(e){notify(checkError(e),true);$('warzoneError').textContent='Could not send your shot.';}
+    };
+    bridge.guestDash=()=>{if(!bridge.active)return;dashCount++;sendControls();};
+    async function sendControls(){if(!bridge.active)return;const move=bridge.guestControls();try{await set(ref(db,roomPath('inputs/guest')),{...move,dash:dashCount,seq:++lastSent});}catch(e){notify(checkError(e),true);}}
+    controlTimer=setInterval(sendControls,110);
+    bridge.guestTick=dt=>{bridge.animateGuest(dt)};
+  }
+}
+async function createRoom(){if(busy||room)return;setBusy(true);notify('Connecting to Firebase...');try{
+  await ensureUser();let code='',created=false;
+  for(let i=0;i<5;i++){code=codeGenerator();const node=ref(db,'rooms/'+code);const tx=await runTransaction(node,current=>current===null?{hostUid:uid,createdAt:Date.now(),hostOnline:true,status:'waiting'}:undefined,{applyLocally:false});if(tx.committed){created=true;break}}
+  if(!created)throw Error('Could not find a free room code. Try again.');
+  room=code;host=true;window.MFRoomHasGuest=false;lastShot=0;dashCount=0;
+  await onDisconnect(ref(db,roomPath('hostOnline'))).set(false);listenRoom();updateLobby('Room created. Send the code to your friend.');notify('Room ready. Waiting for Player 2.');
+ }catch(e){notify(checkError(e),true);}finally{setBusy(false)}
+}
+async function joinRoom(){if(busy||room)return;const code=$('onlineCode').value.toUpperCase().trim().replace(/[^A-Z2-9]/g,'');if(code.length!==8){notify('Enter the 8-character code your friend shared.',true);return}setBusy(true);notify('Joining room...');try{
+ await ensureUser();const node=ref(db,'rooms/'+code),found=await get(node);if(!found.exists())throw Error('Room not found. Check the code.');
+ const details=found.val();if(details.hostUid===uid)throw Error('This browser already owns that room. Open the other player in a separate browser or device.');
+ if(details.guestUid&&details.guestUid!==uid)throw Error('Room is full (2 players).');
+ const join=await runTransaction(ref(db,`rooms/${code}/guestUid`),value=>value===null||value===uid?uid:undefined,{applyLocally:false});if(!join.committed)throw Error('Another player joined first. Room is full.');
+ room=code;host=false;lastShot=0;dashCount=0;await set(ref(db,roomPath('guestOnline')),true);await onDisconnect(ref(db,roomPath('guestOnline'))).set(false);
+ listenRoom();updateLobby('Joined! Waiting for the host to start online Warzone.');notify('Connected as Player 2.');
+ }catch(e){notify(checkError(e),true)}finally{setBusy(false)}
+}
+async function startOnline(){if(!host||!room||!window.MFRoomHasGuest)return;try{matchId++;bridge.startOnline(true,room);$('resultRematch').textContent='REMATCH ↻';$('resultRematch').disabled=false;await set(ref(db,roomPath('state')),{...bridge.capture(),matchId});await set(ref(db,roomPath('status')),'playing');notify('Match started. Good luck!');}catch(e){notify(checkError(e),true)}}
+async function rematch(){if(!bridge.active)return;if(!host){notify('Only the room host can restart the online match.');return;}try{matchId++;bridge.startOnline(true,room);await set(ref(db,roomPath('state')),{...bridge.capture(),matchId});notify('Rematch started!')}catch(e){notify(checkError(e),true)}}
+async function leave(){const code=room,isHost=host;
+ unsubscribe();bridge.hostTick=()=>{};bridge.guestTick=()=>{};bridge.end();resetUI();$('resultRematch').disabled=false;$('resultRematch').textContent='REMATCH ↻';
+ if(!code)return;
+ try{if(isHost){await remove(ref(db,`rooms/${code}`));}else{await set(ref(db,`rooms/${code}/guestOnline`),false);}}catch(e){notify(checkError(e),true)}
+}
+bridge.leave=leave;bridge.rematch=rematch;
+$('onlineCreate').addEventListener('click',createRoom);
+$('onlineJoin').addEventListener('click',joinRoom);
+$('onlineStart').addEventListener('click',startOnline);
+$('onlineLeave').addEventListener('click',leave);
+$('onlineCopy').addEventListener('click',()=>{if(room)navigator.clipboard?.writeText(room).then(()=>notify('Room code copied!')).catch(()=>notify('Select the code and copy it.'))});
+$('onlineCode').addEventListener('keydown',e=>{if(e.key==='Enter')joinRoom()});
+// Explicitly do not claim a connection until the SDK has signed in and database rules permit it.
+notify('Ready to connect. Anonymous Authentication and the room rules must be enabled in Firebase.');
+
 </script>
 </body>
 </html>
