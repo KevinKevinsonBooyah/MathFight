@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#f6f7f4">
 <title>MathFight</title>
 <meta name="apple-mobile-web-app-title" content="MathFight">
-<link rel="icon" type="image/png" href="favicon.png?v=14">
-<link rel="apple-touch-icon" href="favicon.png?v=14">
+<link rel="icon" type="image/png" href="favicon.png?v=15">
+<link rel="apple-touch-icon" href="favicon.png?v=15">
 <style>
 :root{--ink:#232735;--sub:#7e8591;--line:#e1e5e3;--paper:#fff;--bg:#f5f7f5;--green:#23834b;--red:#d8424a;--yellow:#d8a326;--shadow:0 16px 55px rgba(29,48,41,.075)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;user-select:none;-webkit-user-select:none}
@@ -211,6 +211,84 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom));backgro
 .war-var-row button{height:33px;border-radius:7px;background:#fff1f3;color:#a5445a;font-size:18px}
 .war-var-row[aria-disabled="true"]{opacity:.5;pointer-events:none}
 @media(max-width:600px){#localControlHelp .help-controls{grid-template-columns:1fr}.war-var-row input{font-size:16px}.war-var-details{padding:10px}}
+
+/* V15 — viewport-responsive arena and controls (applies after earlier device rules) */
+:root{--mf-viewport-height:100dvh}
+html,body{width:100%;max-width:100%;min-width:0}
+body{padding:clamp(8px,1.2vw,20px) clamp(8px,1.2vw,20px) 24px}
+.shell{width:100%;max-width:1560px}
+.layout{grid-template-columns:minmax(0,1fr) clamp(235px,23vw,310px);gap:clamp(10px,1.5vw,20px)}
+.game-col,.sidebar,.stage,.stage-head,.battle-bottom{min-width:0}
+.stage canvas{width:100%;height:clamp(255px, calc(var(--mf-viewport-height) - 330px), 730px);aspect-ratio:auto;max-width:100%;touch-action:none}
+.topbar{min-width:0}.topactions{min-width:0}.brand{min-width:0}
+.fighter-detail{min-width:0}.fighter-detail strong,.fighter-detail small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:18vw}
+.stage-head,.battle-bottom{width:100%}
+.modal-bg{height:var(--mf-viewport-height);max-height:var(--mf-viewport-height);overflow:hidden}
+.modal{max-height:calc(var(--mf-viewport-height) - 28px);min-width:0}
+#setupPage{min-height:0;max-height:calc(var(--mf-viewport-height) - 28px)}
+.mf-lobby{min-height:0;overflow-x:hidden;overflow-y:auto}
+#resultPage{overflow-y:auto;max-height:calc(var(--mf-viewport-height) - 28px)}
+@media(max-width:980px){
+ .layout{grid-template-columns:minmax(0,1fr)}
+ .sidebar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ .sidebar .panel:last-child{grid-column:1/-1}
+ .stage canvas{height:clamp(240px,calc(var(--mf-viewport-height) - 290px),650px)}
+}
+@media(max-width:780px){
+ .sidebar{display:flex;flex-direction:column}
+ .topbar{gap:6px}.topactions{gap:5px}
+ .stage canvas{height:clamp(215px,calc(var(--mf-viewport-height) - 285px),580px)}
+ .modal{width:100%;max-width:100%}
+}
+/* Mobile class also applies to a narrow desktop browser window. */
+body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom))}
+.device-mobile .shell{max-width:100%;width:100%}
+.device-mobile .layout{display:block}
+.device-mobile .stage canvas{height:clamp(195px,calc(var(--mf-viewport-height) - 315px),600px);aspect-ratio:auto;width:100%;max-height:none}
+.device-mobile .modal-bg{padding:0;align-items:stretch}
+.device-mobile .modal{width:100%;max-width:100%;height:var(--mf-viewport-height);max-height:var(--mf-viewport-height);min-height:0;border-radius:0}
+.device-mobile #setupPage{height:100%;min-height:0;max-height:100%}
+.device-mobile .setup-scroll{flex:1 1 auto;min-height:0;overflow-x:hidden;overflow-y:auto}
+.device-mobile .setup-footer{flex:0 0 auto}
+.device-mobile #resultPage{max-height:100%;overflow-y:auto;overscroll-behavior:contain}
+.device-mobile .fighter-detail strong,.device-mobile .fighter-detail small{max-width:clamp(70px,23vw,190px)}
+.device-mobile .joystick-zone{max-width:44vw}
+.device-mobile .warzone-panel{max-width:100%;min-width:0}
+.device-mobile .warzone-formula{min-width:0}
+.device-mobile .warzone-formula input{width:100%;min-width:0}
+@media(max-width:380px){
+ .device-mobile .brand-sub{display:none}
+ .device-mobile .topbar{padding-inline:6px}
+ .device-mobile .brand-name{font-size:14px}
+ .device-mobile .topactions{gap:3px}
+ .device-mobile .fighter-big{width:32px;height:32px;font-size:10px}
+ .device-mobile .fighter-detail small{display:none}
+ .device-mobile .vs{font-size:14px}
+ .device-mobile .stage canvas{height:clamp(190px,calc(var(--mf-viewport-height) - 290px),560px)}
+ .device-mobile .controls{padding-inline:7px;gap:5px}
+}
+@media(max-height:590px) and (min-width:781px){
+ .stage canvas{height:clamp(190px,calc(var(--mf-viewport-height) - 260px),420px)}
+ .stage-head{padding-block:8px}
+ .battle-bottom{padding-block:9px}
+ .controls{margin-top:8px}
+ .modal-bg{padding:7px}
+ .modal,#setupPage{max-height:calc(var(--mf-viewport-height) - 14px)}
+ .mf-lobby{padding-top:12px;padding-bottom:8px}
+}
+@media(max-height:570px) and (orientation:landscape){
+ .device-mobile .stage canvas{height:clamp(148px,calc(var(--mf-viewport-height) - 175px),340px);aspect-ratio:auto}
+ .device-mobile .stage-head{padding-block:4px}
+ .device-mobile .topbar{padding-block:4px}
+ .device-mobile .controls{padding-top:5px;padding-bottom:calc(5px + env(safe-area-inset-bottom));gap:6px}
+ .device-mobile .controls .action,.device-mobile .controls.versus .action:nth-child(n){min-height:44px;padding:4px 8px}
+ .device-mobile .controls .action b{font-size:11px}
+ .device-mobile .controls .action small{font-size:9px}
+ .device-mobile .battle-bottom{padding-block:7px}
+ .device-mobile .readout-row{display:none}
+ .device-mobile .joystick-zone{transform:scale(.7);transform-origin:bottom left}
+ .device-mobile .joystick-p2{transform-origin:bottom right}
+}
 </style>
 </head>
 <body>
@@ -263,7 +341,7 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom));backgro
 <div class="modal-bg" id="modalBg"><div class="modal" id="modal">
  <div id="setupPage">
   <div class="setup-scroll mf-lobby">
-    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V14 · FUNCTIONAL COMBAT</span></div><h1>Choose your battle.</h1><p>Pick a mode, customize the fighters, then launch. Every graph is a weapon.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
+    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V15 · RESPONSIVE ARENA</span></div><h1>Choose your battle.</h1><p>Pick a mode, customize the fighters, then launch. Every graph is a weapon.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
     <div class="lobby-section-label"><span>01</span> GAME MODE</div>
     <div class="mode-switch lobby-modes" role="group" aria-label="Battle mode">
       <button id="modeWatch" class="active"><span class="mode-emoji">🤖</span><strong>CPU BATTLE</strong><small>Watch two smart AIs fight</small></button>
@@ -773,14 +851,63 @@ function setMode(next){mode=next;watch=mode==='watch';local=mode==='local';$('mo
  ['✥','Move around','W A S D'],['∿','Graph attack','SPACE'],['➜','Dash away','L SHIFT']];
  setLabels();updateStats();updateHUD(true)
 }
-function setModal(page){if(page==='setup'&&state==='over')clearTransientEffects();$('modalBg').classList.remove('hidden');$('setupPage').style.display=page==='setup'?'block':'none';$('resultPage').style.display=page==='result'?'block':'none';$('setupClose').style.display=state==='playing'||state==='paused'?'grid':'none'}
+function setModal(page){if(page==='setup'&&state==='over')clearTransientEffects();$('modalBg').classList.remove('hidden');$('setupPage').style.display=page==='setup'?'flex':'none';$('resultPage').style.display=page==='result'?'block':'none';$('setupClose').style.display=state==='playing'||state==='paused'?'grid':'none'}
 function closeModal(){if(state==='playing'||state==='paused')$('modalBg').classList.add('hidden')}
 function setLabels(){let a=F[selection[0]],b=F[selection[1]];
  setText('leftFormula',a.short);setText('rightFormula',b.short);setText('leftHealthLabel',a.short);setText('rightHealthLabel',b.short);
  setText('leftName',watch?'CPU ALPHA':local?'PLAYER 1':'YOU');setText('rightName',watch?'CPU OMEGA':local?'PLAYER 2':'CPU');
  setText('spellInfo','[ y = '+a.eq+' ]');setText('enemyInfo','[ y = '+b.eq+' ]');setText('formulaEq','y = '+a.eq);setText('formulaDesc',a.desc);setText('funcType',a.type);setText('functionHint','Graph attacks fade smoothly after firing. Power-up orbs provide shields, healing, rapid fire, double damage or the five-shot Gun.')
 }
-function resize(){const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return;let oldW=W,oldH=H;W=rect.width;H=rect.height;unit=clamp(W/11.8,30,64);let dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);if(players.length){let sx=W/oldW,sy=H/oldH;for(let p of players){p.x*=sx;p.y*=sy;p.r=clamp(W*.031,15,23);p.x=clamp(p.x,p.r,W-p.r);p.y=clamp(p.y,p.r,H-p.r)}for(let a of graphs){a.x0*=sx;a.base*=sy;a.aimX*=sx;a.aimY*=sy;a.scaleY*=1}for(let p of pickups){p.x*=sx;p.y*=sy}if(warzone){for(let o of warzone.obstacles){o.x*=sx;o.y*=sy;o.w*=sx;o.h*=sy;o.r*=Math.min(sx,sy)}for(let f of warzone.flag){f.x*=sx;f.y*=sy}}}}
+function resize(){
+ const rect=canvas.getBoundingClientRect();
+ if(!rect.width||!rect.height)return;
+ const newW=rect.width,newH=rect.height,dpr=Math.min(window.devicePixelRatio||1,2);
+ const pixelW=Math.round(newW*dpr),pixelH=Math.round(newH*dpr);
+ // Canvas attribute writes reset its context. Skip them when only another widget was resized.
+ if(Math.abs(newW-W)<.3&&Math.abs(newH-H)<.3&&canvas.width===pixelW&&canvas.height===pixelH)return;
+ const oldW=W,oldH=H,sx=oldW?newW/oldW:1,sy=oldH?newH/oldH:1,smin=Math.min(sx,sy);
+ W=newW;H=newH;unit=clamp(W/11.8,20,64);
+ canvas.width=pixelW;canvas.height=pixelH;ctx.setTransform(dpr,0,0,dpr,0,0);
+ const move=o=>{if(!o)return;if(Number.isFinite(o.x))o.x*=sx;if(Number.isFinite(o.y))o.y*=sy};
+ const scaleLine=o=>{if(!o)return;for(const k of ['sx','ex'])if(Number.isFinite(o[k]))o[k]*=sx;for(const k of ['sy','ey'])if(Number.isFinite(o[k]))o[k]*=sy};
+ for(const p of players){move(p);p.r=warzone?clamp(W*.024,10,17):clamp(W*.031,15,23);p.x=clamp(p.x,p.r,W-p.r);p.y=clamp(p.y,p.r,H-p.r);p.vx*=sx;p.vy*=sy;for(const t of p.trails||[])move(t)}
+ for(const g of graphs){g.x0*=sx;g.base*=sy;g.aimX*=sx;g.aimY*=sy;g.velocity*=sx;g.scaleY*=sy*(oldW/newW)}
+ for(const q of pickups){move(q);q.r*=smin}
+ for(const item of [...particles,...texts,...shockwaves,...finishShards]){move(item);if(Number.isFinite(item.r))item.r*=smin;if(Number.isFinite(item.vx))item.vx*=sx;if(Number.isFinite(item.vy))item.vy*=sy}
+ for(const ray of rays)scaleLine(ray);
+ if(warzone){
+  for(const o of warzone.obstacles){move(o);o.w*=sx;o.h*=sy;o.r*=smin}
+  for(const flag of warzone.flag)move(flag);
+  for(const item of warzone.items||[])move(item);
+  for(const shot of warzone.shots||[]){
+   move(shot.origin);move(shot.impact);shot.limit*=sx;
+   for(const segment of shot.segments||[])for(const point of segment){move(point);point.travel*=sx}
+  }
+ }
+ if(cinematic){move(cinematic);for(const g of cinematic.graphs||[]){g.x0*=sx;g.base*=sy;g.aimX*=sx;g.aimY*=sy;g.velocity*=sx;g.scaleY*=sy*(oldW/newW)}
+  for(const shot of cinematic.warShots||[]){move(shot.origin);move(shot.impact);shot.limit*=sx;for(const seg of shot.segments||[])for(const point of seg){move(point);point.travel*=sx}}}
+ for(const pointerState of Object.values(pointer)){if(pointerState.down)move(pointerState)}
+}
+// Respond to browser resize, mobile rotation, split screen and dynamic browser bars.
+let viewportResizePending=false;
+function syncResponsiveViewport(){
+ const height=window.visualViewport?.height||window.innerHeight;
+ document.documentElement.style.setProperty('--mf-viewport-height',`${Math.round(height)}px`);
+ const mobile=(window.matchMedia?.('(pointer: coarse)').matches||navigator.maxTouchPoints>1||window.innerWidth<=780);
+ const next=mobile?'mobile':'pc';
+ if(chosenDevice!==next){
+  chosenDevice=next;
+  document.body.classList.toggle('device-mobile',mobile);
+  document.body.classList.toggle('device-pc',!mobile);
+  $('deviceToggle').textContent=mobile?'📱 MOBILE':'💻 PC';
+  $('deviceOverlay').hidden=true;
+ }
+ resize();
+}
+function scheduleResponsiveViewport(){
+ if(viewportResizePending)return;viewportResizePending=true;
+ requestAnimationFrame(()=>{viewportResizePending=false;syncResponsiveViewport()});
+}
 function makeBall(team,formula,auto){return {team,formula,auto,x:W*(team?0.78:0.22),y:H*(team?.40:.60),r:clamp(W*.031,15,23),vx:team?-45:45,vy:team?56:-51,hp:80,cd:1.6+team*.65,dashCd:0,dashTime:0,dirX:team?-1:1,dirY:0,power:0,shield:0,rapid:0,inv:0,aiChange:0,aiDX:0,aiDY:0,score:0,trails:[],bumpCd:0}}
 function start(force=false){
  if(mode==='warzone'){startWarzone();return;}
@@ -1290,9 +1417,9 @@ function bind(){
  canvas.addEventListener('pointerdown',e=>{if(watch||state!=='playing'||warzone&&warzone.phase!=='move')return;e.preventDefault();let rect=canvas.getBoundingClientRect(),team=local&&e.clientX>rect.left+rect.width/2?1:0,p=pointer[team];if(p.down)return;p.down=true;p.id=e.pointerId;movePointer(e,p);try{canvas.setPointerCapture(e.pointerId)}catch(ex){}unlockAudio()});
  canvas.addEventListener('pointermove',e=>{for(let p of [pointer[0],pointer[1]])if(p.down&&p.id===e.pointerId)movePointer(e,p)});
  for(let ev of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(ev,e=>{for(let p of [pointer[0],pointer[1]])if(p.id===e.pointerId){p.down=false;p.id=null}});
- window.addEventListener('resize',resize);if(window.ResizeObserver)new ResizeObserver(resize).observe(canvas);document.addEventListener('contextmenu',e=>{if(e.target===canvas)e.preventDefault()});
+ window.addEventListener('resize',scheduleResponsiveViewport);window.addEventListener('orientationchange',scheduleResponsiveViewport);window.visualViewport?.addEventListener('resize',scheduleResponsiveViewport);if(window.ResizeObserver)new ResizeObserver(scheduleResponsiveViewport).observe($('stage'));document.addEventListener('contextmenu',e=>{if(e.target===canvas)e.preventDefault()});
 }
-setupRoster();setMode('watch');bind();autoChooseDevice();resize();requestAnimationFrame(loop);setModal('setup');setEditorSide(0);
+setupRoster();setMode('watch');bind();autoChooseDevice();syncResponsiveViewport();requestAnimationFrame(loop);setModal('setup');setEditorSide(0);
 })();
 </script>
 </body>
