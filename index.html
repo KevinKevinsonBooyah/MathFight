@@ -449,6 +449,30 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
 .coord-bubble.show{opacity:.94;transform:translate(-50%,-115%) scale(1)}.coord-pip{display:inline-block;width:5px;height:5px;margin-right:4px;vertical-align:middle;background:#63e6a6;border-radius:50%}
 @media(max-width:730px){.mode-switch.lobby-modes .mode-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.mode-switch.lobby-modes .mode-group-online .mode-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.mode-switch.lobby-modes .mode-grid button{min-height:64px}.mf-lobby{padding:12px}.health-track{height:10px}.coord-bubble{font-size:9px}}
 
+
+/* V23 • switchable mode categories, a real speech balloon, interactive Graph Lab */
+.lobby-category-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;background:#edf2ef;border:1px solid #e2eae5;border-radius:13px;padding:5px;margin:12px 0 5px}
+.lobby-category-tabs button{height:41px;display:flex;gap:6px;align-items:center;justify-content:center;background:transparent;border-radius:9px;color:#63796f;font-size:13px;font-weight:850;transition:background .16s,color .16s,box-shadow .16s}
+.lobby-category-tabs button.active{background:white;color:#217848;box-shadow:0 2px 9px #123a2317}
+.lobby-category-tabs button:hover:not(.active){background:#ffffff9a}
+.mode-group[hidden]{display:none!important}.mode-switch.lobby-modes{margin:0}.mode-group{padding:10px 11px}.mode-group-head{display:none}
+.mode-switch.lobby-modes .mode-grid button{min-height:77px}
+.online-panel{margin-top:12px}.online-panel-head strong{font-size:12px}.online-room-actions input{font-size:15px}
+.graph-lab[hidden]{display:none!important}.graph-lab{padding:3px 0 5px}.graph-lab-open .lobby-modes,.graph-lab-open #modeSectionLabel,.graph-lab-open #onlinePanel,.graph-lab-open #aiDifficultyBox,.graph-lab-open #modeDescription,.graph-lab-open #localControlHelp,.graph-lab-open #fighterSectionLabel,.graph-lab-open #warzoneLockNotice,.graph-lab-open #mobilePlayerTabs,.graph-lab-open #lobbyFighters,.graph-lab-open #warzoneSetup,.graph-lab-open .lobby-footer{display:none!important}
+.lab-head{display:flex;align-items:center;justify-content:space-between;gap:9px;margin:10px 0 11px}.lab-head h2{font-size:23px;letter-spacing:-.9px;margin:3px 0 4px;color:#264637}.lab-head h2 span{color:#309d68}.lab-head p{font-size:11px;color:#76877d;margin:0;line-height:1.4}.lab-eyebrow{font-size:9px;letter-spacing:1.2px;font-weight:950;color:#319d67}
+.lab-zoom{display:flex;background:#edf4ef;border-radius:9px;padding:3px;gap:3px;flex:none}.lab-zoom button{min-width:29px;height:28px;border-radius:7px;background:white;color:#387353;font-size:14px;font-weight:900}.lab-zoom button:nth-child(2){font-size:10px}
+.lab-graph{position:relative;border:1px solid #d1e3d8;border-radius:13px;background:white;overflow:hidden;box-shadow:inset 0 2px 11px #1e5a3010}.lab-graph canvas{display:block;width:100%;height:clamp(200px,34vh,315px);cursor:crosshair;touch-action:pan-y}.lab-graph-tip{position:absolute;left:12px;top:9px;border:1px solid #dae9df;border-radius:7px;background:#ffffffdc;padding:5px 8px;color:#386a51;font:700 10px ui-monospace,monospace;pointer-events:none;max-width:calc(100% - 20px)}
+.lab-workspace{margin-top:11px;border:1px solid #e0ebe4;background:#f8fbf9;padding:11px;border-radius:11px}.lab-equation{font-size:10px;color:#48765d;font-weight:900;letter-spacing:.8px}.lab-equation>span{display:flex;align-items:center;gap:9px;margin-top:6px;font:italic bold 18px Georgia,serif}.lab-equation>span input{width:100%;flex:1;min-width:0;padding:10px 11px;background:white;border:1px solid #cddfd2;border-radius:9px;color:#264736;font:600 14px ui-monospace,Consolas,monospace;user-select:text;-webkit-user-select:text}
+.lab-variable-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:11px}.lab-variable-grid label{min-width:0;display:block;font-size:10px;font-weight:800;color:#667f70}.lab-variable-grid label>span{display:flex;justify-content:space-between;gap:5px}.lab-variable-grid output{font:800 11px ui-monospace,monospace;color:#258650}.lab-variable-grid input{width:100%;margin-top:8px}
+.lab-feedback{margin:8px 0 0;color:#32865c;font-size:10px}.lab-feedback.error{color:#c44d60}
+.lab-presets{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.lab-presets button{border:1px solid #dce9e0;background:#fff;border-radius:8px;padding:7px 10px;color:#527263;font-size:11px;font-weight:750;transition:transform .15s,background .15s}.lab-presets button:hover{background:#e7f6ed;transform:translateY(-1px)}
+.lab-actions{display:grid;grid-template-columns:1.2fr 1fr 1.3fr;gap:7px}.lab-actions button{padding:11px 8px;border:1px solid #d4e2d8;background:#fff;border-radius:9px;color:#3d6e52;font-size:11px;font-weight:900}.lab-actions .lab-test{background:#27945e;color:white;border-color:#27945e}.lab-actions #labUse{background:#253c31;color:white;border-color:#253c31}
+.coord-bubble{background:#23372eff!important;border:1px solid #568273!important;border-radius:13px!important;padding:8px 11px!important;box-shadow:0 6px 17px #10291c45!important;font-size:10px!important;transform:translate(-50%,-129%) scale(.82)!important;transition:opacity .2s,transform .24s cubic-bezier(.2,1.4,.3,1)!important;display:flex;align-items:center;gap:6px}
+.coord-bubble.show{transform:translate(-50%,-129%) scale(1)!important}.coord-bubble:after{content:'';position:absolute;top:calc(100% - 1px);left:50%;width:11px;height:11px;transform:translate(-50%,-50%) rotate(45deg);background:#23372e;border-right:1px solid #568273;border-bottom:1px solid #568273;z-index:-1}
+.coord-copy-hint{color:#a4e8c2;font:800 8px system-ui,sans-serif;border-left:1px solid #ffffff39;padding-left:6px}.coord-bubble.copied .coord-copy-hint{color:#7bffb9}
+@media(max-width:730px){.lobby-category-tabs button{height:40px;font-size:12px}.mode-switch.lobby-modes .mode-grid button{min-height:71px}.lab-head h2{font-size:21px}.lab-head p{font-size:10px}.lab-variable-grid{gap:6px}.lab-graph canvas{height:225px}.lab-actions button{font-size:10px}.coord-bubble{font-size:9px!important}}
+@media(max-width:390px){.lab-actions{grid-template-columns:1fr 1fr}.lab-actions #labUse{grid-column:1/-1}.lab-zoom button{min-width:24px}.lab-head p{max-width:210px}}
+
 </style>
 </head>
 <body>
@@ -464,7 +488,7 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
    <div class="vs">VS</div>
    <div class="fighter-title team-red right"><div class="fighter-big" id="rightFormula">e<sup>x</sup></div><div class="fighter-detail"><strong id="rightName">CPU</strong><small id="rightStatus">READY TO FIGHT</small></div></div>
   </div></div>
-  <div class="stage" id="stage"><div class="coord-bubble" id="coordBubble" aria-hidden="true"><span class="coord-pip"></span><span id="coordBubbleText">(0, 0)</span></div><canvas id="arena" aria-label="Mathematical battle arena. Use WASD or the touch joystick to move, Space or Attack to fire."></canvas>
+  <div class="stage" id="stage"><div class="coord-bubble" id="coordBubble" aria-hidden="true"><span class="coord-pip"></span><span id="coordBubbleText">(0, 0)</span><span class="coord-copy-hint">C · copy</span></div><canvas id="arena" aria-label="Mathematical battle arena. Use WASD or the touch joystick to move, Space or Attack to fire."></canvas>
     <div class="ko-overlay" id="koOverlay" aria-hidden="true">K.O.!</div>
     <div class="joystick-zone" id="joystick0" aria-label="Player 1 move joystick"><div class="joystick-base"><div class="joystick-knob"></div></div><span class="joystick-label">MOVE</span></div>
     <div class="joystick-zone joystick-p2" id="joystick1" aria-label="Player 2 move joystick"><div class="joystick-base"><div class="joystick-knob"></div></div><span class="joystick-label">P2 MOVE</span></div><div class="stage-overlay" id="pauseOverlay"><strong>PAUSED</strong><small>Take your time. Math can wait.</small><button id="resumeBtn">RESUME BATTLE</button></div></div>
@@ -502,9 +526,14 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
 <div class="modal-bg" id="modalBg"><div class="modal" id="modal">
  <div id="setupPage">
   <div class="setup-scroll mf-lobby">
-    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V22 · IMPACT</span></div><h1>Choose your battle.</h1><p>Select a mode and fight.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
+    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V23 · GRAPH LAB</span></div><h1>Choose your battle.</h1><p>Select a mode and fight.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
     <div class="disconnect-notice" id="disconnectNotice" hidden role="alert"><div class="disconnect-icon">↪</div><div class="disconnect-copy"><strong>Match ended</strong><span id="disconnectMessage">The other player left the match.</span></div><button type="button" id="disconnectDismiss" aria-label="Dismiss disconnect notice">×</button></div>
-    <div class="lobby-section-label">CHOOSE A MODE</div>
+    <div class="lobby-category-tabs" id="modeCategoryTabs" role="tablist" aria-label="Game categories">
+  <button type="button" class="active" id="categoryLocal" role="tab" aria-selected="true" aria-controls="categoryModes">⌂ <span>Local</span></button>
+  <button type="button" id="categoryOnline" role="tab" aria-selected="false" aria-controls="categoryModes">◎ <span>Online</span></button>
+  <button type="button" id="categoryLab" role="tab" aria-selected="false" aria-controls="graphLab">∿ <span>Graph Lab</span></button>
+ </div>
+ <div class="lobby-section-label" id="modeSectionLabel">LOCAL BATTLES</div>
     <div class="mode-switch lobby-modes" role="group" aria-label="Battle mode"><div class="mode-group mode-group-local"><div class="mode-group-head">⌂ &nbsp; LOCAL <small>On this device</small></div><div class="mode-grid">
       <button id="modeWatch" class="active"><span class="mode-emoji">🤖</span><strong>CPU BATTLE</strong><small>Two CPUs</small></button>
       <button id="modePlay"><span class="mode-emoji">🎮</span><strong>SOLO</strong><small>You vs CPU</small></button>
@@ -514,7 +543,20 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
       <button id="modeOnline" type="button"><span class="mode-emoji">🌐</span><strong>ONLINE WARZONE</strong><small>Online · tactical turns</small></button>
        <button id="modeOnlineClassic" type="button"><span class="mode-emoji">⚡</span><strong>ONLINE CLASSIC</strong><small>Online · live battle</small></button>
      </div></div></div>
-    <section class="online-panel" id="onlinePanel" hidden aria-label="Online multiplayer lobby">
+     <section class="graph-lab" id="graphLab" hidden aria-label="Interactive Graph Lab">
+       <div class="lab-head"><div><span class="lab-eyebrow">SANDBOX · NO DAMAGE</span><h2>Graph Lab <span>∿</span></h2><p>Make a curve, change its variables, and see exactly what happens.</p></div><div class="lab-zoom"><button type="button" id="labZoomOut" title="Zoom out" aria-label="Zoom out">−</button><button type="button" id="labZoomReset" title="Reset graph zoom">1×</button><button type="button" id="labZoomIn" title="Zoom in" aria-label="Zoom in">+</button></div></div>
+       <div class="lab-graph"><canvas id="labCanvas" aria-label="Interactive function plot" width="920" height="460"></canvas><div class="lab-graph-tip" id="labPoint">Point: move your cursor over the graph</div></div>
+       <div class="lab-workspace"><label class="lab-equation">YOUR FUNCTION <span><i>y</i> = <input id="labEquation" spellcheck="false" autocomplete="off" maxlength="90" value="a*sin(b*x)+c" aria-label="Graph Lab equation"></span></label>
+       <div class="lab-variable-grid">
+        <label><span>a · height <output id="labValueA">2</output></span><input id="labParamA" type="range" min="-5" max="5" step="0.25" value="2"></label>
+        <label><span>b · frequency <output id="labValueB">2</output></span><input id="labParamB" type="range" min="-5" max="5" step="0.25" value="2"></label>
+        <label><span>c · offset <output id="labValueC">0</output></span><input id="labParamC" type="range" min="-5" max="5" step="0.25" value="0"></label>
+       </div><p id="labFeedback" class="lab-feedback">Ready. Try the sliders!</p></div>
+       <div class="lab-presets" id="labPresets" aria-label="Graph presets">
+        <button type="button" data-formula="a*sin(b*x)+c">Wave</button><button type="button" data-formula="a*x^2+c">Parabola</button><button type="button" data-formula="a*tan(b*x)+c">Spikes</button><button type="button" data-formula="a*abs(x)+c">V-shape</button><button type="button" data-formula="a*cos(b*x)+c">Cosine</button><button type="button" data-formula="a*x+c">Line</button>
+       </div><div class="lab-actions"><button type="button" id="labTest" class="lab-test">✦ Test attack</button><button type="button" id="labCopy">Copy equation</button><button type="button" id="labUse">Use in Solo ↗</button></div>
+     </section>
+     <section class="online-panel" id="onlinePanel" hidden aria-label="Online multiplayer lobby">
       <div class="online-panel-head"><strong><span class="online-status-dot"></span> PRIVATE MULTIPLAYER</strong><small id="onlineModeCaption">Warzone · Private two-player room</small></div>
       <p>Create a room, share its code, and battle from separate devices.</p>
       <div class="online-room-actions" id="onlineRoomActions">
@@ -1009,6 +1051,103 @@ function drawRoster(){for(let side=0;side<2;side++){
  [...root.children].forEach((b,i)=>{let fid=getRosterFunction(rosterIds[i],side);b.className='roster-btn'+(fid===selection[side]?(side?' rival-selected':' selected'):'')+(rosterIds[i]==='custom'&&fid===selection[side]?' custom-selected':'')});
  $('customEditor'+side).hidden=selection[side]!=='custom'+side;
 }}
+
+let activeBattleCategory='local';
+function showBattleCategory(category){
+  const isLab=category==='lab',isOnline=category==='online';
+  activeBattleCategory=category;
+  document.body.classList.toggle('graph-lab-open',isLab);
+  const lab=$('graphLab');lab.hidden=!isLab;
+  for(const key of ['local','online','lab']){
+    const tab=$('category'+key[0].toUpperCase()+key.slice(1));tab.classList.toggle('active',category===key);
+    tab.setAttribute('aria-selected',String(category===key));
+  }
+  $('modeSectionLabel').textContent=isOnline?'ONLINE BATTLES':isLab?'GRAPH LAB':'LOCAL BATTLES';
+  document.querySelector('.mode-group-local').hidden=isOnline;
+  document.querySelector('.mode-group-online').hidden=!isOnline;
+  if(isLab){$('onlinePanel').hidden=true;requestAnimationFrame(()=>{drawLab();});}
+  else if(isOnline){if(!window.MFSelectedLobbyMode)setMode('onlineClassic');else $('onlinePanel').hidden=false;}
+  else if(window.MFSelectedLobbyMode)setMode('watch');
+  if(!isLab)drawRoster();
+}
+const labState={zoom:8,formula:'a*sin(b*x)+c',fn:null,sweep:-1,probe:0,valid:false,frame:0};
+function labVariables(){return {a:Number($('labParamA').value),b:Number($('labParamB').value),c:Number($('labParamC').value)}}
+function evaluateLab(){
+  labState.formula=$('labEquation').value.trim();
+  for(const letter of ['A','B','C'])$('labValue'+letter).textContent=Number($('labParam'+letter).value).toString();
+  try{const parsed=parseMathExpression(labState.formula,labVariables());labState.fn=parsed.fn;labState.valid=true;
+    $('labFeedback').textContent='✓ Valid graph · adjust sliders or choose a preset.';$('labFeedback').classList.remove('error');}
+  catch(e){labState.fn=null;labState.valid=false;$('labFeedback').textContent=e.message;$('labFeedback').classList.add('error');}
+  drawLab();
+}
+function drawLab(){
+  const canvas=$('labCanvas');if(!canvas||!canvas.isConnected)return;
+  const width=canvas.clientWidth||750,height=canvas.clientHeight||310;if(width<2||height<2)return;
+  const dpr=Math.min(window.devicePixelRatio||1,2),pw=Math.round(width*dpr),ph=Math.round(height*dpr);
+  if(canvas.width!==pw||canvas.height!==ph){canvas.width=pw;canvas.height=ph;}
+  const c=canvas.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);
+  c.fillStyle='#fcfefd';c.fillRect(0,0,width,height);
+  const midX=width/2,midY=height/2,px=width/(2*labState.zoom),py=px;
+  const fromX=x=>midX+x*px,fromY=y=>midY-y*py;
+  const gridStep=labState.zoom<=5?1:labState.zoom<=10?2:4;
+  c.lineWidth=.8;c.strokeStyle='#e6ede9';c.beginPath();
+  for(let x=-Math.ceil(labState.zoom);x<=Math.ceil(labState.zoom);x+=gridStep){let xx=fromX(x);if(xx>=0&&xx<=width){c.moveTo(xx,0);c.lineTo(xx,height);}}
+  const yMax=height/(2*py);
+  for(let y=-Math.ceil(yMax);y<=Math.ceil(yMax);y+=gridStep){let yy=fromY(y);if(yy>=0&&yy<=height){c.moveTo(0,yy);c.lineTo(width,yy);}}c.stroke();
+  c.strokeStyle='#9bb4a7';c.lineWidth=1.35;c.beginPath();c.moveTo(midX,0);c.lineTo(midX,height);c.moveTo(0,midY);c.lineTo(width,midY);c.stroke();
+  c.fillStyle='#9caea5';c.font='10px ui-monospace,monospace';c.textAlign='center';
+  for(let x=-Math.ceil(labState.zoom);x<=Math.ceil(labState.zoom);x+=gridStep){if(!x)continue;let xx=fromX(x);if(xx>14&&xx<width-14)c.fillText(String(x),xx,midY+13);}
+  c.textAlign='right';for(let y=-Math.ceil(yMax);y<=Math.ceil(yMax);y+=gridStep){if(!y)continue;let yy=fromY(y);if(yy>11&&yy<height-10)c.fillText(String(y),midX-6,yy+3);}
+  if(labState.valid){
+    c.save();c.beginPath();c.rect(0,0,width,height);c.clip();
+    c.beginPath();let previous=null;
+    for(let i=0;i<=width;i+=1.5){const x=(i-midX)/px;let y;try{y=labState.fn(x)}catch(e){y=NaN}
+      const sy=fromY(y),good=Number.isFinite(sy)&&Math.abs(sy)<height*10;
+      if(!good){previous=null;continue}
+      if(!previous||Math.abs(sy-previous.sy)>height*.65)c.moveTo(i,sy);else c.lineTo(i,sy);
+      previous={sy};
+    }
+    c.strokeStyle='#36bd7c';c.lineWidth=7;c.globalAlpha=.11;c.shadowBlur=12;c.shadowColor='#3aba80';c.stroke();
+    c.strokeStyle='#208e5c';c.globalAlpha=1;c.lineWidth=2.8;c.shadowBlur=0;c.stroke();
+    c.restore();
+    let x=labState.probe,y;try{y=labState.fn(x)}catch(e){y=NaN}
+    const ix=fromX(x),iy=fromY(y);
+    if(Number.isFinite(iy)&&iy>=0&&iy<=height){c.setLineDash([3,4]);c.strokeStyle='#72b898';c.beginPath();c.moveTo(ix,0);c.lineTo(ix,height);c.moveTo(0,iy);c.lineTo(width,iy);c.stroke();c.setLineDash([]);c.beginPath();c.arc(ix,iy,5,0,Math.PI*2);c.fillStyle='#fff';c.fill();c.lineWidth=2.6;c.strokeStyle='#208e5c';c.stroke();}
+    const fmt=v=>Number.isFinite(v)?Number(v.toPrecision(7)).toString():'undefined';
+    $('labPoint').textContent='x = '+fmt(x)+'   ·   f(x) = '+fmt(y);
+  }else $('labPoint').textContent='Enter a valid equation to graph it.';
+  if(labState.sweep>=0){
+    const sweepX=labState.sweep*width;
+    const glow=c.createLinearGradient(sweepX-50,0,sweepX+12,0);glow.addColorStop(0,'#26c57d00');glow.addColorStop(.84,'#26c57d26');glow.addColorStop(1,'#26c57d00');c.fillStyle=glow;c.fillRect(sweepX-50,0,64,height);
+    c.strokeStyle='#31cf87';c.globalAlpha=.8;c.lineWidth=1.8;c.beginPath();c.moveTo(sweepX,0);c.lineTo(sweepX,height);c.stroke();c.globalAlpha=1;
+  }
+}
+function startLabSweep(){if(!labState.valid)return;playSound('warfire');const start=performance.now();cancelAnimationFrame(labState.frame);
+  const tick=now=>{if(document.body.classList.contains('graph-lab-open')){labState.sweep=Math.min(1,(now-start)/930);drawLab();if(labState.sweep<1)labState.frame=requestAnimationFrame(tick);else{labState.sweep=-1;drawLab();playSound('ready');}}else labState.sweep=-1;};
+  labState.frame=requestAnimationFrame(tick);
+}
+function setupGraphLab(){
+  for(const category of ['Local','Online','Lab'])$('category'+category).onclick=()=>{if(document.body.classList.contains('online-room-host')||document.body.classList.contains('online-room-guest')){playSound('warning');return;}showBattleCategory(category.toLowerCase());playSound('click')};
+  $('labEquation').addEventListener('input',evaluateLab);
+  for(const v of ['A','B','C'])$('labParam'+v).addEventListener('input',evaluateLab);
+  for(const btn of $('labPresets').querySelectorAll('[data-formula]'))btn.addEventListener('click',()=>{$('labEquation').value=btn.dataset.formula;evaluateLab();playSound('click')});
+  $('labZoomIn').onclick=()=>{labState.zoom=Math.max(3,labState.zoom/1.5);drawLab();playSound('click')};
+  $('labZoomOut').onclick=()=>{labState.zoom=Math.min(20,labState.zoom*1.5);drawLab();playSound('click')};
+  $('labZoomReset').onclick=()=>{labState.zoom=8;drawLab();playSound('click')};
+  $('labTest').onclick=startLabSweep;
+  $('labCopy').onclick=async()=>{try{await navigator.clipboard.writeText($('labEquation').value);$('labFeedback').textContent='Equation copied!';playSound('pickup')}catch(e){$('labFeedback').textContent='Copy unavailable in this browser.'}};
+  $('labUse').onclick=()=>{
+    if(!labState.valid)return;
+    customVariables[0]=Object.entries(labVariables()).map(([name,value])=>({name,value:String(value)}));
+    $('customInput0').value=$('labEquation').value;
+    renderVariables(0);recomputeCustom(0);showBattleCategory('local');setMode('cpu');drawRoster();
+    $('lobbyFighters').scrollIntoView({block:'nearest',behavior:'smooth'});
+    playSound('ready');
+  };
+  $('labCanvas').addEventListener('pointermove',e=>{const rect=$('labCanvas').getBoundingClientRect();const x=(e.clientX-rect.left-rect.width/2)/(rect.width/(2*labState.zoom));labState.probe=x;drawLab();});
+  new ResizeObserver(()=>{if(!document.body.classList.contains('graph-lab-open'))return;drawLab()}).observe($('labCanvas'));
+  evaluateLab();showBattleCategory('local');
+}
 function setMode(next){
  if(next==='online'||next==='onlineClassic'){
    onlineGame=next==='onlineClassic'?'classic':'warzone';
@@ -1205,7 +1344,7 @@ function endMatch(winner,reason='knockout'){if(state!=='playing')return;state='f
  particles=[];texts=[];shockwaves=[];const p=players[winner],loser=players[1-winner];particlesAt(loser.x,loser.y,COLORS[loser.team],85,3.1);burstRing(loser.x,loser.y,COLORS[loser.team],42,1.5);burstRing(loser.x,loser.y,'#f7c865',15,1.15);shake=14;cinematic={winner,x:loser.x,y:loser.y,elapsed:0,duration:2.55,graphs:finalGraphs,warShots:finalWarShots};finishShards=Array.from({length:38},(_,i)=>{let angle=Math.PI*2*i/38+rng(-.13,.13),sp=rng(110,410);return{x:loser.x,y:loser.y,vx:Math.cos(angle)*sp,vy:Math.sin(angle)*sp,spin:rng(-11,11),rotation:rng(0,6.28),size:rng(3,11),life:rng(1.1,2),color:i%4===0?'#ffe39c':COLORS[loser.team]}});screenFlash=.85;$('koOverlay').classList.add('show');$('stage').classList.add('cinematic');playSound('ko',winner);let isVictory=winner===0;
  if(warzone){if(local)localWins[winner]++;updateStats()}else if(local){localWins[winner]++;updateStats()}else if(!watch){if(isVictory){totalStats.wins++;totalStats.streak++;totalStats.best=Math.max(totalStats.streak,totalStats.best)}else totalStats.streak=0;saveStats();updateStats()}
  $('resultEyebrow').textContent=warzone?'WARZONE · '+(reason==='flag'?'FLAG CAPTURE':'KNOCKOUT'):watch?'AUTOBATTLE COMPLETE':local?'LOCAL MATCH COMPLETE':'MATCH COMPLETE';$('resultTitle').textContent=warzone?'Player '+(winner+1)+' wins!':local?'Player '+(winner+1)+' wins!':watch?((p.formula.startsWith('custom')?'Player '+(winner+1):F[p.formula].short)+' wins!'):(isVictory?'Victory!':'Defeat!');$('resultTitle').style.color=isVictory?'#278249':'#d64852';$('resultDetail').textContent=(warzone?(reason==='flag'?'Enemy flag captured!':'A perfect graph knocked out the enemy!'):local?'Good game!':watch?'The battle is over.':isVictory?'Your graphing skills prevailed.':'The rival function took the round.')+' Winner finished with '+Math.ceil(p.hp)+' HP.';$('resultEqA').textContent=warzone?(warzone.last[0]||'No shot fired'):(players[0].formula.startsWith('custom')?'y = '+F[players[0].formula].eq:F[players[0].formula].short);$('resultEqB').textContent=warzone?(warzone.last[1]||'No shot fired'):(players[1].formula.startsWith('custom')?'y = '+F[players[1].formula].eq:F[players[1].formula].short);setText('resultHpA',Math.ceil(players[0].hp));setText('resultHpB',Math.ceil(players[1].hp));log((winner?'Red':'Green')+' won the battle!','gold');playSound('win',winner);if(!local&&!watch&&winner===1)playSound('lose',0);/* result appears when cinematic completes */}
-function dash(p){if(state!=='playing'||(warzone&&warzone.phase!=='move')||p.hp<=0||p.dashCd>0)return;let mx=p.dirX,my=p.dirY,l=Math.hypot(mx,my);if(l<.1){mx=p.team?-1:1;my=0;l=1}const dashSpeed=warzone?clamp(W*.84,320,600):clamp(W*.96,310,650);p.vx=mx/l*dashSpeed;p.vy=my/l*dashSpeed;p.dashTime=.19;p.inv=Math.max(p.inv,.31);p.dashCd=2.2;particlesAt(p.x,p.y,COLORS[p.team],27,1.2);burstRing(p.x,p.y,COLORS[p.team],p.r+7,.4);playSound('dash',p.team)}
+function dash(p){if(state!=='playing'||(warzone&&warzone.phase!=='move')||p.hp<=0||p.dashCd>0)return;let mx=p.dirX,my=p.dirY,l=Math.hypot(mx,my);if(l<.1){mx=p.team?-1:1;my=0;l=1}const dashSpeed=warzone?clamp(W*.84,320,600):clamp(W*.96,310,650);p.vx=mx/l*dashSpeed;p.vy=my/l*dashSpeed;p.dashTime=.19;p.inv=Math.max(p.inv,.31);p.dashCd=2.2;particlesAt(p.x,p.y,COLORS[p.team],27,1.2);burstRing(p.x,p.y,COLORS[p.team],p.r+7,.4);if(warzone)emitWarFX('dash',p.x,p.y,p.team);playSound('dash',p.team)}
 function playerMove(p){
  if(window.MFOnlineBridge?.active&&window.MFOnlineBridge.host&&p.team===1){const move=window.MFOnlineBridge.remoteMove();if(Math.hypot(move.x,move.y)>.05){p.dirX=move.x;p.dirY=move.y}return move;}let dx=0,dy=0;
  if(p.team===0){if(keys.has('a')||!local&&keys.has('arrowleft'))dx--;if(keys.has('d')||!local&&keys.has('arrowright'))dx++;if(keys.has('w')||!local&&keys.has('arrowup'))dy--;if(keys.has('s')||!local&&keys.has('arrowdown'))dy++}
@@ -1398,7 +1537,7 @@ function pickupWarItem(p,item){item.claimed=true;const desc=WAR_PICKUPS[item.kin
  if(item.kind==='surge')p.warSurge=1;
  if(item.kind==='sprint')p.warSprint=12;
  log('P'+(p.team+1)+' got '+desc.name+'!',p.team?'red':'green');
- particlesAt(item.x,item.y,desc.color,24,1.1);burstRing(item.x,item.y,desc.color,26,.6);playSound('pickup',p.team);
+ particlesAt(item.x,item.y,desc.color,24,1.1);burstRing(item.x,item.y,desc.color,26,.6);emitWarFX('pickup',item.x,item.y,p.team,{color:desc.color});playSound('pickup',p.team);
 }
 function graphStrength(fn){
  let last=null,total=0,steep=0,wiggles=0,extremes=0,prevSlope=0;
@@ -1451,13 +1590,13 @@ function traceWarShot(fn,team){
  push();return {segments,impact,direction,origin:{x:shooter.x,y:shooter.y},limit};
 }
 function revealWarImpact(s,revealTravel){if(!s.impact||s.impacted||revealTravel<s.impact.travel)return;
- s.impacted=true;const v=s.impact,c=COLORS[s.team];
+ s.impacted=true;const v=s.impact,c=COLORS[s.team];emitWarFX('impact',v.x,v.y,s.team);
  particlesAt(v.x,v.y,'#ffce77',36,1.25);particlesAt(v.x,v.y,c,20,.95);
  burstRing(v.x,v.y,'#ffce77',15,.8);showDamage(v.x,v.y-15,s.impact.boundary?'EDGE!':'BLOCKED','#b78140');
  shake=Math.max(shake,4);screenFlash=Math.max(screenFlash,.16);playSound('block',s.team);
 }
 function startWarzone(){
- unlockAudio();mode='warzone';watch=false;local=$('warzonePlayers').value==='local';warzone={phase:'turn',turn:0,turns:0,round:1,timer:0,shots:[],obstacles:[],flag:[],last:['',''],cpuWait:1.35,items:[],decor:[],variables:[[],[]]};cinematic=null;finishShards=[];screenFlash=0;shake=0;hitFlash=0;
+ warFxHistory=[];warFxSequence=0;unlockAudio();mode='warzone';watch=false;local=$('warzonePlayers').value==='local';warzone={phase:'turn',turn:0,turns:0,round:1,timer:0,shots:[],obstacles:[],flag:[],last:['',''],cpuWait:1.35,items:[],decor:[],variables:[[],[]]};cinematic=null;finishShards=[];screenFlash=0;shake=0;hitFlash=0;
  document.body.classList.add('warzone-mode');document.body.classList.remove('auto-combat');$('warzoneHud').hidden=false;$('warzonePanel').hidden=false;setText('roundIndicator','WARZONE');
  state='playing';time=0;now=0;graphs=[];particles=[];texts=[];pickups=[];rays=[];gunBursts=[];shockwaves=[];keys.clear();holding=[false,false];
  const sides=[0,1];players=sides.map(side=>makeBall(side,side?'sin':'quad',side===1&&!local));
@@ -1530,7 +1669,7 @@ function submitWarShot(team,parsed,raw){const z=warzone;if(!z||state!=='playing'
  p.warSurge=0;z.turns++;
  $('warzoneError').classList.remove('bad');$('warzoneError').textContent='y = '+parsed.eq+' · '+z.shots[z.shots.length-1].damage+' damage · Graph power ×'+z.shots[z.shots.length-1].power.toFixed(1);$('warzoneInput').value='';
  particlesAt(players[team].x,players[team].y,COLORS[team],25,1.1);burstRing(players[team].x,players[team].y,COLORS[team],25,.75);
- playSound('warfire',team);warzoneHUD();log('P'+(team+1)+' fires y = '+parsed.eq,team?'red':'green');return true;
+ emitWarFX('shot',players[team].x,players[team].y,team);playSound('warfire',team);warzoneHUD();log('P'+(team+1)+' fires y = '+parsed.eq,team?'red':'green');return true;
 }
 function segmentNear(x1,y1,x2,y2,p){let dx=x2-x1,dy=y2-y1,a=dx*dx+dy*dy;if(!a)return Math.hypot(x1-p.x,y1-p.y);let t=clamp(((p.x-x1)*dx+(p.y-y1)*dy)/a,0,1);return Math.hypot(x1+dx*t-p.x,y1+dy*t-p.y)}
 function warShotHits(s,revealTravel){
@@ -1543,7 +1682,7 @@ function warShotHits(s,revealTravel){
    if(prev&&segmentNear(prev.x,prev.y,v.x,v.y,target)<target.r+3){
     s.hit=true;let dmg=s.damage;
     if(target.warArmor){dmg=Math.max(2,Math.round(dmg*.35));target.warArmor=0;log('Barrier absorbed the attack!',target.team?'red':'green')}
-    damage(target,dmg,target.x,target.y,s,true);burstRing(target.x,target.y,'#ffe082',36,.8);screenFlash=.28;playSound('hit',target.team);return;
+    damage(target,dmg,target.x,target.y,s,true);burstRing(target.x,target.y,'#ffe082',36,.8);emitWarFX('hit',target.x,target.y,target.team);screenFlash=.28;playSound('hit',target.team);return;
    }prev=v;
   }
  }
@@ -1621,6 +1760,26 @@ function warAiPath(p,flag){
  while(key!==startKey&&prev.has(key)&&safe++<cellsX*cellsY){path.push(at(key%cellsX,Math.floor(key/cellsX)));key=prev.get(key)}
  path.reverse();path.push(flag);return path;
 }
+let warFxSequence=0,warFxHistory=[];
+function emitWarFX(type,x,y,team=0,extra={}){
+ if(!warzone||!window.MFOnlineBridge?.active||!window.MFOnlineBridge.host)return;
+ warFxHistory.push({id:++warFxSequence,type,x:+x.toFixed(2),y:+y.toFixed(2),team,...extra});
+ if(warFxHistory.length>18)warFxHistory.shift();
+}
+function replayWarFX(event,sx=1,sy=1){
+ if(!event||!warzone)return;
+ const x=event.x*sx,y=event.y*sy,team=event.team===1?1:0,color=COLORS[team];
+ switch(event.type){
+  case 'bump':particlesAt(x,y,'#ffb44f',28,1.1);particlesAt(x,y,color,14,.85);burstRing(x,y,'#f9964b',35,.65);showDamage(x,y-18,'BUMP!','#de7935');playSound('bump',team);shake=Math.max(shake,4);break;
+  case 'dash':particlesAt(x,y,color,16,.9);burstRing(x,y,color,20,.34);playSound('dash',team);break;
+  case 'shot':particlesAt(x,y,color,22,1);burstRing(x,y,color,27,.65);playSound('warfire',team);break;
+  case 'hit':particlesAt(x,y,color,24,1.2);burstRing(x,y,'#ffe282',36,.76);showDamage(x,y-14,'HIT!','#d87a38');playSound('hit',team);shake=Math.max(shake,4);screenFlash=Math.max(screenFlash,.18);break;
+  case 'impact':particlesAt(x,y,'#ffca78',21,.95);burstRing(x,y,'#f2ad5b',26,.55);playSound('block',team);break;
+  case 'pickup':particlesAt(x,y,event.color||color,20,.85);burstRing(x,y,event.color||color,25,.6);playSound('pickup',team);break;
+  case 'capture':particlesAt(x,y,color,44,1.8);burstRing(x,y,color,55,1.1);playSound('capture',team);break;
+  case 'phase':burstRing(x,y,'#f5bd72',31,.8);playSound('phase');break;
+ }
+}
 function resolveWarBallBump(dt){
   if(!warzone||players.length!==2)return;
   warzone.bumpCooldown=Math.max(0,(warzone.bumpCooldown||0)-dt);
@@ -1645,16 +1804,17 @@ function resolveWarBallBump(dt){
   particlesAt(x,y,COLORS[victim.team],18,1.0);
   burstRing(x,y,'#ff9c56',36,.65);
   burstRing(x,y,'#fff1b6',18,.43);
+  emitWarFX('bump',x,y,victim.team);
   showDamage(victim.x,victim.y-victim.r-16,'STAGGER!','#d77839');
   playSound('bump',victim.team);shake=Math.max(shake,7);screenFlash=Math.max(screenFlash,.19);
 }
 function updateWarzone(dt){time+=dt;now+=dt;shake=Math.max(0,shake-dt*11);screenFlash=Math.max(0,screenFlash-dt*1.1);const z=warzone;
  for(let p of players){p.dashCd=Math.max(0,p.dashCd-dt);p.dashTime=Math.max(0,p.dashTime-dt);p.inv=Math.max(0,p.inv-dt);p.warSprint=Math.max(0,(p.warSprint||0)-dt);p.warBump=Math.max(0,(p.warBump||0)-dt);for(let tr of p.trails)tr.t-=dt;p.trails=p.trails.filter(x=>x.t>0)}
  if(z.phase==='turn'){if(players[z.turn].auto){z.cpuWait-=dt;if(z.cpuWait<=0){const attack=warCpuSelectShot(z.turn);if(attack)submitWarShot(z.turn,attack.parsed,attack.eq);else z.cpuWait=.8}}}
- if(z.phase==='fire'){z.timer-=dt;for(let s of z.shots){s.age+=dt;if(s.age>.16&&s.age<1.7)warShotHits(s,clamp((s.age-.16)/.98,0,1)*s.limit)}if(z.timer<=0){z.shots.length=0;if(z.turns%2===0){z.phase='move';z.timer=5;z.turn=0;z.round++;spawnWarPickups();playSound('phase');log('FLAG RUSH! 5 seconds to move and dash.','gold')}else{z.phase='turn';z.turn=1;z.cpuWait=rng(...aiRules().think)*2.1;playSound('turn')}warzoneHUD()}}
+ if(z.phase==='fire'){z.timer-=dt;for(let s of z.shots){s.age+=dt;if(s.age>.16&&s.age<1.7)warShotHits(s,clamp((s.age-.16)/.98,0,1)*s.limit)}if(z.timer<=0){z.shots.length=0;if(z.turns%2===0){z.phase='move';z.timer=5;z.turn=0;z.round++;spawnWarPickups();emitWarFX('phase',W/2,H/2,0);playSound('phase');log('FLAG RUSH! 5 seconds to move and dash.','gold')}else{z.phase='turn';z.turn=1;z.cpuWait=rng(...aiRules().think)*2.1;playSound('turn')}warzoneHUD()}}
  if(z.phase==='move'){z.timer-=dt;
  for(let p of players){if(p.hp<=0)continue;const mv=p.auto?warAiMove(p,dt):playerMove(p);const acc=clamp(W*1.22,360,920)*(p.warSprint>0?1.4:1)*(p.warBump>0?.45:1);if(p.dashTime<=0){p.vx=(p.vx+mv.x*acc*dt)*Math.pow(.945,dt*60);p.vy=(p.vy+mv.y*acc*dt)*Math.pow(.945,dt*60);let v=Math.hypot(p.vx,p.vy),max=clamp(W*.41,180,290)*(p.warSprint>0?1.3:1)*(p.warBump>0?.58:1);if(v>max){p.vx*=max/v;p.vy*=max/v}}p.x=clamp(p.x+p.vx*dt,p.r,W-p.r);p.y=clamp(p.y+p.vy*dt,p.r,H-p.r);moveAroundCover(p);for(const item of z.items)if(!item.claimed&&Math.hypot(p.x-item.x,p.y-item.y)<p.r+17)pickupWarItem(p,item);if(p.dashTime>0&&Math.random()<.6)particlesAt(p.x,p.y,COLORS[p.team],2,.65);p.trails.push({x:p.x,y:p.y,t:.43});if(p.trails.length>14)p.trails.shift();
- const enemyFlag=z.flag[1-p.team];if(Math.hypot(p.x-enemyFlag.x,p.y-enemyFlag.y)<p.r+22){log('PLAYER '+(p.team+1)+' CAPTURED THE ENEMY FLAG!','gold');playSound('capture',p.team);endMatch(p.team,'flag');break}}
+ const enemyFlag=z.flag[1-p.team];if(Math.hypot(p.x-enemyFlag.x,p.y-enemyFlag.y)<p.r+22){log('PLAYER '+(p.team+1)+' CAPTURED THE ENEMY FLAG!','gold');emitWarFX('capture',p.x,p.y,p.team);playSound('capture',p.team);endMatch(p.team,'flag');break}}
  if(state==='playing')resolveWarBallBump(dt);
  if(state==='playing'&&z.timer<=0){z.shots.length=0;z.phase='turn';z.turn=0;z.cpuWait=rng(...aiRules().think)*2.1;for(let p of players)p.vx=p.vy=0;log('Movement over. P1: take your graph shot!','gold');playSound('phase');warzoneHUD()}}
  z.shots=z.shots.filter(s=>s.age<2.3);for(const item of z.items){item.t+=dt;item.life-=dt}z.items=z.items.filter(i=>!i.claimed&&i.life>0);for(let p of particles){p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=Math.pow(.96,dt*60);p.vy+=50*dt;p.life-=dt}particles=particles.filter(p=>p.life>0);
@@ -1803,17 +1963,31 @@ function bind(){
   }
   canvas.addEventListener('pointerdown',e=>{
     if(state==='menu'||state==='over')return;
-    locateCoordinate(e);coordVisible=true;coordBubble.classList.remove('show');
+    locateCoordinate(e);coordVisible=true;coordBubble.classList.remove('show','copied');coordBubble.querySelector('.coord-copy-hint').textContent='C · copy';
     void coordBubble.offsetWidth;coordBubble.classList.add('show');
     clearTimeout(coordTimer);coordTimer=setTimeout(()=>{coordVisible=false;coordBubble.classList.remove('show')},1000);
     playSound('coords');
   });
-  canvas.addEventListener('pointermove',e=>{if(coordVisible)locateCoordinate(e)});
+  // Freeze coordinates at the click location; moving the cursor only moves the speech bubble.
+  canvas.addEventListener('pointermove',e=>{
+    if(!coordVisible)return;
+    const rect=canvas.getBoundingClientRect();
+    coordBubble.style.left=clamp(e.clientX-rect.left,52,Math.max(52,rect.width-52))+'px';
+    coordBubble.style.top=clamp(e.clientY-rect.top,40,Math.max(40,rect.height-5))+'px';
+  });
+  window.addEventListener('keydown',async e=>{
+    if(!coordVisible||e.repeat||e.key.toLowerCase()!=='c')return;
+    if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;
+    e.preventDefault();
+    const coords=coordText.textContent;
+    try{await navigator.clipboard.writeText(coords);coordBubble.classList.add('copied');coordBubble.querySelector('.coord-copy-hint').textContent='✓ copied';playSound('pickup');}
+    catch(ex){coordBubble.querySelector('.coord-copy-hint').textContent='Copy unavailable';}
+  });
   window.addEventListener('resize',scheduleResponsiveViewport);window.addEventListener('orientationchange',scheduleResponsiveViewport);window.visualViewport?.addEventListener('resize',scheduleResponsiveViewport);if(window.ResizeObserver)new ResizeObserver(scheduleResponsiveViewport).observe($('stage'));document.addEventListener('contextmenu',e=>{if(e.target===canvas)e.preventDefault()});
 }
 // Shared online engine bridge. The host alone runs simulation, damage and power-up logic.
 window.MFOnlineBridge={
- active:false,host:false,room:'',gameMode:'warzone',input:{dx:0,dy:0,dash:0,time:0},lastDash:-1,lastMatchId:-1,visualTargets:null,lastSnapshotSeq:-1,equationSignatures:['',''],
+ active:false,host:false,room:'',gameMode:'warzone',lastFxMatch:-1,lastFxId:0,input:{dx:0,dy:0,dash:0,time:0},lastDash:-1,lastMatchId:-1,visualTargets:null,lastSnapshotSeq:-1,equationSignatures:['',''],
  hostTick:()=>{},guestTick:()=>{},guestFire:()=>{},guestDash:()=>{},loadoutChanged:()=>{},leave:()=>{},rematch:()=>{},
  prepareLobby(isHost,kind){setMode(kind==='classic'?'onlineClassic':'online');if(kind==='classic')setEditorSide(isHost?0:1);},
  remoteMove(){const r=this.input;if(Date.now()-r.time>1100)return {x:0,y:0};return {x:clamp(Number(r.dx)||0,-1,1),y:clamp(Number(r.dy)||0,-1,1)}},
@@ -1862,29 +2036,35 @@ window.MFOnlineBridge={
  getOwnLoadout(){const f=F[selection[1]],custom=selection[1]==='custom1';if(custom&&!customValid[1])return null;
   return {kind:'loadout',id:custom?'custom':selection[1],eq:custom?customExpressions[1]:f.eq,vars:custom?customVariables[1].map(v=>({name:String(v.name),value:String(v.value)})):[]}
  },
- animateGuest(dt){now+=dt;time+=dt;
+ animateGuest(dt){now+=dt;time+=dt;screenFlash=Math.max(0,screenFlash-dt*1.1);shake=Math.max(0,shake-dt*11);
   // Render at the monitor's refresh rate rather than at Firebase's packet rate.
   // Extrapolate the latest host position only briefly, then softly correct it.
   const targets=this.visualTargets;
   if(targets&&state==='playing')for(let i=0;i<2;i++){
    const p=players[i],target=targets[i];if(!p||!target)continue;
-   const age=Math.max(0,(performance.now()-target.received)/1000);const elapsed=Math.min(.12,age);
+   const age=Math.max(0,(performance.now()-target.received)/1000);const elapsed=Math.min(.20,age);
    const moving=(!warzone||warzone.phase==='move')&&p.hp>0;
-   const ahead=moving&&age<.38?Math.max(0,elapsed-.015):0;
+   const ahead=moving&&age<.55?Math.max(0,elapsed-.012):0;
    let wantedX=target.x+target.vx*ahead,wantedY=target.y+target.vy*ahead;
-   if(i===1&&moving&&age<.38){ // A little local prediction for the guest's own movement.
-    const input=this.guestControls(),lead=Math.min(.065,elapsed+.015);
+   if(i===1&&moving&&age<.55){ // A little local prediction for the guest's own movement.
+    const input=this.guestControls(),lead=Math.min(.09,elapsed+.015);
     wantedX+=input.dx*lead*32;wantedY+=input.dy*lead*32;
    }
    wantedX=clamp(wantedX,p.r,W-p.r);wantedY=clamp(wantedY,p.r,H-p.r);
    const separation=Math.hypot(wantedX-p.x,wantedY-p.y);
    if(separation>Math.max(W*.27,175)){p.x=wantedX;p.y=wantedY;} // Blink, rematch or reposition.
-   else{const blend=1-Math.exp(-dt*(i===1?17:15));p.x+=(wantedX-p.x)*blend;p.y+=(wantedY-p.y)*blend;}
+   else{const blend=1-Math.exp(-dt*(i===1?16:12.8));p.x+=(wantedX-p.x)*blend;p.y+=(wantedY-p.y)*blend;}
    // Local trails are visual-only. They never modify collision positions on the host.
    if(moving&&Math.hypot(p.vx,p.vy)>16&&dt>.004){p.trails.push({x:p.x,y:p.y,t:.36});if(p.trails.length>12)p.trails.shift();}
   }
-  if(warzone){for(const shot of warzone.shots)shot.age=Math.min(shot.life||2.3,shot.age+dt);}
-  else{for(const graph of graphs)graph.age+=dt;for(const q of pickups)q.t+=dt;for(const ring of shockwaves)ring.life=Math.max(0,ring.life-dt);}
+  if(warzone){for(const shot of warzone.shots)shot.age=Math.min(shot.life||2.3,shot.age+dt);if(warzone.phase==='move'||warzone.phase==='fire')warzone.timer=Math.max(0,warzone.timer-dt);}
+  else{for(const graph of graphs)graph.age+=dt;for(const q of pickups)q.t+=dt;}
+  for(const effect of particles){effect.x+=effect.vx*dt;effect.y+=effect.vy*dt;effect.vx*=Math.pow(.96,dt*60);effect.vy+=50*dt;effect.life-=dt;}
+  particles=particles.filter(effect=>effect.life>0);
+  for(const ring of shockwaves)ring.life-=dt;
+  shockwaves=shockwaves.filter(ring=>ring.life>0);
+  for(const label of texts){label.y+=label.vy*dt;label.life-=dt;}
+  texts=texts.filter(label=>label.life>0);
   for(const p of players){for(const tr of p.trails||[])tr.t-=dt;p.trails=(p.trails||[]).filter(t=>t.t>0)}
  },
  capture(){
@@ -1895,9 +2075,9 @@ window.MFOnlineBridge={
   if(this.gameMode==='classic')return {...base,time:time,functions:players.map(p=>({id:p.formula,eq:F[p.formula].eq,vars:p.formula==='custom'+p.team?customVariables[p.team]:[]})),
    graphs:graphs.slice(-12).map(g=>({id:g.id,team:g.team,formula:g.formula,x0:g.x0,aimX:g.aimX,aimY:g.aimY,anchor:g.anchor,scaleY:g.scaleY,age:g.age,warning:g.warning,duration:g.duration,fade:g.fade,hit:g.hit,velocity:g.velocity,damage:g.damage})),pickups:pickups.slice(0,6).map(q=>({...q})),rays:rays.slice(-16).map(q=>({...q})),shockwaves:shockwaves.slice(-12).map(q=>({...q}))};
   if(!warzone)return null;
-  const z=warzone;return {...base,flag:z.flag.map(o=>({...o})),obstacles:z.obstacles.map(o=>({...o})),items:z.items.map(o=>({...o})),last:z.last,
+  const z=warzone;return {...base,fx:warFxHistory.slice(-14),flag:z.flag.map(o=>({...o})),obstacles:z.obstacles.map(o=>({...o})),items:z.items.map(o=>({...o})),last:z.last,
     shots:z.shots.map(shot=>({id:shot.id,team:shot.team,age:shot.age,life:shot.life,eq:shot.eq,hit:shot.hit,impacted:shot.impacted,impact:shot.impact,origin:shot.origin,direction:shot.direction,limit:shot.limit,power:shot.power,
-     segments:shot.segments.map(seg=>seg.filter((v,i)=>i%4===0||i===seg.length-1).map(v=>({x:+v.x.toFixed(1),y:+v.y.toFixed(1),travel:+v.travel.toFixed(1)})))}))};
+     segments:shot.segments.map(seg=>seg.filter((v,i)=>i%6===0||i===seg.length-1).map(v=>({x:+v.x.toFixed(1),y:+v.y.toFixed(1),travel:+v.travel.toFixed(1)})))}))};
  },
  applySnapshot(packet){
   if(!this.active||this.host||!packet)return;
@@ -1933,6 +2113,9 @@ window.MFOnlineBridge={
    z.flag=(packet.flag||[]).map(xy);z.obstacles=(packet.obstacles||[]).map(dims);z.items=(packet.items||[]).map(dims);
    const pastShots=new Map(z.shots.map(shot=>[shot.id,shot]));
    z.shots=(packet.shots||[]).map(shot=>({...shot,origin:xy(shot.origin),impact:shot.impact?xy(shot.impact):null,limit:(shot.limit||0)*sx,age:pastShots.has(shot.id)?Math.max(Number(shot.age)||0,pastShots.get(shot.id).age):Number(shot.age)||0,segments:(shot.segments||[]).map(seg=>seg.map(v=>({...xy(v),travel:(v.travel||0)*sx})))}));z.last=packet.last||['',''];
+   if(packet.matchId!==this.lastFxMatch){this.lastFxMatch=packet.matchId;this.lastFxId=0;}
+   for(const event of (packet.fx||[])){if(Number(event.id)>this.lastFxId){this.lastFxId=Number(event.id);replayWarFX(event,sx,sy);}}
+
   }
   const first=!this.visualTargets;
   if(first)this.visualTargets=[null,null];
@@ -1947,7 +2130,7 @@ window.MFOnlineBridge={
  },
  end(){this.active=false;this.host=false;this.room='';this.visualTargets=null;this.lastSnapshotSeq=-1;this.input={dx:0,dy:0,dash:0,time:0};state='menu';warzone=null;document.body.classList.remove('online-host','online-guest','online-classic','online-match','online-room-host','online-room-guest');$('onlineGameStatus').textContent='Disconnected';clearTransientEffects();$('stage').classList.remove('warzone','cinematic');$('koOverlay').classList.remove('show');cinematic=null;setMode(onlineGame==='classic'?'onlineClassic':'online');setModal('setup');}
 };
-setupRoster();setMode('watch');bind();showAiDifficulty();autoChooseDevice();syncResponsiveViewport();requestAnimationFrame(loop);setModal('setup');setEditorSide(0);
+setupRoster();setMode('watch');bind();setupGraphLab();showAiDifficulty();autoChooseDevice();syncResponsiveViewport();requestAnimationFrame(loop);setModal('setup');setEditorSide(0);
 })();
 </script>
 <script type="module">
@@ -2024,7 +2207,7 @@ function listenRoom(){
     bridge.hostTick=dt=>{
       if(!bridge.active)return;
       accumulation+=dt;
-      if(accumulation<(gameMode==='classic'?.085:.145)||snapshotBusy)return;
+      if(accumulation<(gameMode==='classic'?.085:.112)||snapshotBusy)return;
       accumulation=0;
       const state=bridge.capture();if(!state)return;
       state.matchId=matchId;
