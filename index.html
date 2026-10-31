@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#f6f7f4">
 <title>MathFight</title>
 <meta name="apple-mobile-web-app-title" content="MathFight">
-<link rel="icon" type="image/png" href="favicon.png?v=12">
-<link rel="apple-touch-icon" href="favicon.png?v=12">
+<link rel="icon" type="image/png" href="favicon.png?v=13">
+<link rel="apple-touch-icon" href="favicon.png?v=13">
 <style>
 :root{--ink:#232735;--sub:#7e8591;--line:#e1e5e3;--paper:#fff;--bg:#f5f7f5;--green:#23834b;--red:#d8424a;--yellow:#d8a326;--shadow:0 16px 55px rgba(29,48,41,.075)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;user-select:none;-webkit-user-select:none}
@@ -141,6 +141,57 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom));backgro
 .warzone-mode .warzone-hud{position:relative;z-index:2}
 .result-score>div{min-width:0;flex:1}.result-actions button{white-space:normal}
 @media(max-width:620px){#resultPage{max-height:78dvh;overflow-y:auto;overscroll-behavior:contain}#resultPage h1{font-size:clamp(24px,7vw,37px);line-height:1.09}#resultPage .result-score{padding:10px 4px;gap:5px}#resultPage .score-num{font-size:clamp(28px,8vw,50px)}#resultPage .result-score .colon{flex:0 0 24px}#resultPage .result-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}#resultPage .result-actions button{font-size:12px;padding:13px 5px;min-width:0}.warzone-mode .war-move-actions.active{display:flex;margin:6px 10px}.war-move-actions button{min-height:55px}}
+
+/* V13 — a redesigned matchmaking lobby and clean tactical battlefield */
+.modal{width:min(96vw,950px);border-radius:25px;background:#f9fafb;padding:0;overflow:hidden}
+#setupPage{display:flex;flex-direction:column;max-height:calc(100dvh - 36px)}
+.mf-lobby{flex:1;overflow-y:auto;padding:25px 30px 18px;min-height:0;overscroll-behavior:contain}
+.lobby-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:9px 0 16px}
+.lobby-head h1{font-size:clamp(29px,3.5vw,41px);letter-spacing:-1.7px;margin:8px 0 7px;color:#202b34}
+.lobby-head p{font-size:13px;color:#718079;margin:0;line-height:1.5}
+.lobby-eyebrow{font-weight:1000;color:#1f7d4a;letter-spacing:2px;font-size:11px}
+.lobby-eyebrow span{display:inline-block;color:#9aa4a1;margin-left:10px;font-size:10px;letter-spacing:.8px}
+.lobby-section-label{font-size:11px;font-weight:900;letter-spacing:1.4px;color:#74817b;display:flex;align-items:center;gap:9px;margin:14px 0 11px}
+.lobby-section-label>span{width:27px;height:27px;border-radius:9px;background:#e1ede7;color:#247449;display:grid;place-items:center;letter-spacing:0}
+.lobby-section-label small{font-size:10px;font-weight:500;letter-spacing:0;margin-left:auto;color:#9aa5a1}
+.mode-switch.lobby-modes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:0;gap:9px;background:transparent;margin:0}
+.lobby-modes button,.mode-switch #modeWarzone{min-height:123px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:7px;text-align:left;border:1.5px solid #e3e8e5;background:#fff;border-radius:15px;padding:14px;color:#54645b;box-shadow:0 3px 15px #172e2610;transition:transform .14s,background .14s}
+.lobby-modes button:hover{transform:translateY(-2px)}
+.lobby-modes button.active,.mode-switch #modeWarzone.active{background:#e9f6ed;border:2px solid #248b52;color:#205e3d;box-shadow:0 6px 20px #28865420}
+.lobby-modes button#modeWarzone{background:#f5f1ff;border-color:#e4def3}
+.lobby-modes button#modeWarzone.active{background:#eee6ff;border:2px solid #8060bd;color:#4a307d}
+.lobby-modes button strong{font-size:12px;font-weight:1000;letter-spacing:.3px}
+.lobby-modes button small{font-size:10px;color:#8b9892;font-weight:550;line-height:1.35}
+.lobby-modes .mode-emoji{font-size:26px;line-height:1.15}
+.lobby-mode-caption{margin:11px 0 17px;text-align:left;color:#66766c;font-size:11px}
+.lobby-fighters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.lobby-fighters .setup-fighter{display:block;min-width:0;border-radius:16px;border:1px solid #e3eae5;background:white;padding:15px 14px 5px;box-shadow:0 5px 17px #172e2508}
+.lobby-fighters .setup-fighter:nth-child(2){border-color:#f2dce0}
+.lobby-fighters .custom-row{margin:4px 0 13px;padding:10px}
+.lobby-fighters .roster{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:12px}
+.lobby-fighters .roster-btn{padding:11px 4px}.lobby-fighters .roster-eq{font-size:18px}
+.lobby-fighters .roster-note{font-size:8px}
+.lobby-fighters .choose-label{font-size:10px}
+.lobby-fighters .custom-preview{height:88px}
+.lobby-fighters .preview-caption{font-size:9px}
+.warzone-lock-notice{padding:14px 16px;background:#f2edff;border:1px solid #dcd0f5;border-radius:13px;color:#5f4a8f;font-size:12px;line-height:1.55;margin:4px 0 12px}
+.warzone-lock-notice[hidden]{display:none}
+.editing-warzone .lobby-fighters{opacity:.32;filter:grayscale(1);pointer-events:none;max-height:190px;overflow:hidden;position:relative}
+.editing-warzone .lobby-fighters:after{content:'FUNCTION SELECTION LOCKED IN WARZONE';position:absolute;inset:0;display:grid;place-items:center;font-weight:900;letter-spacing:1px;color:#514968;text-align:center;font-size:12px;background:#ffffff77}
+.editing-warzone .mobile-player-tabs{opacity:.35;pointer-events:none}
+.warzone-setup{margin:14px 0;border-radius:14px;padding:16px}
+.lobby-audio{margin:12px 0}.lobby-audio .sound-controls{margin:0}
+.lobby-footer{padding:15px 30px 16px;background:#fff;border-top:1px solid #e5ebe7;box-shadow:0 -5px 16px #1b2a1b0b}
+.lobby-footer .primary{font-size:14px;padding:17px;border-radius:13px;background:linear-gradient(90deg,#1f824a,#24543c)}
+.lobby-footer .help-line{margin:8px 0 0}
+/* World background is drawn exactly once while KO camera zoom only affects the characters. */
+.warzone-mode .stage{border-color:#b4a2d5;box-shadow:0 8px 30px #644ba325}
+.warzone-mode .warzone-hud{background:linear-gradient(110deg,#272d50,#604a86);border-radius:10px 10px 0 0}
+.warzone-panel{background:linear-gradient(155deg,#fcfaff,#f5f0ff);border:1px solid #ded4f3}
+.warzone-mode .stage-head{background:#fbfaff}
+.warzone-mode .warzone-formula input{border:2px solid #cfbfe9;border-radius:12px}
+#resultPage{padding:27px;max-width:660px;margin:auto}
+@media(max-width:730px){.mf-lobby{padding:16px 13px}.mode-switch.lobby-modes{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.lobby-modes button,.mode-switch #modeWarzone{min-height:103px;padding:11px}.lobby-modes .mode-emoji{font-size:23px}.lobby-modes button strong{font-size:11px}.lobby-modes button small{font-size:10px}.lobby-fighters{grid-template-columns:1fr;gap:7px}.lobby-fighters .setup-fighter{display:none}.lobby-fighters .setup-fighter.is-active{display:block}.mobile-player-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 12px}.mobile-player-tabs button{padding:11px;border:1px solid #e3e7e4;background:#fff;border-radius:10px;color:#78867e;font-weight:850}.mobile-player-tabs button.active{background:#eaf6ed;border-color:#8bcda3;color:#26613e}.editing-warzone .lobby-fighters{height:100px;min-height:100px}.lobby-footer{padding:12px 14px}.lobby-head h1{font-size:29px}.lobby-head p{font-size:11px}.lobby-eyebrow{font-size:10px}.lobby-eyebrow span{font-size:9px}.device-mobile #setupPage{max-height:100dvh}.device-mobile .setup-scroll.mf-lobby{padding:16px 13px 8px}.device-mobile .lobby-fighters .setup-fighter{display:none}.device-mobile .lobby-fighters .setup-fighter.is-active{display:block}.device-mobile .lobby-footer{padding:11px 14px calc(11px + env(safe-area-inset-bottom))}.device-mobile .modal{padding:0}.device-mobile .modal-bg{padding:0}.device-mobile .setup-scroll{min-height:0}.device-mobile .sound-controls{margin:0}.device-mobile .setup-fighter{padding:12px}.device-mobile .setup-fighter .custom-preview{height:99px}.device-mobile #resultPage{padding:17px 13px;max-height:100dvh}.device-mobile #resultPage .result-score{margin:12px 0;padding:14px 7px}.device-mobile #resultPage .result-actions button{padding:14px 5px}.warzone-mode .warzone-panel{padding:11px}}
 </style>
 </head>
 <body>
@@ -178,25 +229,33 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom));backgro
   <div class="warzone-panel" id="warzonePanel" hidden>
     <div class="warzone-label"><span id="warzonePrompt">PLAYER 1 · DRAW YOUR ATTACK</span><small id="warzoneHint">Tip: y = 0 draws a horizontal line through the center.</small></div>
     <div class="warzone-formula"><span>y =</span><input id="warzoneInput" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="90" placeholder="0.5*x + 2" aria-label="Warzone graph equation"><button id="warzoneFire">FIRE GRAPH ↗</button></div>
-    <div class="warzone-examples"><button type="button" data-war="0">y = 0</button><button type="button" data-war="x">y = x</button><button type="button" data-war="sin(x)">sin(x)</button><button type="button" id="warzoneAim">Aim line suggestion</button></div>
     <p id="warzoneError" class="warzone-error" role="status">Take turns drawing a function. The grid shows each ball's x/y coordinates.</p>
   </div>
-  <button class="mobile-details-toggle" id="mobileDetailsToggle" aria-expanded="false">ⓘ Details &amp; tips <span>⌄</span></button>
+  <button class="mobile-details-toggle" id="mobileDetailsToggle" aria-expanded="false">ⓘ Match details <span>⌄</span></button>
   </main>
   <aside class="sidebar">
-  <section class="panel"><div class="panel-heading"><span class="eyebrow">HOW TO PLAY</span><span class="light">✦ THE BASICS</span></div>
-   <div class="move-list" id="controlsGuide"></div>
-   <p class="hint" id="touchGuide" style="margin-top:13px">On a phone, <b>drag your finger across the arena</b> to steer. Use the attack buttons below it.</p>
-  </section>
-  <section class="panel"><div class="panel-heading"><span class="eyebrow">CURRENT FUNCTION</span><span class="light" id="funcType">ASYMPTOTIC</span></div><div class="formula-card"><div class="eq" id="formulaEq">y = tan x</div><p id="formulaDesc">Repeated vertical asymptotes cut through the arena.</p></div><p class="hint" style="margin-top:12px">Graph attacks are <b>dashed while charging</b>, then solid when dangerous. Collect <b>power-up orbs</b> for shields, faster attacks, healing, double damage or the five-shot Gun.</p></section>
+  <section class="panel"><div class="panel-heading"><span class="eyebrow">CURRENT FUNCTION</span><span class="light" id="funcType">ASYMPTOTIC</span></div><div class="formula-card"><div class="eq" id="formulaEq">y = tan x</div><p id="formulaDesc">Repeated vertical asymptotes cut through the arena.</p></div><p class="hint" id="functionHint" style="margin-top:12px">Graph attacks are <b>dashed while charging</b>, then solid when dangerous. Collect <b>power-up orbs</b> for shields, faster attacks, healing, double damage or the five-shot Gun.</p></section>
   <section class="panel"><div class="panel-heading"><span class="eyebrow">MATCH LOG</span><span class="light">LIVE</span></div><div class="event-feed" id="feed"></div><div class="scoreline"><div><b id="totalWins">0</b><small id="statLabel1">WINS</small></div><div><b id="streak">0</b><small id="statLabel2">STREAK</small></div><div><b id="best">0</b><small id="statLabel3">BEST</small></div></div></section>
  </aside>
 </div>
 <footer>MathFight · Arena & The Warzone · Real graph battles · Mobile and PC</footer>
 </div>
 <div class="modal-bg" id="modalBg"><div class="modal" id="modal">
- <div id="setupPage"><div class="setup-scroll"><div class="modal-top"><div><div class="eyebrow">WELCOME TO THE ARENA</div><h1>Let the equations fight.</h1><p class="modal-sub">Choose two functions. Their graphs become the weapons. Custom equations are automatically centered in the arena. Add your own variables below!</p></div><button class="close" id="setupClose" title="Close">×</button></div>
- <div class="mobile-player-tabs" id="mobilePlayerTabs"><button type="button" id="editPlayer0" class="active" aria-pressed="true"><span class="tab-dot green-dot"></span> Player 1</button><button type="button" id="editPlayer1" aria-pressed="false"><span class="tab-dot red-dot"></span> Player 2</button></div>
+ <div id="setupPage">
+  <div class="setup-scroll mf-lobby">
+    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V13 · FUNCTIONAL COMBAT</span></div><h1>Choose your battle.</h1><p>Pick a mode, customize the fighters, then launch. Every graph is a weapon.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
+    <div class="lobby-section-label"><span>01</span> GAME MODE</div>
+    <div class="mode-switch lobby-modes" role="group" aria-label="Battle mode">
+      <button id="modeWatch" class="active"><span class="mode-emoji">🤖</span><strong>CPU BATTLE</strong><small>Watch two smart AIs fight</small></button>
+      <button id="modePlay"><span class="mode-emoji">🎮</span><strong>SOLO</strong><small>Fight against the CPU</small></button>
+      <button id="modeLocal"><span class="mode-emoji">⚔️</span><strong>LOCAL 1V1</strong><small>Play with a friend</small></button>
+      <button id="modeWarzone"><span class="mode-emoji">🏁</span><strong>THE WARZONE</strong><small>Turns, cover & flags</small></button>
+    </div>
+    <p class="mode-description lobby-mode-caption" id="modeDescription">Two AI fighters. Choose their equations and enjoy the battle.</p>
+    <div class="lobby-section-label" id="fighterSectionLabel"><span>02</span> EQUATIONS <small id="lobbyFighterHint">Pick a preset or write your own</small></div>
+    <div id="warzoneLockNotice" class="warzone-lock-notice" hidden>🔒 <strong>Functions are chosen during the battle.</strong> Warzone fighters enter as Player 1 and Player 2, and take turns typing equations.</div>
+    <div class="mobile-player-tabs" id="mobilePlayerTabs"><button type="button" id="editPlayer0" class="active" aria-pressed="true"><span class="tab-dot green-dot"></span> Fighter 1</button><button type="button" id="editPlayer1" aria-pressed="false"><span class="tab-dot red-dot"></span> Fighter 2</button></div>
+    <div id="lobbyFighters" class="lobby-fighters">
  <div class="setup-fighter is-active" id="setupFighter0"><div class="choose-label">PLAYER 1 FUNCTION <span style="color:#358952">●</span></div><div class="roster" id="playerRoster"></div>
  <div class="custom-row"><label for="customInput0">MAKE YOUR OWN FUNCTION · RESETS ON RELOAD</label><div class="custom-entry"><span>y =</span><input id="customInput0" maxlength="90" spellcheck="false" autocomplete="off" placeholder="sin(2*x) + x/3" aria-label="Player 1 custom function"></div><p class="custom-feedback" id="customError0">Type an equation to use a custom graph.</p>
    <div class="var-title"><span>VARIABLES <span class="var-sub">· add numbers to your equation</span></span><button type="button" class="add-var" id="addVar0">+ Add variable</button></div>
@@ -211,9 +270,12 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom));backgro
    <div class="preview-title"><span>LIVE GRAPH PREVIEW</span><span class="preview-fit">AUTO-FIT TO ARENA</span></div>
    <canvas class="custom-preview" id="customPreview1" width="640" height="150" aria-label="Live preview of Player 2 custom function"></canvas>
    <p class="preview-caption" id="previewCaption1">Graph is adjusted to show inside the arena when attacking.</p><p class="op-insight" id="opInsight1" aria-live="polite"></p></div></div>
- <div class="mode-switch"><button class="active" id="modePlay">1 PLAYER · VS CPU</button><button id="modeLocal">2 PLAYERS · LOCAL</button><button id="modeWatch">CPU VS CPU</button><button id="modeWarzone">⚔ THE WARZONE</button></div>
- <div class="warzone-setup" id="warzoneSetup" hidden><div class="warzone-setup-head">⚔ THE WARZONE <span>TACTICAL FUNCTION BATTLES</span></div><p>One graph shot each, then 5 seconds of movement and dashing. Capture the opposing flag or knock out your opponent. Graphs use the actual arena coordinates, and cover blocks their paths.</p><label for="warzonePlayers">OPPONENT</label><select id="warzonePlayers"><option value="cpu">Fight a smart CPU</option><option value="local">Local 1v1 friend</option></select></div><p class="mode-description" id="modeDescription">Player 1: WASD / Space attack / Left Shift dash. Fight the CPU.</p><p class="syntax-hint">Examples: <code>a*x^2 + b</code> · <code>x^3 - 2*x</code> · <code>sin(2*x)</code> · <code>e^x</code> · <code>1/x</code> · <code>abs(x)</code></p>
- </div><div class="sound-controls"><label for="soundVolume">♫ SOUND EFFECTS</label><input id="soundVolume" type="range" min="0" max="100" value="85" step="1" aria-label="Sound effects volume"><span id="soundValue">85%</span><button type="button" id="soundTest">▶ TEST</button><span class="sound-state" id="soundState" aria-live="polite">Tap Test Sound to enable</span></div><div class="setup-footer"><button class="primary" id="startBtn">START FIGHT →</button><p class="help-line">80 HP each · Collect power-ups · First to 0 loses</p></div></div>
+
+    </div>
+ <div class="warzone-setup" id="warzoneSetup" hidden><div class="warzone-setup-head">⚔ THE WARZONE <span>TACTICAL FUNCTION BATTLES</span></div><p>Alternate equation shots on the coordinate grid. Every two shots unlock a 5-second flag rush. Grab tactical pickups, hide behind cover, capture the flag or defeat your opponent.</p><label for="warzonePlayers">OPPONENT</label><select id="warzonePlayers"><option value="cpu">Fight a smart CPU</option><option value="local">Local 1v1 friend</option></select></div>    <div class="lobby-audio"><div class="sound-controls"><label for="soundVolume">♫ AUDIO</label><input id="soundVolume" type="range" min="0" max="100" value="85" step="1" aria-label="Sound effects volume"><span id="soundValue">85%</span><button type="button" id="soundTest">▶ TEST</button><span class="sound-state" id="soundState" aria-live="polite">Tap Test Sound to enable</span></div></div>
+  </div>
+  <div class="setup-footer lobby-footer"><button class="primary" id="startBtn">WATCH CPU BATTLE →</button><p class="help-line">Pick up power-ups · Damage scales with graph intensity</p></div>
+ </div>
  <div id="resultPage" style="display:none"><div class="eyebrow" id="resultEyebrow">MATCH COMPLETE</div><h1 id="resultTitle">Victory!</h1><p class="modal-sub" id="resultDetail">You survived the showdown.</p><div class="result-score"><div><div class="score-eq" id="resultEqA">tan x</div><div class="score-num team-green" id="resultHpA">6</div><small>HP REMAINING</small></div><div class="colon">VS</div><div><div class="score-eq" id="resultEqB">eˣ</div><div class="score-num team-red" id="resultHpB">0</div><small>HP REMAINING</small></div></div><div class="result-actions"><button class="secondary" id="resultChange">CHANGE MATCHUP</button><button class="primary" id="resultRematch">REMATCH ↻</button></div></div>
  </div></div>
 <!-- Automatic device detection; chooser remains for manual overrides only. -->
@@ -234,7 +296,7 @@ body.device-mobile{padding:0 0 calc(106px + env(safe-area-inset-bottom));backgro
   <h2 id="opTitle">This function looks OP!</h2>
   <p class="op-description">These equations have extreme graph shapes. This warning is just a heads-up, not a restriction.</p>
   <div class="op-reasons" id="opReasons"></div>
-  <p class="op-small">Detection is an estimate based on graph shape. All functions still use normal game damage rules.</p>
+  <p class="op-small">Detection is an estimate based on graph shape. More extreme curves can deal more damage, but damage is capped for balance.</p>
   <div class="op-buttons"><button id="opEdit" class="secondary" type="button">Edit functions</button><button id="opContinue" class="primary" type="button">Play anyway →</button></div>
  </div>
 </div>
@@ -452,6 +514,7 @@ function autoChooseDevice(){
 }
 
 function setEditorSide(side){
+ if(mode==='warzone')return;
  activeSetupSide=side;
  for(let s=0;s<2;s++){
   $('setupFighter'+s).classList.toggle('is-active',s===side);
@@ -466,10 +529,7 @@ function chooseDevice(device){
  $('deviceToggle').textContent=device==='mobile'?'📱 MOBILE':'💻 PC';
  $('deviceOverlay').hidden=true;
  unlockAudio();playSound('click');
- // Bring battle mode choice to the top of the mobile setup, but keep it near Play on PC.
- const switcher=document.querySelector('.mode-switch'),description=$('modeDescription');
- if(device==='mobile'){$('mobilePlayerTabs').before(switcher,description)}
- else{$('setupFighter1').after(switcher,description)}
+ // The new lobby always keeps the mode choices at the top on every device.
  document.body.classList.remove('mobile-info-open');
  $('mobileDetailsToggle').setAttribute('aria-expanded','false');
  setEditorSide(0);
@@ -678,22 +738,25 @@ function setMode(next){mode=next;watch=mode==='watch';local=mode==='local';$('mo
  $('fightControls').classList.toggle('versus',local);if(mode==='warzone'){$('fightControls').classList.remove('versus');}$('stage').classList.toggle('local-touch',local);for(let id of ['castBtn2','dashBtn2'])$(id).classList.toggle('visible',local);
  setText('castTitle',local?'P1 GRAPH':'DRAW GRAPH');setText('dashTitle',local?'P1 DASH':'DASH');
  setText('modeDescription',mode==='warzone'?'TACTICAL MODE: Each player fires one typed equation per round, then both move for 5 seconds toward enemy flags.':local?'SAME KEYBOARD: P1 uses WASD / Space / Left Shift. P2 uses arrows / Enter / Right Shift.':watch?'Both equations are controlled by CPUs. Watch the fight unfold.':'Player 1 uses WASD / Space / Left Shift. Fight the CPU.');
- setText('startBtn',mode==='warzone'?'ENTER THE WARZONE ⚔':local?'START LOCAL 1V1 →':watch?'START AUTOBATTLE →':'START FIGHT →');
+ setText('startBtn',mode==='warzone'?'ENTER THE WARZONE ⚔':local?'START LOCAL 1V1 →':watch?'WATCH CPU BATTLE →':'START SOLO BATTLE →');
+ document.body.classList.toggle('editing-warzone',mode==='warzone');$('warzoneLockNotice').hidden=mode!=='warzone';
+ $('lobbyFighters').setAttribute('aria-disabled',String(mode==='warzone'));
+ $('mobilePlayerTabs').setAttribute('aria-disabled',String(mode==='warzone'));
+ for(const element of $('lobbyFighters').querySelectorAll('input,button'))element.disabled=mode==='warzone';
+ for(const element of $('mobilePlayerTabs').querySelectorAll('button'))element.disabled=mode==='warzone';
  let moves=local?[
  ['🟢','PLAYER 1 MOVE','W A S D'],['∿','P1 GRAPH','SPACE'],['➜','P1 DASH','L SHIFT'],
  ['🔴','PLAYER 2 MOVE','ARROW KEYS'],['∿','P2 GRAPH','ENTER'],['➜','P2 DASH','R SHIFT']]:watch?[
  ['∿','AUTOBATTLE','BOTH CPU'],['➜','DODGE CURVES','AUTOMATIC'],['✦','POWER-UP','×2 DAMAGE']]:[
  ['✥','Move around','W A S D'],['∿','Graph attack','SPACE'],['➜','Dash away','L SHIFT']];
- $('controlsGuide').innerHTML=moves.map(x=>'<div class="move-item"><div class="move-icon">'+x[0]+'</div><div><strong>'+x[1]+'</strong></div><div class="keytag">'+x[2]+'</div></div>').join('');
- setText('touchGuide',local?'On touchscreens: drag on the left half for P1 and the right half for P2. Each player has attack and dash buttons.':watch?'Sit back and watch both sides battle automatically.':'On a phone, drag your finger across the arena to steer. Use the attack and dash buttons below it.');
  setLabels();updateStats();updateHUD(true)
 }
-function setModal(page){$('modalBg').classList.remove('hidden');$('setupPage').style.display=page==='setup'?'block':'none';$('resultPage').style.display=page==='result'?'block':'none';$('setupClose').style.display=state==='playing'||state==='paused'?'grid':'none'}
+function setModal(page){if(page==='setup'&&state==='over')clearTransientEffects();$('modalBg').classList.remove('hidden');$('setupPage').style.display=page==='setup'?'block':'none';$('resultPage').style.display=page==='result'?'block':'none';$('setupClose').style.display=state==='playing'||state==='paused'?'grid':'none'}
 function closeModal(){if(state==='playing'||state==='paused')$('modalBg').classList.add('hidden')}
 function setLabels(){let a=F[selection[0]],b=F[selection[1]];
  setText('leftFormula',a.short);setText('rightFormula',b.short);setText('leftHealthLabel',a.short);setText('rightHealthLabel',b.short);
  setText('leftName',watch?'CPU ALPHA':local?'PLAYER 1':'YOU');setText('rightName',watch?'CPU OMEGA':local?'PLAYER 2':'CPU');
- setText('spellInfo','[ y = '+a.eq+' ]');setText('enemyInfo','[ y = '+b.eq+' ]');setText('formulaEq','y = '+a.eq);setText('formulaDesc',a.desc);setText('funcType',a.type)
+ setText('spellInfo','[ y = '+a.eq+' ]');setText('enemyInfo','[ y = '+b.eq+' ]');setText('formulaEq','y = '+a.eq);setText('formulaDesc',a.desc);setText('funcType',a.type);setText('functionHint','Graph attacks fade smoothly after firing. Power-up orbs provide shields, healing, rapid fire, double damage or the five-shot Gun.')
 }
 function resize(){const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return;let oldW=W,oldH=H;W=rect.width;H=rect.height;unit=clamp(W/11.8,30,64);let dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);if(players.length){let sx=W/oldW,sy=H/oldH;for(let p of players){p.x*=sx;p.y*=sy;p.r=clamp(W*.031,15,23);p.x=clamp(p.x,p.r,W-p.r);p.y=clamp(p.y,p.r,H-p.r)}for(let a of graphs){a.x0*=sx;a.base*=sy;a.aimX*=sx;a.aimY*=sy;a.scaleY*=1}for(let p of pickups){p.x*=sx;p.y*=sy}if(warzone){for(let o of warzone.obstacles){o.x*=sx;o.y*=sy;o.w*=sx;o.h*=sy;o.r*=Math.min(sx,sy)}for(let f of warzone.flag){f.x*=sx;f.y*=sy}}}}
 function makeBall(team,formula,auto){return {team,formula,auto,x:W*(team?0.78:0.22),y:H*(team?.40:.60),r:clamp(W*.031,15,23),vx:team?-45:45,vy:team?56:-51,hp:80,cd:1.6+team*.65,dashCd:0,dashTime:0,dirX:team?-1:1,dirY:0,power:0,shield:0,rapid:0,inv:0,aiChange:0,aiDX:0,aiDY:0,score:0,trails:[],bumpCd:0}}
@@ -712,7 +775,7 @@ function start(force=false){
  }
  $('opWarning').hidden=true;
  if(mode==='warzone'){startWarzone();return;}
- cinematic=null;warzone=null;finishShards=[];$('koOverlay').classList.remove('show');$('stage').classList.remove('cinematic');document.body.classList.remove('warzone-mode');$('stage').classList.remove('warzone');$('warMoveActions').classList.remove('active');$('fightControls').style.display='';$('warzoneHud').hidden=true;$('warzonePanel').hidden=true;unlockAudio();round++;if(state==='menu'&&round===2)round=1;time=0;now=0;graphs=[];particles=[];texts=[];pickups=[];rays=[];gunBursts=[];shockwaves=[];pickupClock=3.7;shake=0;hitFlash=0;keys.clear();holding[0]=holding[1]=false;pointer[0].down=pointer[1].down=false;players=[makeBall(0,selection[0],watch),makeBall(1,selection[1],!local)];state='playing';$('pauseOverlay').classList.remove('active');$('modalBg').classList.add('hidden');setLabels();setText('roundIndicator','ROUND '+String(round).padStart(2,'0'));feedItems=[];log(watch?'Autobattle started. Watch the formulas!':local?'Local 1v1 started. Both players ready!':'Fight started. Dodge the incoming graphs!');updateStats();updateHUD(true);playSound('ready')}
+ cinematic=null;warzone=null;finishShards=[];screenFlash=0;$('koOverlay').classList.remove('show');$('stage').classList.remove('cinematic');document.body.classList.remove('warzone-mode');$('stage').classList.remove('warzone');$('warMoveActions').classList.remove('active');$('fightControls').style.display='';$('warzoneHud').hidden=true;$('warzonePanel').hidden=true;unlockAudio();round++;if(state==='menu'&&round===2)round=1;time=0;now=0;graphs=[];particles=[];texts=[];pickups=[];rays=[];gunBursts=[];shockwaves=[];pickupClock=3.7;shake=0;hitFlash=0;keys.clear();holding[0]=holding[1]=false;pointer[0].down=pointer[1].down=false;players=[makeBall(0,selection[0],watch),makeBall(1,selection[1],!local)];state='playing';$('pauseOverlay').classList.remove('active');$('modalBg').classList.add('hidden');setLabels();setText('roundIndicator','ROUND '+String(round).padStart(2,'0'));feedItems=[];log(watch?'Autobattle started. Watch the formulas!':local?'Local 1v1 started. Both players ready!':'Fight started. Dodge the incoming graphs!');updateStats();updateHUD(true);playSound('ready')}
 function togglePause(){if(state==='playing'){state='paused';$('pauseOverlay').classList.add('active');keys.clear();pointer[0].down=pointer[1].down=false}else if(state==='paused'){state='playing';$('pauseOverlay').classList.remove('active')}else if(state==='over'){setModal('result')}}
 function particlesAt(x,y,color,n=13,scale=1){for(let i=0;i<n;i++){let a=rng(0,Math.PI*2),v=rng(35,160)*scale,life=rng(.28,.73);particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life,max:life,r:rng(1.3,4)*scale,color})}if(particles.length>310)particles.splice(0,particles.length-310)}
 function showDamage(x,y,value,color){texts.push({x,y,value,color,life:.86,max:.86,vy:-58})}
@@ -768,17 +831,21 @@ function cast(p){if(state!=='playing'||p.hp<=0||p.cd>0)return false;
  const anchorInfo=chooseGraphAnchor(p.formula);
  if(!anchorInfo){log('Function has no visible points. Please change its settings.','red');return false}
  const x0=aimX-anchorInfo.u0*unit,scaleY=computeGraphScale(p.formula,anchorInfo.u0,anchorInfo.anchor);
- graphs.push({id:id++,team:p.team,formula:p.formula,x0,base:aimY,aimX,aimY,anchor:anchorInfo.anchor,scaleY,age:0,warning:.44,duration:1.05,fade:.95,damage:Math.round(f.dmg*(p.power>0?2:1)),hit:false,velocity:(p.team?-1:1)*80,wind:Math.random()*20,volume:1.5});
+ graphs.push({id:id++,team:p.team,formula:p.formula,x0,base:aimY,aimX,aimY,anchor:anchorInfo.anchor,scaleY,age:0,warning:.44,duration:1.05,fade:.95,damage:Math.round(f.dmg*graphStrength(f.fn)*(p.power>0?2:1)),hit:false,velocity:(p.team?-1:1)*80,wind:Math.random()*20,volume:1.5});
  p.vx-=p.dirX*16;particlesAt(p.x,p.y,COLORS[p.team],20,1);burstRing(p.x,p.y,COLORS[p.team],p.r+4,.5);playSound('cast',p.team,p.formula);if(Math.random()<.28)log((p.team?'Red':'Green')+' drew y = '+f.eq,p.team?'red':'green');return true
 }
 function calcFn(type,u){try{const y=F[type].fn(u);return typeof y==='number'&&Number.isFinite(y)?y:NaN}catch(e){return NaN}}
 function curveY(g,x,age){let u=(x-g.x0-(Math.max(0,age-g.warning)*g.velocity))/unit,val=calcFn(g.formula,u);if(!Number.isFinite(val))return null;let y=g.aimY-(val-g.anchor)*unit*g.scaleY;if(!Number.isFinite(y)||y<-H*.4||y>H*1.4)return null;return y}
 function graphHit(g,p){if(g.hit||p.hp<=0)return false;for(let i=-8;i<=8;i++){let x=p.x+(i/8)*(p.r+8),y=curveY(g,x,g.age);if(y===null)continue;let dx=x-p.x,dy=y-p.y;if(dx*dx+dy*dy<(p.r+4)*(p.r+4))return true}return false}
 function damage(p,n,x,y,source,ignoreInv=false){if(p.hp<=0||(!ignoreInv&&p.inv>.02))return;let dealt=p.shield>0?Math.max(1,Math.ceil(n*.5)):n;let actual=Math.min(p.hp,dealt);p.hp=Math.max(0,p.hp-dealt);p.inv=ignoreInv?Math.min(p.inv,.07):.22;let attacker=players[1-p.team];attacker.score+=actual;showDamage(x,y,'-'+actual,p.team?'#d83b44':'#26854c');particlesAt(x,y,COLORS[p.team],23,1.2);burstRing(x,y,COLORS[p.team],20,.35);shake=Math.max(shake,4.3);hitFlash=.14;if(!ignoreInv)playSound('hit',p.team);if(p.hp<=0)endMatch(1-p.team)}
-function endMatch(winner,reason='knockout'){if(state!=='playing')return;state='finishing';const p=players[winner],loser=players[1-winner];particlesAt(loser.x,loser.y,COLORS[loser.team],85,3.1);burstRing(loser.x,loser.y,COLORS[loser.team],42,1.5);burstRing(loser.x,loser.y,'#f7c865',15,1.15);shake=14;cinematic={winner,x:loser.x,y:loser.y,elapsed:0,duration:2.55};finishShards=Array.from({length:38},(_,i)=>{let angle=Math.PI*2*i/38+rng(-.13,.13),sp=rng(110,410);return{x:loser.x,y:loser.y,vx:Math.cos(angle)*sp,vy:Math.sin(angle)*sp,spin:rng(-11,11),rotation:rng(0,6.28),size:rng(3,11),life:rng(1.1,2),color:i%4===0?'#ffe39c':COLORS[loser.team]}});screenFlash=.85;$('koOverlay').classList.add('show');$('stage').classList.add('cinematic');playSound('ko',winner);let isVictory=winner===0;
+function clearTransientEffects(){graphs=[];pickups=[];rays=[];gunBursts=[];shockwaves=[];particles=[];texts=[];finishShards=[];hitFlash=0;shake=0;screenFlash=0;if(warzone)warzone.shots=[];for(const p of players)p.trails=[];}
+function endMatch(winner,reason='knockout'){if(state!=='playing')return;state='finishing';
+ // Remove existing attacks before camera close-up: one clean foreground, never cloned graph layers.
+ graphs=[];pickups=[];rays=[];gunBursts=[];if(warzone)warzone.shots=[];for(const fighter of players)fighter.trails=[];
+ particles=[];texts=[];shockwaves=[];const p=players[winner],loser=players[1-winner];particlesAt(loser.x,loser.y,COLORS[loser.team],85,3.1);burstRing(loser.x,loser.y,COLORS[loser.team],42,1.5);burstRing(loser.x,loser.y,'#f7c865',15,1.15);shake=14;cinematic={winner,x:loser.x,y:loser.y,elapsed:0,duration:2.55};finishShards=Array.from({length:38},(_,i)=>{let angle=Math.PI*2*i/38+rng(-.13,.13),sp=rng(110,410);return{x:loser.x,y:loser.y,vx:Math.cos(angle)*sp,vy:Math.sin(angle)*sp,spin:rng(-11,11),rotation:rng(0,6.28),size:rng(3,11),life:rng(1.1,2),color:i%4===0?'#ffe39c':COLORS[loser.team]}});screenFlash=.85;$('koOverlay').classList.add('show');$('stage').classList.add('cinematic');playSound('ko',winner);let isVictory=winner===0;
  if(warzone){if(local)localWins[winner]++;updateStats()}else if(local){localWins[winner]++;updateStats()}else if(!watch){if(isVictory){totalStats.wins++;totalStats.streak++;totalStats.best=Math.max(totalStats.streak,totalStats.best)}else totalStats.streak=0;saveStats();updateStats()}
  $('resultEyebrow').textContent=warzone?'WARZONE · '+(reason==='flag'?'FLAG CAPTURE':'KNOCKOUT'):watch?'AUTOBATTLE COMPLETE':local?'LOCAL MATCH COMPLETE':'MATCH COMPLETE';$('resultTitle').textContent=warzone?'Player '+(winner+1)+' wins!':local?'Player '+(winner+1)+' wins!':watch?((p.formula.startsWith('custom')?'Player '+(winner+1):F[p.formula].short)+' wins!'):(isVictory?'Victory!':'Defeat!');$('resultTitle').style.color=isVictory?'#278249':'#d64852';$('resultDetail').textContent=(warzone?(reason==='flag'?'Enemy flag captured!':'A perfect graph knocked out the enemy!'):local?'Good game!':watch?'The battle is over.':isVictory?'Your graphing skills prevailed.':'The rival function took the round.')+' Winner finished with '+Math.ceil(p.hp)+' HP.';$('resultEqA').textContent=warzone?(warzone.last[0]||'No shot fired'):(players[0].formula.startsWith('custom')?'y = '+F[players[0].formula].eq:F[players[0].formula].short);$('resultEqB').textContent=warzone?(warzone.last[1]||'No shot fired'):(players[1].formula.startsWith('custom')?'y = '+F[players[1].formula].eq:F[players[1].formula].short);setText('resultHpA',Math.ceil(players[0].hp));setText('resultHpB',Math.ceil(players[1].hp));log((winner?'Red':'Green')+' won the battle!','gold');playSound('win',winner);if(!local&&!watch&&winner===1)playSound('lose',0);/* result appears when cinematic completes */}
-function dash(p){if(state!=='playing'||(warzone&&warzone.phase!=='move')||p.hp<=0||p.dashCd>0)return;let mx=p.dirX,my=p.dirY,l=Math.hypot(mx,my);if(l<.1){mx=p.team?-1:1;my=0;l=1}p.vx=mx/l*clamp(W*.96,310,650);p.vy=my/l*clamp(W*.96,310,650);p.dashTime=.18;p.inv=Math.max(p.inv,.31);p.dashCd=3.65;particlesAt(p.x,p.y,COLORS[p.team],20,1.05);playSound('dash',p.team)}
+function dash(p){if(state!=='playing'||(warzone&&warzone.phase!=='move')||p.hp<=0||p.dashCd>0)return;let mx=p.dirX,my=p.dirY,l=Math.hypot(mx,my);if(l<.1){mx=p.team?-1:1;my=0;l=1}const dashSpeed=warzone?clamp(W*.51,175,330):clamp(W*.96,310,650);p.vx=mx/l*dashSpeed;p.vy=my/l*dashSpeed;p.dashTime=.18;p.inv=Math.max(p.inv,.31);p.dashCd=3.65;particlesAt(p.x,p.y,COLORS[p.team],20,1.05);playSound('dash',p.team)}
 function playerMove(p){let dx=0,dy=0;
  if(p.team===0){if(keys.has('a')||!local&&keys.has('arrowleft'))dx--;if(keys.has('d')||!local&&keys.has('arrowright'))dx++;if(keys.has('w')||!local&&keys.has('arrowup'))dy--;if(keys.has('s')||!local&&keys.has('arrowdown'))dy++}
  else if(local){if(keys.has('arrowleft'))dx--;if(keys.has('arrowright'))dx++;if(keys.has('arrowup'))dy--;if(keys.has('arrowdown'))dy++}
@@ -826,7 +893,7 @@ function updateCinematic(dt){
  for(let ring of shockwaves)ring.life-=d;shockwaves=shockwaves.filter(x=>x.life>0);
  for(const shard of finishShards){shard.x+=shard.vx*d;shard.y+=shard.vy*d;shard.vx*=Math.pow(.985,d*60);shard.vy+=230*d;shard.rotation+=shard.spin*d;shard.life-=d;}finishShards=finishShards.filter(shard=>shard.life>0);
  if(Math.random()<.65&&c.elapsed<1.55)particlesAt(c.x+rng(-25,25),c.y+rng(-25,25),Math.random()<.5?'#ffd992':'#da6f7a',2,1.5);
- if(c.elapsed>=c.duration){state='over';cinematic=null;$('koOverlay').classList.remove('show');$('stage').classList.remove('cinematic');setModal('result')}
+ if(c.elapsed>=c.duration){state='over';cinematic=null;clearTransientEffects();$('koOverlay').classList.remove('show');$('stage').classList.remove('cinematic');setModal('result')}
 }
 function update(dt){time+=dt;now+=dt;shake=Math.max(0,shake-dt*14);hitFlash=Math.max(0,hitFlash-dt);pickupClock-=dt;if(pickupClock<=0){spawnPickup();pickupClock=rng(5.8,8.2)}
  for(let p of players){if(p.hp>0&&!p.auto&&p.cd<=0&&time>1.25)cast(p);p.cd=Math.max(0,p.cd-dt);p.dashCd=Math.max(0,p.dashCd-dt);p.dashTime=Math.max(0,p.dashTime-dt);p.inv=Math.max(0,p.inv-dt);p.power=Math.max(0,p.power-dt);p.shield=Math.max(0,p.shield-dt);p.rapid=Math.max(0,p.rapid-dt);p.bumpCd=Math.max(0,p.bumpCd-dt);if(p.hp<=0)continue;
@@ -861,10 +928,24 @@ function drawExtraEffects(){
  ctx.globalAlpha=1;
 }
 function drawPickups(){for(let q of pickups){let power=POWERUPS[q.kind],pulse=1+Math.sin(q.t*5)*.085;ctx.save();ctx.globalAlpha=clamp(q.life/.85,0,1);ctx.translate(q.x,q.y+Math.sin(q.t*3)*3);ctx.scale(.7+.3*clamp(q.life/.85,0,1),.7+.3*clamp(q.life/.85,0,1));ctx.scale(pulse,pulse);ctx.shadowColor=power.color;ctx.shadowBlur=19+Math.sin(q.t*6)*5;ctx.fillStyle='#fff';ctx.strokeStyle=power.color;ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,0,q.r,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.shadowBlur=0;ctx.fillStyle=power.color;ctx.font=q.kind==='gun'?'16px sans-serif':'bold 17px ui-sans-serif, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(power.label,0,1);ctx.restore()}}
-function drawBalls(){for(let p of players){for(let tr of p.trails){let r=p.r*(.45+tr.t*.6);ctx.beginPath();ctx.arc(tr.x,tr.y,r,0,Math.PI*2);ctx.fillStyle=p.team?`rgba(220,64,73,${tr.t*.065})`:`rgba(26,144,74,${tr.t*.065})`;ctx.fill()}if(p.hp<=0)continue;ctx.save();ctx.translate(p.x,p.y);let color=COLORS[p.team];if(p.power>0||p.shield>0||p.rapid>0){ctx.beginPath();ctx.arc(0,0,p.r+8+Math.sin(now*7)*2,0,Math.PI*2);ctx.strokeStyle=p.shield>0?'rgba(65,152,228,.85)':p.rapid>0?'rgba(239,139,45,.8)':'rgba(229,170,20,.65)';ctx.lineWidth=p.shield>0?4:2.8;ctx.setLineDash(p.shield>0?[]:[4,5]);ctx.stroke();ctx.setLineDash([])}ctx.shadowColor=color;ctx.shadowBlur=p.inv>0?25:16;ctx.fillStyle=p.team?'#fff2f2':'#effcf1';ctx.strokeStyle=color;ctx.lineWidth=p.dashTime>0?4:2.35;ctx.beginPath();ctx.arc(0,0,p.r,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.shadowBlur=0;ctx.fillStyle=p.team?'#a32638':'#20653a';let label=F[p.formula].short;ctx.font=`bold italic ${label.length>4?p.r*.62:p.r*.82}px Georgia,serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,0,1.5);ctx.restore();}}
+function drawBalls(){for(let p of players){for(let tr of p.trails){let r=p.r*(.45+tr.t*.6);ctx.beginPath();ctx.arc(tr.x,tr.y,r,0,Math.PI*2);ctx.fillStyle=p.team?`rgba(220,64,73,${tr.t*.065})`:`rgba(26,144,74,${tr.t*.065})`;ctx.fill()}if(p.hp<=0||(cinematic&&p.team!==cinematic.winner))continue;ctx.save();ctx.translate(p.x,p.y);let color=COLORS[p.team];if(p.power>0||p.shield>0||p.rapid>0){ctx.beginPath();ctx.arc(0,0,p.r+8+Math.sin(now*7)*2,0,Math.PI*2);ctx.strokeStyle=p.shield>0?'rgba(65,152,228,.85)':p.rapid>0?'rgba(239,139,45,.8)':'rgba(229,170,20,.65)';ctx.lineWidth=p.shield>0?4:2.8;ctx.setLineDash(p.shield>0?[]:[4,5]);ctx.stroke();ctx.setLineDash([])}ctx.shadowColor=color;ctx.shadowBlur=p.inv>0?25:16;ctx.fillStyle=p.team?'#fff2f2':'#effcf1';ctx.strokeStyle=color;ctx.lineWidth=p.dashTime>0?4:2.35;ctx.beginPath();ctx.arc(0,0,p.r,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.shadowBlur=0;ctx.fillStyle=p.team?'#a32638':'#20653a';let label=warzone?'P'+(p.team+1):F[p.formula].short;ctx.font=`bold italic ${label.length>4?p.r*.62:p.r*.82}px Georgia,serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,0,1.5);ctx.restore();}}
 function drawShards(){for(const sh of finishShards){ctx.save();ctx.translate(sh.x,sh.y);ctx.rotate(sh.rotation);ctx.globalAlpha=clamp(sh.life/.9,0,1);ctx.fillStyle=sh.color;ctx.shadowColor=sh.color;ctx.shadowBlur=12;ctx.fillRect(-sh.size/2,-sh.size*.22,sh.size,sh.size*.44);ctx.restore()}}
 function drawParticles(dt){for(let p of particles){ctx.save();ctx.globalAlpha=clamp(p.life/p.max,0,1);ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.r*(.35+.65*p.life/p.max),0,Math.PI*2);ctx.fill();ctx.restore()}for(let t of texts){ctx.save();ctx.globalAlpha=clamp(t.life/t.max,0,1);ctx.font='900 20px Inter,Arial,sans-serif';ctx.fillStyle=t.color;ctx.strokeStyle='white';ctx.lineWidth=3;ctx.textAlign='center';ctx.strokeText(t.value,t.x,t.y);ctx.fillText(t.value,t.x,t.y);ctx.restore()}}
-function draw(){ctx.save();if(cinematic){let t=cinematic.elapsed,zoom=t<.7?1+1.15*(1-Math.pow(1-t/.7,3)):t<1.65?2.15:1+1.15*Math.pow(Math.max(0,1-(t-1.65)/.85),2);ctx.translate(W/2,H/2);ctx.scale(zoom,zoom);ctx.translate(-cinematic.x,-cinematic.y)}if(shake>0)ctx.translate(rng(-shake,shake),rng(-shake,shake));drawGrid();if(warzone){drawWarzone();ctx.restore();return;}if(state==='menu'&&!players.length){drawIdlePreview()}else{drawGraphs();drawPickups();drawExtraEffects();drawBalls();drawParticles();drawShards()}if(screenFlash>0){ctx.fillStyle=`rgba(255,255,255,${screenFlash*.38})`;ctx.fillRect(0,0,W,H)}if(hitFlash>0){ctx.fillStyle=`rgba(242,242,240,${hitFlash*.14})`;ctx.fillRect(0,0,W,H)}ctx.restore()}
+function draw(){
+ ctx.save();drawGrid();
+ if(warzone)drawWarzoneBackground();
+ if(cinematic){
+  const t=cinematic.elapsed,up=clamp(t/.68,0,1),down=clamp((t-1.65)/.88,0,1);
+  const zoom=1+1.15*(up*up*(3-2*up))*(1-down*down*(3-2*down));
+  ctx.save();ctx.translate(W/2,H/2);ctx.scale(zoom,zoom);ctx.translate(-cinematic.x,-cinematic.y);
+  // Single clean KO scene: no duplicated grid, active attacks or obstacle render passes.
+  drawBalls();drawParticles();drawShards();ctx.restore();
+ }else if(warzone){drawWarzone();}
+ else if(state==='menu'&&!players.length)drawIdlePreview();
+ else{drawGraphs();drawPickups();drawExtraEffects();drawBalls();drawParticles();drawShards();}
+ if(screenFlash>0){ctx.fillStyle=`rgba(255,255,255,${screenFlash*.34})`;ctx.fillRect(0,0,W,H)}
+ if(hitFlash>0){ctx.fillStyle=`rgba(242,242,240,${hitFlash*.14})`;ctx.fillRect(0,0,W,H)}
+ ctx.restore();}
 function drawIdlePreview(){const lf=F[selection[0]],rf=F[selection[1]];let mock=[{x:W*.22+Math.sin(performance.now()/850)*8,y:H*.52,r:clamp(W*.031,15,23),team:0,formula:selection[0],hp:80,inv:0,power:0,dashTime:0,trails:[]},{x:W*.78,y:H*.40+Math.cos(performance.now()/1200)*9,r:clamp(W*.031,15,23),team:1,formula:selection[1],hp:80,inv:0,power:0,dashTime:0,trails:[]}];let original=players;players=mock;drawBalls();players=original;ctx.save();ctx.textAlign='center';ctx.font='bold 15px system-ui';ctx.fillStyle='#b2b9b4';ctx.fillText('CHOOSE YOUR FUNCTION TO BEGIN',W/2,H*.87);ctx.restore()}
 function updateHUD(force=false){if(!players.length)return;const a=players[0],b=players[1];
  setText('leftHP',Math.ceil(a.hp)+' / 80');setText('rightHP',Math.ceil(b.hp)+' / 80');$('leftFill').style.width=(a.hp/80*100)+'%';$('rightFill').style.width=(b.hp/80*100)+'%';
@@ -881,19 +962,93 @@ function warUnit(){return Math.max(18,Math.min(W/19,H/12.4))}
 function warCoords(x,y){let q=warUnit();return {x:(x-W/2)/q,y:(H/2-y)/q}}
 function warPixels(x,y){let q=warUnit();return {x:W/2+x*q,y:H/2-y*q}}
 function warObstructed(x,y){if(!warzone)return false;for(const o of warzone.obstacles){if(o.kind==='circle'){if(Math.hypot(x-o.x,y-o.y)<o.r)return true}else if(o.kind==='rect'){if(Math.abs(x-o.x)<o.w/2&&Math.abs(y-o.y)<o.h/2)return true}else if(o.kind==='diamond'){if(Math.abs(x-o.x)/o.w*2+Math.abs(y-o.y)/o.h*2<1)return true}}return false}
-function randomCover(){const shapes=['rect','circle','diamond'];let arr=[];
- for(let i=0;i<9;i++){let j=0,o;do{o={kind:shapes[i%3],x:rng(W*.25,W*.75),y:rng(H*.16,H*.84),w:rng(34,W*.09),h:rng(27,H*.17),r:rng(17,34)};j++}while(j<40&&(Math.abs(o.x-W*.14)<W*.13||Math.abs(o.x-W*.86)<W*.13||arr.some(a=>Math.hypot(o.x-a.x,o.y-a.y)<64)));
- arr.push(o)}return arr}
+function randomCover(){
+ const shapes=['rect','circle','diamond'],arr=[];
+ const reserved=[...players.map(p=>({x:p.x,y:p.y,r:p.r+32})),{x:W*.085,y:H*.5,r:W*.09},{x:W*.915,y:H*.5,r:W*.09}];
+ // Use more of the board, including near the top and bottom, instead of a central wall cluster.
+ for(let i=0;i<14;i++){
+  let best=null,bestScore=-Infinity;
+  for(let attempt=0;attempt<110;attempt++){
+   const o={kind:shapes[Math.floor(rng(0,shapes.length))],x:rng(W*.17,W*.83),y:rng(H*.11,H*.89),w:rng(25,Math.min(65,W*.095)),h:rng(23,Math.min(60,H*.16)),r:rng(12,25)};
+   const radius=Math.max(o.r,o.w*.58,o.h*.58),free=Math.min(
+    ...reserved.map(a=>Math.hypot(o.x-a.x,o.y-a.y)-radius-a.r),
+    ...arr.map(a=>Math.hypot(o.x-a.x,o.y-a.y)-radius-Math.max(a.r,a.w*.58,a.h*.58)));
+   if(free>12){best=o;break}
+   if(free>bestScore){bestScore=free;best=o}
+  }
+  if(best&&(bestScore>-14||arr.length<9||!arr.some(a=>Math.hypot(a.x-best.x,a.y-best.y)<42)))arr.push(best);
+ }
+ return arr;
+}
+const WAR_PICKUPS={armor:{label:'⬡',name:'Barrier',color:'#53b8e5'},surge:{label:'✦',name:'Overcharge',color:'#ffc55f'},sprint:{label:'»',name:'Speed boost',color:'#a483f2'}};
+function spawnWarPickups(){if(!warzone)return;const z=warzone;z.items=[];
+ for(const kind of Object.keys(WAR_PICKUPS)){
+  for(let k=0;k<90;k++){let x=rng(W*.19,W*.81),y=rng(H*.13,H*.87);
+   if(warObstructed(x,y)||z.items.some(o=>Math.hypot(o.x-x,o.y-y)<75)||z.flag.some(f=>Math.hypot(f.x-x,f.y-y)<65))continue;
+   z.items.push({kind,x,y,t:rng(0,3),life:20,claimed:false});break;
+  }
+ }
+}
+function pickupWarItem(p,item){item.claimed=true;const desc=WAR_PICKUPS[item.kind];
+ if(item.kind==='armor')p.warArmor=1;
+ if(item.kind==='surge')p.warSurge=1;
+ if(item.kind==='sprint')p.warSprint=12;
+ log('P'+(p.team+1)+' got '+desc.name+'!',p.team?'red':'green');
+ particlesAt(item.x,item.y,desc.color,24,1.1);burstRing(item.x,item.y,desc.color,26,.6);playSound('pickup',p.team);
+}
+function graphStrength(fn){
+ let last=null,total=0,steep=0,wiggles=0,extremes=0,prevSlope=0;
+ for(let i=0;i<=180;i++){
+  let x=-7+i*14/180,y;try{y=fn(x)}catch(e){y=NaN}
+  if(!Number.isFinite(y)){extremes++;last=null;continue}
+  if(Math.abs(y)>22)extremes++;
+  if(last){let slope=(y-last.y)/(x-last.x);if(Number.isFinite(slope)){
+   total+=Math.min(35,Math.abs(slope));if(Math.abs(slope)>9)steep++;
+   if(prevSlope&&slope*prevSlope<0&&Math.abs(slope-prevSlope)>1.8)wiggles++;
+   prevSlope=slope;
+  }}last={x,y};
+ }
+ return clamp(1+Math.log1p(total/180)*.34+Math.min(wiggles,25)*.028+Math.min(steep,40)*.016+Math.min(extremes,70)*.006,1,2.65);
+}
+function warGraphDamage(fn,p){return Math.round(clamp(13*graphStrength(fn)+(p.warSurge?8:0),13,43))}
+// Sample true graph coordinates from left to right. The first contact with solid cover terminates
+// the entire shot; later pieces of the curve cannot restart behind the same obstacle.
+function traceWarShot(fn){const segments=[];let segment=[],prev=null,impact=null;
+ const push=()=>{if(segment.length>1)segments.push(segment);segment=[]};
+ for(let x=0;x<W;x+=1.5){let yv;try{yv=fn((x-W/2)/warUnit())}catch(e){yv=NaN}
+  const y=H/2-yv*warUnit();
+  if(!Number.isFinite(y)||y<0||y>H){push();prev=null;continue}
+  if(prev&&Math.abs(prev.y-y)>H*.16){push();prev=null}
+  // Interpolated substeps close the tiny tunnel that can happen between samples.
+  if(prev){let collision=null;for(let t=.2;t<=1.001;t+=.2){let xx=prev.x+(x-prev.x)*t,yy=prev.y+(y-prev.y)*t;if(warObstructed(xx,yy)){collision={x:xx,y:yy};break}}
+   if(collision){segment.push(collision);push();impact=collision;break}
+  }
+  if(warObstructed(x,y)){impact={x,y};if(prev){segment.push(impact);push()}break}
+  const point={x,y};segment.push(point);prev=point;
+ }
+ push();return {segments,impact};
+}
+function revealWarImpact(s,revealX){if(!s.impact||s.impacted||revealX<s.impact.x)return;
+ s.impacted=true;const v=s.impact,c=COLORS[s.team];
+ particlesAt(v.x,v.y,'#ffce77',33,1.15);particlesAt(v.x,v.y,c,18,.75);
+ burstRing(v.x,v.y,'#ffce77',15,.8);showDamage(v.x,v.y-15,'BLOCKED','#b78140');
+ shake=Math.max(shake,4);screenFlash=Math.max(screenFlash,.16);playSound('block',s.team);
+}
 function startWarzone(){
- unlockAudio();mode='warzone';watch=false;local=$('warzonePlayers').value==='local';warzone={phase:'turn',turn:0,turns:0,round:1,timer:0,shots:[],obstacles:[],flag:[],last:['',''],cpuWait:1.35};cinematic=null;
+ unlockAudio();mode='warzone';watch=false;local=$('warzonePlayers').value==='local';warzone={phase:'turn',turn:0,turns:0,round:1,timer:0,shots:[],obstacles:[],flag:[],last:['',''],cpuWait:1.35,items:[],decor:[]};cinematic=null;finishShards=[];screenFlash=0;shake=0;hitFlash=0;
  document.body.classList.add('warzone-mode');document.body.classList.remove('auto-combat');$('warzoneHud').hidden=false;$('warzonePanel').hidden=false;setText('roundIndicator','WARZONE');
  state='playing';time=0;now=0;graphs=[];particles=[];texts=[];pickups=[];rays=[];gunBursts=[];shockwaves=[];keys.clear();holding=[false,false];
  const sides=[0,1];players=sides.map(side=>makeBall(side,side?'sin':'quad',side===1&&!local));
- for(let i=0;i<2;i++){let p=players[i];p.r=clamp(W*.024,10,17);p.x=W*(i?.86:.14);p.y=H*rng(.29,.71);p.hp=80;p.cd=0;p.dashCd=0;p.vx=p.vy=0}
- warzone.flag=[{x:W*.085,y:H*.5,owner:0},{x:W*.915,y:H*.5,owner:1}];warzone.obstacles=randomCover();
+ for(let i=0;i<2;i++){let p=players[i];p.r=clamp(W*.024,10,17);p.x=W*(i?.86:.14);p.y=H*rng(.29,.71);p.hp=80;p.cd=0;p.dashCd=0;p.vx=p.vy=0;p.warArmor=0;p.warSurge=0;p.warSprint=0}
+ warzone.flag=[{x:W*.085,y:H*.5,owner:0},{x:W*.915,y:H*.5,owner:1}];warzone.obstacles=randomCover();spawnWarPickups();
  $('modalBg').classList.add('hidden');$('opWarning').hidden=true;$('pauseOverlay').classList.remove('active');
  $('fightControls').style.display='none';$('stage').classList.toggle('local-touch',local);$('warzoneInput').value='';setText('leftName','PLAYER 1');setText('rightName',local?'PLAYER 2':'WARZONE CPU');
- setText('leftFormula','P1');setText('rightFormula',local?'P2':'CPU');setText('spellInfo','[ CAPTURE RED FLAG ]');setText('enemyInfo','[ CAPTURE GREEN FLAG ]');
+ setText('leftFormula','P1');setText('rightFormula',local?'P2':'CPU');
+ setText('leftHealthLabel','PLAYER 1');setText('rightHealthLabel',local?'PLAYER 2':'WARZONE CPU');
+ setText('funcType','TACTICAL BATTLE');setText('formulaEq','THE WARZONE');
+ setText('formulaDesc','Take turns drawing actual equations. Cover blocks the line completely. Stronger shapes deal more damage.');
+ setText('functionHint','Barrier absorbs the next graph hit · Overcharge strengthens your next shot · Speed boost helps rush the flag.');
+ setText('spellInfo','[ CAPTURE RED FLAG ]');setText('enemyInfo','[ CAPTURE GREEN FLAG ]');
  $('stage').classList.add('warzone');warzoneHUD();resize();warzoneHUD();playSound('phase');log('WARZONE: P1 fires a function. Two turns, then 5 seconds of movement!','gold');updateHUD(true)
 }
 function warzoneHUD(){if(!warzone)return;const z=warzone,t=z.turn;
@@ -911,48 +1066,83 @@ function warzoneHUD(){if(!warzone)return;const z=warzone,t=z.turn;
  $('joystick0').style.opacity=moving?'1':'.25';$('joystick1').style.opacity=moving?'1':'.25';
 }
 function formatXY(p){const c=warCoords(p.x,p.y);return `x=${c.x.toFixed(1)}, y=${c.y.toFixed(1)}`}
-function warzoneSuggestedLine(team){const p=players[1-team],co=warCoords(p.x,p.y);let m=(p.y-H/2)/(p.x-W/2||1)*-.35;const b=co.y-m*co.x;return `${m.toFixed(2)}*x ${b>=0?'+':'-'} ${Math.abs(b).toFixed(2)}`}
 function warzoneFire(){if(!warzone||state!=='playing'||warzone.phase!=='turn')return;const z=warzone,team=z.turn,p=players[team];if(p.auto)return;
  let raw=$('warzoneInput').value.trim();try{const parsed=parseMathExpression(raw,selection[team]==='custom'+team?getVariableScope(team):{});submitWarShot(team,parsed,raw)}catch(e){$('warzoneError').textContent=e.message;$('warzoneError').classList.add('bad');playSound('warning')}}
 function submitWarShot(team,parsed,raw){const z=warzone;if(!z||state!=='playing'||z.phase!=='turn'||z.turn!==team)return false;
- z.phase='fire';z.timer=2.05;z.last[team]='y = '+parsed.eq;z.shots.push({team,fn:parsed.fn,eq:parsed.eq,age:0,life:2.3,hit:false,blocked:false,collisionTime:0});z.turns++;
- $('warzoneError').classList.remove('bad');$('warzoneError').textContent='y = '+parsed.eq+' · Attack launched!';$('warzoneInput').value='';
+ const p=players[team];z.phase='fire';z.timer=2.05;z.last[team]='y = '+parsed.eq;const path=traceWarShot(parsed.fn),power=graphStrength(parsed.fn);
+ z.shots.push({team,fn:parsed.fn,eq:parsed.eq,age:0,life:2.3,hit:false,blocked:false,collisionTime:0,segments:path.segments,impact:path.impact,impacted:false,damage:warGraphDamage(parsed.fn,p),power});
+ p.warSurge=0;z.turns++;
+ $('warzoneError').classList.remove('bad');$('warzoneError').textContent='y = '+parsed.eq+' · '+z.shots[z.shots.length-1].damage+' damage · Graph power ×'+z.shots[z.shots.length-1].power.toFixed(1);$('warzoneInput').value='';
  particlesAt(players[team].x,players[team].y,COLORS[team],25,1.1);burstRing(players[team].x,players[team].y,COLORS[team],25,.75);
  playSound('warfire',team);warzoneHUD();log('P'+(team+1)+' fires y = '+parsed.eq,team?'red':'green');return true;
 }
 function segmentNear(x1,y1,x2,y2,p){let dx=x2-x1,dy=y2-y1,a=dx*dx+dy*dy;if(!a)return Math.hypot(x1-p.x,y1-p.y);let t=clamp(((p.x-x1)*dx+(p.y-y1)*dy)/a,0,1);return Math.hypot(x1+dx*t-p.x,y1+dy*t-p.y)}
-function warShotHits(s){const target=players[1-s.team];if(!target||target.hp<=0||s.hit)return;let last=null,blocked=false;
- for(let x=1;x<W;x+=2.5){let co=warCoords(x,H/2),yval;try{yval=s.fn(co.x)}catch(e){last=null;continue}let y=H/2-yval*warUnit();if(!Number.isFinite(y)||y<-H*.1||y>H*1.1){last=null;continue}let covers=warObstructed(x,y);if(covers){blocked=true;last=null;continue}if(last&&Math.abs(last.y-y)<H*.14&&segmentNear(last.x,last.y,x,y,target)<target.r+4){s.hit=true;damage(target,18,target.x,target.y,s,true);burstRing(target.x,target.y,'#ffe082',36,.8);screenFlash=.28;playSound('hit',target.team);break}last={x,y}}
- if(blocked&&!s.blocked){s.blocked=true;playSound('block',s.team)}
+function warShotHits(s,revealX){
+ revealWarImpact(s,revealX);if(s.hit)return;const target=players[1-s.team];if(!target||target.hp<=0)return;
+ if(s.impact&&target.x>=s.impact.x)return; // The opposing ball is behind solid cover.
+ for(const segment of s.segments){let prev=null;
+  for(const v of segment){if(v.x>revealX)break;
+   if(prev&&segmentNear(prev.x,prev.y,v.x,v.y,target)<target.r+3){
+    s.hit=true;
+    let dmg=s.damage;if(target.warArmor){dmg=Math.max(2,Math.round(dmg*.35));target.warArmor=0;log('Barrier absorbed the attack!',target.team?'red':'green')}
+    damage(target,dmg,target.x,target.y,s,true);burstRing(target.x,target.y,'#ffe082',36,.8);screenFlash=.28;playSound('hit',target.team);return;
+   }prev=v;
+  }
+ }
 }
 function moveAroundCover(p){for(let o of warzone.obstacles){let oldx=p.x,oldy=p.y;if(o.kind==='circle'){let d=Math.hypot(p.x-o.x,p.y-o.y);if(d<p.r+o.r){let nx=(p.x-o.x)/(d||1),ny=(p.y-o.y)/(d||1);p.x=o.x+nx*(p.r+o.r);p.y=o.y+ny*(p.r+o.r);p.vx*=.45;p.vy*=.45}}else{let radius=o.kind==='diamond'?Math.min(o.w,o.h)*.22:0;if(o.kind==='rect'&&Math.abs(p.x-o.x)<o.w/2+p.r&&Math.abs(p.y-o.y)<o.h/2+p.r){let xx=o.w/2+p.r-Math.abs(p.x-o.x),yy=o.h/2+p.r-Math.abs(p.y-o.y);if(xx<yy){p.x+=Math.sign(p.x-o.x||1)*xx;p.vx*=.3}else{p.y+=Math.sign(p.y-o.y||1)*yy;p.vy*=.3}}
  if(o.kind==='diamond'&&Math.abs(p.x-o.x)<o.w/2+p.r&&Math.abs(p.y-o.y)<o.h/2+p.r&&warObstructed(p.x,p.y)){p.x=oldx;p.y=oldy;p.vx*=-.35;p.vy*=-.35}}}
 }
 function updateWarzone(dt){time+=dt;now+=dt;shake=Math.max(0,shake-dt*11);screenFlash=Math.max(0,screenFlash-dt*1.1);const z=warzone;
- for(let p of players){p.dashCd=Math.max(0,p.dashCd-dt);p.dashTime=Math.max(0,p.dashTime-dt);p.inv=Math.max(0,p.inv-dt);for(let tr of p.trails)tr.t-=dt;p.trails=p.trails.filter(x=>x.t>0)}
+ for(let p of players){p.dashCd=Math.max(0,p.dashCd-dt);p.dashTime=Math.max(0,p.dashTime-dt);p.inv=Math.max(0,p.inv-dt);p.warSprint=Math.max(0,(p.warSprint||0)-dt);for(let tr of p.trails)tr.t-=dt;p.trails=p.trails.filter(x=>x.t>0)}
  if(z.phase==='turn'){if(players[z.turn].auto){z.cpuWait-=dt;if(z.cpuWait<=0){const enemy=players[1-z.turn],xy=warCoords(enemy.x,enemy.y),m=rng(-.65,.65),b=xy.y-m*xy.x+rng(-.4,.4),eq=`${m.toFixed(2)}*x ${b>=0?'+':'-'} ${Math.abs(b).toFixed(2)}`;submitWarShot(z.turn,parseMathExpression(eq),eq)}}}
- if(z.phase==='fire'){z.timer-=dt;for(let s of z.shots){s.age+=dt;if(s.age>.42&&s.age<1.7&&!s.hit&&clamp((s.age-.16)/.98,0,1)*W>=players[1-s.team].x-players[1-s.team].r)warShotHits(s)}if(z.timer<=0){if(z.turns%2===0){z.phase='move';z.timer=5;z.turn=0;z.round++;playSound('phase');log('FLAG RUSH! 5 seconds to move and dash.','gold')}else{z.phase='turn';z.turn=1;z.cpuWait=rng(.75,1.45);playSound('phase')}warzoneHUD()}}
+ if(z.phase==='fire'){z.timer-=dt;for(let s of z.shots){s.age+=dt;if(s.age>.16&&s.age<1.7)warShotHits(s,clamp((s.age-.16)/.98,0,1)*W)}if(z.timer<=0){if(z.turns%2===0){z.phase='move';z.timer=5;z.turn=0;z.round++;spawnWarPickups();playSound('phase');log('FLAG RUSH! 5 seconds to move and dash.','gold')}else{z.phase='turn';z.turn=1;z.cpuWait=rng(.75,1.45);playSound('phase')}warzoneHUD()}}
  if(z.phase==='move'){z.timer-=dt;
- for(let p of players){if(p.hp<=0)continue;const mv=p.auto?warAiMove(p,dt):playerMove(p);const acc=clamp(W*.97,330,700);if(p.dashTime<=0){p.vx=(p.vx+mv.x*acc*dt)*Math.pow(.86,dt*60);p.vy=(p.vy+mv.y*acc*dt)*Math.pow(.86,dt*60);let v=Math.hypot(p.vx,p.vy),max=clamp(W*.48,175,260);if(v>max){p.vx*=max/v;p.vy*=max/v}}p.x=clamp(p.x+p.vx*dt,p.r,W-p.r);p.y=clamp(p.y+p.vy*dt,p.r,H-p.r);moveAroundCover(p);if(p.dashTime>0&&Math.random()<.6)particlesAt(p.x,p.y,COLORS[p.team],2,.65);p.trails.push({x:p.x,y:p.y,t:.43});if(p.trails.length>14)p.trails.shift();
+ for(let p of players){if(p.hp<=0)continue;const mv=p.auto?warAiMove(p,dt):playerMove(p);const acc=clamp(W*.46,155,310)*(p.warSprint>0?1.5:1);if(p.dashTime<=0){p.vx=(p.vx+mv.x*acc*dt)*Math.pow(.86,dt*60);p.vy=(p.vy+mv.y*acc*dt)*Math.pow(.86,dt*60);let v=Math.hypot(p.vx,p.vy),max=clamp(W*.22,78,135)*(p.warSprint>0?1.35:1);if(v>max){p.vx*=max/v;p.vy*=max/v}}p.x=clamp(p.x+p.vx*dt,p.r,W-p.r);p.y=clamp(p.y+p.vy*dt,p.r,H-p.r);moveAroundCover(p);for(const item of z.items)if(!item.claimed&&Math.hypot(p.x-item.x,p.y-item.y)<p.r+17)pickupWarItem(p,item);if(p.dashTime>0&&Math.random()<.6)particlesAt(p.x,p.y,COLORS[p.team],2,.65);p.trails.push({x:p.x,y:p.y,t:.43});if(p.trails.length>14)p.trails.shift();
  const enemyFlag=z.flag[1-p.team];if(Math.hypot(p.x-enemyFlag.x,p.y-enemyFlag.y)<p.r+22){log('PLAYER '+(p.team+1)+' CAPTURED THE ENEMY FLAG!','gold');playSound('capture',p.team);endMatch(p.team,'flag');break}}
  if(state==='playing'&&z.timer<=0){z.phase='turn';z.turn=0;z.cpuWait=.85;for(let p of players)p.vx=p.vy=0;log('Movement over. P1: take your graph shot!','gold');playSound('phase');warzoneHUD()}}
- z.shots=z.shots.filter(s=>s.age<2.3);for(let p of particles){p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=Math.pow(.96,dt*60);p.vy+=50*dt;p.life-=dt}particles=particles.filter(p=>p.life>0);
+ z.shots=z.shots.filter(s=>s.age<2.3);for(const item of z.items){item.t+=dt;item.life-=dt}z.items=z.items.filter(i=>!i.claimed&&i.life>0);for(let p of particles){p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=Math.pow(.96,dt*60);p.vy+=50*dt;p.life-=dt}particles=particles.filter(p=>p.life>0);
  for(let ring of shockwaves)ring.life-=dt;shockwaves=shockwaves.filter(x=>x.life>0);
  for(let t of texts){t.y+=t.vy*dt;t.life-=dt}texts=texts.filter(t=>t.life>0);
  warzoneHUD();
 }
 function warAiMove(p,dt){const flag=warzone.flag[1-p.team],dx=flag.x-p.x,dy=flag.y-p.y;let x=dx/(Math.hypot(dx,dy)||1),y=dy/(Math.hypot(dx,dy)||1);
  for(let o of warzone.obstacles)if(Math.hypot(o.x-p.x,o.y-p.y)<90){let d=Math.hypot(o.x-p.x,o.y-p.y)||1;x+=(p.x-o.x)/d*.75;y+=(p.y-o.y)/d*.75}
- let d=Math.hypot(x,y)||1;p.dirX=x/d;p.dirY=y/d;if(p.dashCd===0&&Math.random()<dt*1.4&&Math.hypot(dx,dy)>90)dash(p);return{x:x/d,y:y/d}}
-function drawWarzone(){let z=warzone;if(!z)return;let q=warUnit();
- ctx.save();ctx.globalAlpha=.09;ctx.fillStyle='#6b54a4';for(let i=0;i<30;i++){let x=(i*113+now*11)%W,y=(i*71+37)%H;ctx.fillRect(x,y,2,2)}ctx.restore();
- for(let f of z.flag){ctx.save();ctx.translate(f.x,f.y);let color=COLORS[f.owner];ctx.strokeStyle=color;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(0,16);ctx.lineTo(0,-25);ctx.stroke();ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(0,-25);ctx.lineTo(28,-17);ctx.lineTo(0,-8);ctx.fill();ctx.strokeStyle=color;ctx.globalAlpha=.23;ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,24+Math.sin(now*4)*3,0,7);ctx.stroke();ctx.globalAlpha=1;ctx.font='800 9px system-ui';ctx.textAlign='center';ctx.fillText(f.owner?'RED FLAG':'GREEN FLAG',0,34);ctx.restore()}
- for(let o of z.obstacles){ctx.save();ctx.fillStyle='#d5d9eb';ctx.strokeStyle='#8786aa';ctx.lineWidth=2;ctx.shadowColor='#8a7cbe66';ctx.shadowBlur=9;if(o.kind==='rect'){ctx.fillRect(o.x-o.w/2,o.y-o.h/2,o.w,o.h);ctx.strokeRect(o.x-o.w/2,o.y-o.h/2,o.w,o.h)}else{ctx.beginPath();if(o.kind==='circle')ctx.arc(o.x,o.y,o.r,0,Math.PI*2);else{ctx.moveTo(o.x,o.y-o.h/2);ctx.lineTo(o.x+o.w/2,o.y);ctx.lineTo(o.x,o.y+o.h/2);ctx.lineTo(o.x-o.w/2,o.y);ctx.closePath()}ctx.fill();ctx.stroke()}ctx.restore()}
- for(let s of z.shots){let alpha=clamp(Math.min(s.age/.3,(2.25-s.age)/.6),0,1),reveal=clamp((s.age-.16)/.98,0,1);if(reveal<=0)continue;ctx.save();ctx.globalAlpha=alpha;ctx.strokeStyle=COLORS[s.team];ctx.shadowColor=COLORS[s.team];ctx.shadowBlur=14*alpha;ctx.lineWidth=3.3;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();let last=null;for(let x=0;x<W*reveal;x+=2.8){let yv;try{yv=s.fn((x-W/2)/q)}catch(e){last=null;continue}const y=H/2-yv*q;if(!Number.isFinite(y)||y< -H*.1||y>H*1.1||warObstructed(x,y)){last=null;continue}if(last!==null&&Math.abs(y-last)<H*.14)ctx.lineTo(x,y);else ctx.moveTo(x,y);last=y}ctx.stroke();ctx.restore()}
+ let d=Math.hypot(x,y)||1;p.dirX=x/d;p.dirY=y/d;if(p.dashCd===0&&Math.random()<dt*.95&&Math.hypot(dx,dy)>90)dash(p);return{x:x/d,y:y/d}}
+function drawWarzoneBackground(){
+ if(!warzone)return;
+ // Graph-paper battlefield with large translucent territories and a tactical center stripe.
+ let grd=ctx.createLinearGradient(0,0,W,H);grd.addColorStop(0,'#ecfff5');grd.addColorStop(.48,'#fbfbff');grd.addColorStop(1,'#fff0f1');
+ ctx.fillStyle=grd;ctx.globalAlpha=.65;ctx.fillRect(0,0,W,H);ctx.globalAlpha=1;
+ ctx.fillStyle='rgba(38,146,77,.048)';ctx.fillRect(0,0,W*.23,H);
+ ctx.fillStyle='rgba(218,67,79,.045)';ctx.fillRect(W*.77,0,W*.23,H);
+ ctx.setLineDash([7,11]);ctx.strokeStyle='rgba(119,113,162,.18)';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(W/2,0);ctx.lineTo(W/2,H);ctx.stroke();ctx.setLineDash([]);
+ // Small points are stationary to keep the coordinate readout easy to follow.
+ for(let i=0;i<32;i++){let x=(i*173+29)%W,y=(i*89+67)%H;ctx.fillStyle='rgba(86,92,148,.11)';ctx.beginPath();ctx.arc(x,y,1.1,0,6.29);ctx.fill()}
+}
+function drawWarzone(){const z=warzone;if(!z)return;
+ // Bases glow and flags wave; outer circles communicate capture radius.
+ for(const f of z.flag){ctx.save();ctx.translate(f.x,f.y);const color=COLORS[f.owner],pulse=Math.sin(now*3)*3;
+  ctx.fillStyle=f.owner?'rgba(224,65,86,.09)':'rgba(33,168,88,.09)';ctx.beginPath();ctx.arc(0,0,35+pulse,0,Math.PI*2);ctx.fill();
+  ctx.setLineDash([5,6]);ctx.strokeStyle=color;ctx.globalAlpha=.38;ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,30+pulse,0,7);ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=1;
+  ctx.shadowColor=color;ctx.shadowBlur=13;ctx.strokeStyle='#5d6680';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(0,18);ctx.lineTo(0,-28);ctx.stroke();ctx.fillStyle=color;
+  ctx.beginPath();ctx.moveTo(1,-28);ctx.quadraticCurveTo(16,-32+pulse,30,-22);ctx.lineTo(2,-11);ctx.closePath();ctx.fill();ctx.shadowBlur=0;
+  ctx.font='800 10px system-ui';ctx.textAlign='center';ctx.fillStyle=color;ctx.fillText(f.owner?'RED FLAG':'GREEN FLAG',0,48);ctx.restore();}
+ for(const o of z.obstacles){ctx.save();ctx.shadowColor='#565e8c55';ctx.shadowBlur=13;ctx.shadowOffsetY=4;
+  ctx.fillStyle=o.kind==='circle'?'#c9e0ed':o.kind==='rect'?'#d8dcee':'#ded6ef';ctx.strokeStyle='#6a739a';ctx.lineWidth=2.4;ctx.beginPath();
+  if(o.kind==='rect')ctx.roundRect(o.x-o.w/2,o.y-o.h/2,o.w,o.h,Math.min(5,o.h/5));
+  else if(o.kind==='circle')ctx.arc(o.x,o.y,o.r,0,Math.PI*2);
+  else{ctx.moveTo(o.x,o.y-o.h/2);ctx.lineTo(o.x+o.w/2,o.y);ctx.lineTo(o.x,o.y+o.h/2);ctx.lineTo(o.x-o.w/2,o.y);ctx.closePath()}
+  ctx.fill();ctx.stroke();ctx.shadowBlur=0;ctx.shadowOffsetY=0;ctx.globalAlpha=.22;ctx.strokeStyle='#fff';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(o.x-o.w*.18,o.y-o.h*.15);ctx.lineTo(o.x+o.w*.19,o.y-o.h*.16);ctx.stroke();ctx.restore();}
+ for(const item of z.items){const kind=WAR_PICKUPS[item.kind],pulse=1+Math.sin(item.t*4)*.08,alpha=clamp(item.life/1.2,0,1);
+  ctx.save();ctx.translate(item.x,item.y);ctx.scale(pulse,pulse);ctx.globalAlpha=alpha;ctx.shadowColor=kind.color;ctx.shadowBlur=19;ctx.fillStyle='#fff';ctx.strokeStyle=kind.color;ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,0,15,0,7);ctx.fill();ctx.stroke();ctx.shadowBlur=0;ctx.font='900 17px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=kind.color;ctx.fillText(kind.label,0,1);ctx.restore();}
+ for(const s of z.shots){const alpha=clamp(Math.min(s.age/.24,(2.3-s.age)/.6),0,1),revealX=clamp((s.age-.16)/.98,0,1)*W;if(revealX<=0)continue;
+  ctx.save();ctx.globalAlpha=alpha;ctx.strokeStyle=COLORS[s.team];ctx.shadowColor=COLORS[s.team];ctx.shadowBlur=14*alpha;ctx.lineWidth=3.8;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();
+  for(const segment of s.segments){let started=false;for(const v of segment){if(v.x>revealX)break;if(!started){ctx.moveTo(v.x,v.y);started=true}else ctx.lineTo(v.x,v.y)}}
+  ctx.stroke();ctx.shadowBlur=0;ctx.globalAlpha=alpha*.14;ctx.lineWidth=10;ctx.stroke();ctx.restore();}
  drawExtraEffects();drawBalls();drawParticles();drawShards();
- for(let p of players){if(p.hp<=0)continue;const co=warCoords(p.x,p.y);ctx.save();ctx.font='700 10px ui-monospace,monospace';ctx.textAlign='center';ctx.fillStyle=p.team?'#a73546':'#267c4a';ctx.fillText('('+co.x.toFixed(1)+','+co.y.toFixed(1)+')',p.x,p.y-p.r-12);ctx.restore()}
- if(z.phase==='move'){ctx.save();ctx.textAlign='center';ctx.font='900 '+clamp(W*.062,18,40)+'px system-ui';ctx.fillStyle='#8871b0';ctx.globalAlpha=.33;ctx.fillText(Math.max(0,z.timer).toFixed(1),W/2,H*.16);ctx.restore()}
- if(screenFlash>0){ctx.fillStyle=`rgba(255,244,215,${screenFlash*.32})`;ctx.fillRect(0,0,W,H)}
+ if(z.phase==='move'){ctx.save();ctx.textAlign='center';ctx.font='900 '+clamp(W*.065,23,45)+'px system-ui';ctx.fillStyle='#6951a2';ctx.globalAlpha=.37;ctx.fillText(Math.max(0,z.timer).toFixed(1),W/2,H*.14);ctx.restore()}
 }
 function loop(t){if(!prev)prev=t;let dt=Math.min(.034,(t-prev)/1000);prev=t;if(state==='playing'){if(warzone)updateWarzone(dt);else update(dt)}else if(state==='finishing')updateCinematic(dt);draw();if(t-lastHud>65){updateHUD();lastHud=t}requestAnimationFrame(loop)}
 function bind(){
@@ -970,7 +1160,7 @@ function bind(){
 
  $('warDash0').onclick=()=>{if(warzone&&warzone.phase==='move'&&players[0]){unlockAudio();dash(players[0])}};
  $('warDash1').onclick=()=>{if(warzone&&warzone.phase==='move'&&local&&players[1]){unlockAudio();dash(players[1])}};
- $('modeWarzone').onclick=()=>setMode('warzone');$('warzonePlayers').onchange=()=>{};$('warzoneFire').onclick=warzoneFire;$('warzoneAim').onclick=()=>{if(warzone) $('warzoneInput').value=warzoneSuggestedLine(warzone.turn);};document.querySelectorAll('[data-war]').forEach(b=>b.onclick=()=>{$('warzoneInput').value=b.dataset.war;$('warzoneInput').focus()});
+ $('modeWarzone').onclick=()=>setMode('warzone');$('warzonePlayers').onchange=()=>{};$('warzoneFire').onclick=warzoneFire;
  $('startBtn').onclick=()=>start();$('modePlay').onclick=()=>setMode('cpu');$('modeLocal').onclick=()=>setMode('local');$('modeWatch').onclick=()=>setMode('watch');$('setupClose').onclick=closeModal;$('resultChange').onclick=()=>{state='menu';setModal('setup')};$('resultRematch').onclick=()=>start();
  $('menuBtn').onclick=()=>{if(state==='playing'){state='paused';$('pauseOverlay').classList.add('active');keys.clear()}setModal('setup')};$('pauseBtn').onclick=togglePause;$('resumeBtn').onclick=togglePause;
  $('castBtn').onclick=()=>{unlockAudio();if(!warzone&&players[0])cast(players[0])};$('dashBtn').onclick=()=>{unlockAudio();if(players[0])dash(players[0])};
@@ -1005,7 +1195,7 @@ function bind(){
  for(let ev of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(ev,e=>{for(let p of [pointer[0],pointer[1]])if(p.id===e.pointerId){p.down=false;p.id=null}});
  window.addEventListener('resize',resize);if(window.ResizeObserver)new ResizeObserver(resize).observe(canvas);document.addEventListener('contextmenu',e=>{if(e.target===canvas)e.preventDefault()});
 }
-setupRoster();setMode('cpu');bind();autoChooseDevice();resize();requestAnimationFrame(loop);setModal('setup');setEditorSide(0);
+setupRoster();setMode('watch');bind();autoChooseDevice();resize();requestAnimationFrame(loop);setModal('setup');setEditorSide(0);
 })();
 </script>
 </body>
