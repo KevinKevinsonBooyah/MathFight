@@ -2434,7 +2434,21 @@ window.MFOnlineBridge={
   if(Number.isFinite(Number(packet.seq))&&Number(packet.seq)<=this.lastSnapshotSeq)return;
   if(Number.isFinite(Number(packet.seq)))this.lastSnapshotSeq=Number(packet.seq);
   const sx=W/(packet.w||W),sy=H/(packet.h||H),smin=Math.min(sx,sy),xy=o=>({...(o||{}),x:(Number(o?.x)||0)*sx,y:(Number(o?.y)||0)*sy}),dims=o=>({...xy(o),r:o?.r?o.r*smin:o?.r,w:o?.w?o.w*sx:o?.w,h:o?.h?o.h*sy:o?.h});
-  if(packet.state==='finishing'&&state==='playing'){endMatch(packet.winner??0,packet.reason||'knockout');return}
+  if(packet.state==='finishing'&&state==='playing'){
+   // Final score and knockout position come from the authoritative host, not local guesses.
+   const winner=Number(packet.winner??0);
+   if(warzone&&Array.isArray(packet.series)){
+    warzone.stage=Number(packet.stage)||warzone.stage;
+    warzone.series=packet.series.map(v=>Math.max(0,Number(v)||0));
+    warzone.series[winner]=Math.max(0,warzone.series[winner]-1);
+    warzone.phase='turn'; // avoid interpreting a stale BETWEEN phase as a new win
+   }
+   for(let i=0;i<2;i++){
+    const authoritative=packet.players?.[i],p=players[i];
+    if(authoritative&&p){p.x=(Number(authoritative.x)||0)*sx;p.y=(Number(authoritative.y)||0)*sy;p.hp=Math.max(0,Number(authoritative.hp)||0);}
+   }
+   endMatch(winner,packet.reason||'knockout');return;
+  }
   if(packet.state==='playing'&&state!=='playing'){
    if(this.gameMode==='classic')this.startOnline(false,this.room,'classic');else this.startOnline(false,this.room,'warzone');
   }
