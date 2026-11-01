@@ -553,6 +553,19 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
 .war-quick-grid button:hover{background:#ffe7ed;transform:translateY(-1px)}
 @media(max-width:700px){.war-quickshots{gap:5px;padding:7px}.war-quick-grid{justify-content:flex-start}.war-quick-grid button{padding:7px 8px}}
 
+
+/* Hit and graze powered Overdrive. Keeps the normal health bar visually dominant. */
+.drive-row{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin:6px 0 0}
+.drive-side>span{display:flex;justify-content:space-between;gap:7px;color:#a88131;font-size:9px;font-weight:900;letter-spacing:.55px}
+.drive-side small{font-size:9px;color:#98732d;font-weight:800;letter-spacing:0}
+.drive-track{height:4px;border-radius:10px;background:#eee8d6;margin-top:3px;overflow:hidden}
+.drive-fill{height:100%;width:0;background:linear-gradient(90deg,#ffb833,#fce176);transition:width .18s;border-radius:10px}
+.drive-fill.red{background:linear-gradient(90deg,#ffa64a,#f0c059)}
+.drive-fill.boosting{background:linear-gradient(90deg,#ffd957,#fff6ae);animation:mfDriveGlow .55s ease-in-out infinite alternate}
+@keyframes mfDriveGlow{from{opacity:.65}to{opacity:1}}
+.warzone-mode .drive-row{display:none!important}
+@media(max-width:600px){.drive-row{gap:16px}.drive-side>span,.drive-side small{font-size:8px}}
+
 </style>
 </head>
 <body>
@@ -585,7 +598,11 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
     <div><div class="bar-top"><span>● <span id="leftHealthLabel">tan x</span></span><b id="leftHP">80 / 80</b></div><div class="health-track"><div class="health-fill" id="leftFill"></div></div></div>
     <div><div class="bar-top"><span>● <span id="rightHealthLabel">eˣ</span></span><b id="rightHP">80 / 80</b></div><div class="health-track"><div class="health-fill red" id="rightFill"></div></div></div>
    </div>
-   <div class="readout-row"><span id="spellInfo" class="math-tag">[ y = tan x ]</span><span id="matchTime">00:00</span><span id="enemyInfo" class="math-tag redtext">[ y = eˣ ]</span></div>
+   <div class="drive-row" id="driveRow">
+  <div class="drive-side"><span>✦ CHARGE <small id="driveLabel0">0%</small></span><div class="drive-track"><div id="driveFill0" class="drive-fill"></div></div></div>
+  <div class="drive-side"><span>✦ CHARGE <small id="driveLabel1">0%</small></span><div class="drive-track"><div id="driveFill1" class="drive-fill red"></div></div></div>
+</div>
+<div class="readout-row"><span id="spellInfo" class="math-tag">[ y = tan x ]</span><span id="matchTime">00:00</span><span id="enemyInfo" class="math-tag redtext">[ y = eˣ ]</span></div>
    <div class="controls" id="fightControls">
  <button id="castBtn" class="action cast"><span class="mini"><b id="castTitle">DRAW GRAPH</b><small id="castCool">READY</small></span><kbd>SPACE</kbd><span class="loading" id="castLoad"></span></button>
  <button id="dashBtn" class="action"><span class="mini"><b id="dashTitle">DASH</b><small id="dashCool">READY</small></span><kbd>L SHIFT</kbd><span class="loading" id="dashLoad"></span></button>
@@ -1453,7 +1470,7 @@ function scheduleResponsiveViewport(){
  if(viewportResizePending)return;viewportResizePending=true;
  requestAnimationFrame(()=>{viewportResizePending=false;syncResponsiveViewport()});
 }
-function makeBall(team,formula,auto){return {team,formula,auto,x:W*(team?0.78:0.22),y:H*(team?.40:.60),r:clamp(W*.031,15,23),vx:team?-45:45,vy:team?56:-51,hp:80,cd:1.6+team*.65,dashCd:0,dashTime:0,dirX:team?-1:1,dirY:0,power:0,shield:0,rapid:0,frozen:0,magnet:0,regen:0,regenClock:0,inv:0,aiChange:0,aiDX:0,aiDY:0,score:0,trails:[],bumpCd:0}}
+function makeBall(team,formula,auto){return {team,formula,auto,x:W*(team?0.78:0.22),y:H*(team?.40:.60),r:clamp(W*.031,15,23),vx:team?-45:45,vy:team?56:-51,hp:80,cd:1.6+team*.65,dashCd:0,dashTime:0,dirX:team?-1:1,dirY:0,power:0,shield:0,rapid:0,frozen:0,magnet:0,regen:0,regenClock:0,inv:0,aiChange:0,aiDX:0,aiDY:0,score:0,trails:[],bumpCd:0,drive:0,overdrive:0,grazeCd:0}}
 function start(force=false){
  if(mode==='warzone'){startWarzone();return;}
  for(let side=0;side<2;side++)if(selection[side]==='custom'+side&&!customValid[side]){
@@ -1469,7 +1486,7 @@ function start(force=false){
  }
  $('opWarning').hidden=true;
  if(mode==='warzone'){startWarzone();return;}
- cinematic=null;warzone=null;finishShards=[];screenFlash=0;$('koOverlay').classList.remove('show');$('stage').classList.remove('cinematic');document.body.classList.remove('warzone-mode');$('stage').classList.remove('warzone');$('warMoveActions').classList.remove('active');$('fightControls').style.display='';$('warzoneHud').hidden=true;$('warzonePanel').hidden=true;unlockAudio();round++;if(state==='menu'&&round===2)round=1;time=0;now=0;graphs=[];particles=[];texts=[];pickups=[];rays=[];gunBursts=[];shockwaves=[];pickupClock=3.7;shake=0;hitFlash=0;keys.clear();holding[0]=holding[1]=false;pointer[0].down=pointer[1].down=false;players=[makeBall(0,selection[0],watch),makeBall(1,selection[1],!local)];state='playing';$('pauseOverlay').classList.remove('active');$('modalBg').classList.add('hidden');setLabels();setText('roundIndicator','ROUND '+String(round).padStart(2,'0'));feedItems=[];log(watch?'Autobattle started. Watch the formulas!':local?'Local 1v1 started. Both players ready!':'Fight started. Dodge the incoming graphs!');updateStats();updateHUD(true);playSound('ready')}
+ cinematic=null;warzone=null;finishShards=[];screenFlash=0;$('koOverlay').classList.remove('show');$('stage').classList.remove('cinematic');document.body.classList.remove('warzone-mode');$('stage').classList.remove('warzone');$('warMoveActions').classList.remove('active');$('fightControls').style.display='';$('warzoneHud').hidden=true;$('warzonePanel').hidden=true;unlockAudio();round++;if(state==='menu'&&round===2)round=1;time=0;now=0;graphs=[];particles=[];texts=[];pickups=[];rays=[];gunBursts=[];shockwaves=[];pickupClock=2.8;shake=0;hitFlash=0;keys.clear();holding[0]=holding[1]=false;pointer[0].down=pointer[1].down=false;players=[makeBall(0,selection[0],watch),makeBall(1,selection[1],!local)];state='playing';$('pauseOverlay').classList.remove('active');$('modalBg').classList.add('hidden');setLabels();setText('roundIndicator','ROUND '+String(round).padStart(2,'0'));feedItems=[];log(watch?'Autobattle started. Watch the formulas!':local?'Local 1v1 started. Both players ready!':'Fight started. Dodge the incoming graphs!');updateStats();updateHUD(true);playSound('ready')}
 function togglePause(){if(state==='playing'){state='paused';$('pauseOverlay').classList.add('active');keys.clear();pointer[0].down=pointer[1].down=false}else if(state==='paused'){state='playing';$('pauseOverlay').classList.remove('active')}else if(state==='over'){setModal('result')}}
 function particlesAt(x,y,color,n=13,scale=1){for(let i=0;i<n;i++){let a=rng(0,Math.PI*2),v=rng(35,160)*scale,life=rng(.28,.73);particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life,max:life,r:rng(1.3,4)*scale,color})}if(particles.length>310)particles.splice(0,particles.length-310)}
 function showDamage(x,y,value,color){texts.push({x,y,value,color,life:.86,max:.86,vy:-58})}
@@ -1505,7 +1522,7 @@ function collectPickup(q,p){const k=q.kind;
  if(k==='regen'){p.regen=6;p.regenClock=0;showDamage(q.x,q.y-9,'REGEN +18','#fa6b9d');playSound('heal',p.team);}
  if(k==='pulse'){const enemy=players[1-p.team],reach=Math.max(110,W*.36);burstRing(p.x,p.y,'#e7ad50',Math.min(reach*.28,70),.85);particlesAt(p.x,p.y,'#e7ad50',35,1.3);if(enemy&&dist(p,enemy)<reach){damage(enemy,8,enemy.x,enemy.y,null,true);showDamage(p.x,p.y-10,'PULSE HIT','#d28b27')}else showDamage(p.x,p.y-10,'PULSE','#d28b27');playSound('gun',p.team);}
  if(k!=='gun')log((p.team?'Red':'Green')+' collected '+POWERUPS[k].desc+'!','gold');
- particlesAt(q.x,q.y,POWERUPS[k].color,28,1.2);burstRing(q.x,q.y,POWERUPS[k].color,19,.6);
+ particlesAt(q.x,q.y,POWERUPS[k].color,28,1.2);burstRing(q.x,q.y,POWERUPS[k].color,19,.6);chargeDrive(p,13,'pickup');
 }
 
 function chooseGraphAnchor(type){
@@ -1540,7 +1557,21 @@ function cast(p){if(state!=='playing'||p.hp<=0||p.cd>0)return false;
 function calcFn(type,u){try{const y=F[type].fn(u);return typeof y==='number'&&Number.isFinite(y)?y:NaN}catch(e){return NaN}}
 function curveY(g,x,age){let u=(x-g.x0-(Math.max(0,age-g.warning)*g.velocity))/unit,val=calcFn(g.formula,u);if(!Number.isFinite(val))return null;let y=g.aimY-(val-g.anchor)*unit*g.scaleY;if(!Number.isFinite(y)||Math.abs(y)>1e8)return null;return y}
 function graphHit(g,p){if(g.hit||p.hp<=0)return false;for(let i=-8;i<=8;i++){let x=p.x+(i/8)*(p.r+8),y=curveY(g,x,g.age);if(y===null||y<6||y>H-6||x<6||x>W-6)continue;let dx=x-p.x,dy=y-p.y;if(dx*dx+dy*dy<(p.r+4)*(p.r+4))return true}return false}
-function damage(p,n,x,y,source,ignoreInv=false){if(p.hp<=0||(!ignoreInv&&p.inv>.02))return;let dealt=p.shield>0?Math.max(1,Math.ceil(n*.5)):n;let actual=Math.min(p.hp,dealt);p.hp=Math.max(0,p.hp-dealt);p.inv=ignoreInv?Math.min(p.inv,.07):.22;let attacker=players[1-p.team];attacker.score+=actual;showDamage(x,y,'-'+actual,p.team?'#d83b44':'#26854c');particlesAt(x,y,COLORS[p.team],23,1.2);burstRing(x,y,COLORS[p.team],20,.35);shake=Math.max(shake,4.3);hitFlash=.14;if(!ignoreInv)playSound('hit',p.team);if(p.hp<=0)endMatch(1-p.team)}
+
+function chargeDrive(p,amount,reason='hit'){
+ if(!p||p.hp<=0||warzone||p.overdrive>0)return;
+ p.drive=clamp((p.drive||0)+amount,0,100);
+ if(p.drive>=100){
+  p.drive=0;p.overdrive=5.4;p.rapid=Math.max(p.rapid,5.4);p.power=Math.max(p.power,5.4);
+  particlesAt(p.x,p.y,'#ffe587',46,1.4);burstRing(p.x,p.y,'#ffd25c',p.r+18,.85);
+  showDamage(p.x,p.y-p.r-20,'OVERDRIVE!','#e5a02b');shake=Math.max(shake,4);playSound('ready',p.team);
+  log('P'+(p.team+1)+' activated OVERDRIVE: faster and stronger graphs!','gold');
+ }else if(reason==='graze'){
+  showDamage(p.x,p.y-p.r-12,'CLOSE DODGE +'+amount,'#d9a12d');
+  particlesAt(p.x,p.y,'#ffd97a',10,.65);playSound('pickup',p.team);
+ }
+}
+function damage(p,n,x,y,source,ignoreInv=false){if(p.hp<=0||(!ignoreInv&&p.inv>.02))return;let dealt=p.shield>0?Math.max(1,Math.ceil(n*.5)):n;let actual=Math.min(p.hp,dealt);p.hp=Math.max(0,p.hp-dealt);p.inv=ignoreInv?Math.min(p.inv,.07):.22;let attacker=players[1-p.team];attacker.score+=actual;if(!warzone)chargeDrive(attacker,Math.max(13,Math.round(actual*2.1)),'hit');showDamage(x,y,'-'+actual,p.team?'#d83b44':'#26854c');particlesAt(x,y,COLORS[p.team],23,1.2);burstRing(x,y,COLORS[p.team],20,.35);shake=Math.max(shake,4.3);hitFlash=.14;if(!ignoreInv)playSound('hit',p.team);if(p.hp<=0)endMatch(1-p.team)}
 function clearTransientEffects(){graphs=[];pickups=[];rays=[];gunBursts=[];shockwaves=[];particles=[];texts=[];finishShards=[];hitFlash=0;shake=0;screenFlash=0;if(warzone)warzone.shots=[];for(const p of players)p.trails=[];}
 function endMatch(winner,reason='knockout'){if(state!=='playing')return;
  if(warzone){
@@ -1598,7 +1629,13 @@ function aiMove(p,dt){
   }
   p.aiDX=bestX;p.aiDY=bestY;
  }
- const dx=p.aiDX,dy=p.aiDY;p.dirX=dx;p.dirY=dy;
+ // CPUs can make deliberate close-range dash bumps, rather than only dashing away.
+  const opponentDistance=dist(p,enemy);
+  if(p.dashCd<=0&&enemy.hp>0&&opponentDistance>p.r+enemy.r+7&&opponentDistance<Math.min(124,W*.32)&&Math.random()<dt*(rule.bump||.2)*.8){
+   p.dirX=(enemy.x-p.x)/opponentDistance;p.dirY=(enemy.y-p.y)/opponentDistance;
+   dash(p);return{x:p.dirX,y:p.dirY};
+  }
+  const dx=p.aiDX,dy=p.aiDY;p.dirX=dx;p.dirY=dy;
  const threat=graphs.find(g=>g.team!==p.team&&!g.hit&&g.age<g.warning+.5&&Math.abs((curveY(g,p.x,g.age+.23)??-10000)-p.y)<unit*.78);
  if(threat&&p.dashCd<=0&&p.hp>8&&Math.random()<rule.dash){p.dirX=0;p.dirY=p.y>H/2?-1:1;dash(p);}
  if(p.cd<=0&&time>.75)cast(p);
@@ -1613,16 +1650,36 @@ function updateCinematic(dt){
  if(Math.random()<.65&&c.elapsed<1.55)particlesAt(c.x+rng(-25,25),c.y+rng(-25,25),Math.random()<.5?'#ffd992':'#da6f7a',2,1.5);
  if(c.elapsed>=c.duration){state='over';cinematic=null;clearTransientEffects();$('koOverlay').classList.remove('show');$('stage').classList.remove('cinematic');setModal('result')}
 }
-function update(dt){time+=dt;now+=dt;shake=Math.max(0,shake-dt*14);hitFlash=Math.max(0,hitFlash-dt);pickupClock-=dt;if(pickupClock<=0){spawnPickup();pickupClock=rng(5.8,8.2)}
- for(let p of players){if(p.hp>0&&!p.auto&&p.cd<=0&&time>1.25)cast(p);p.cd=Math.max(0,p.cd-dt);p.dashCd=Math.max(0,p.dashCd-dt);p.dashTime=Math.max(0,p.dashTime-dt);p.inv=Math.max(0,p.inv-dt);p.power=Math.max(0,p.power-dt);p.shield=Math.max(0,p.shield-dt);p.rapid=Math.max(0,p.rapid-dt);p.frozen=Math.max(0,(p.frozen||0)-dt);p.magnet=Math.max(0,(p.magnet||0)-dt);if(p.regen>0){const tick=Math.min(dt,p.regen);p.regen-=tick;p.regenClock+=tick;while(p.regenClock>=1){p.regenClock-=1;const gain=Math.min(3,80-p.hp);p.hp+=gain;if(gain)showDamage(p.x,p.y-p.r-13,'+'+gain,'#df6394')}}p.bumpCd=Math.max(0,p.bumpCd-dt);if(p.hp<=0)continue;
+function update(dt){time+=dt;now+=dt;shake=Math.max(0,shake-dt*14);hitFlash=Math.max(0,hitFlash-dt);pickupClock-=dt;if(pickupClock<=0){spawnPickup();pickupClock=rng(4.8,6.7)}
+ for(let p of players){if(p.hp>0&&!p.auto&&p.cd<=0&&time>1.25)cast(p);p.cd=Math.max(0,p.cd-dt);p.dashCd=Math.max(0,p.dashCd-dt);p.dashTime=Math.max(0,p.dashTime-dt);p.inv=Math.max(0,p.inv-dt);p.power=Math.max(0,p.power-dt);p.shield=Math.max(0,p.shield-dt);p.rapid=Math.max(0,p.rapid-dt);p.frozen=Math.max(0,(p.frozen||0)-dt);p.magnet=Math.max(0,(p.magnet||0)-dt);if(p.regen>0){const tick=Math.min(dt,p.regen);p.regen-=tick;p.regenClock+=tick;while(p.regenClock>=1){p.regenClock-=1;const gain=Math.min(3,80-p.hp);p.hp+=gain;if(gain)showDamage(p.x,p.y-p.r-13,'+'+gain,'#df6394')}}p.bumpCd=Math.max(0,p.bumpCd-dt);p.grazeCd=Math.max(0,(p.grazeCd||0)-dt);p.overdrive=Math.max(0,(p.overdrive||0)-dt);if(p.hp<=0)continue;
  let move=p.auto?aiMove(p,dt):playerMove(p);const acc=clamp(W*(p.auto?1.18:.92),380,720)*(p.frozen>0?.43:1);if(p.dashTime<=0){p.vx+=move.x*acc*dt;p.vy+=move.y*acc*dt;let drag=Math.pow((move.x||move.y)? .925 : .895,dt*60);p.vx*=drag;p.vy*=drag;let max=clamp(W*.32,135,225)*(p.frozen>0?.46:1);let speed=Math.hypot(p.vx,p.vy);if(speed>max){p.vx*=max/speed;p.vy*=max/speed}}
  p.x+=p.vx*dt;p.y+=p.vy*dt;
  if(p.x<p.r){p.x=p.r;p.vx=Math.abs(p.vx)*.65}else if(p.x>W-p.r){p.x=W-p.r;p.vx=-Math.abs(p.vx)*.65}if(p.y<p.r){p.y=p.r;p.vy=Math.abs(p.vy)*.65}else if(p.y>H-p.r){p.y=H-p.r;p.vy=-Math.abs(p.vy)*.65}
  if(p.dashTime>0&&Math.random()<.65)particlesAt(p.x-p.vx*.015,p.y-p.vy*.015,COLORS[p.team],2,.55);
  p.trails.push({x:p.x,y:p.y,t:.48});if(p.trails.length>17)p.trails.shift();for(let tr of p.trails)tr.t-=dt;p.trails=p.trails.filter(tr=>tr.t>0);
  }
- let a=players[0],b=players[1],d=dist(a,b),min=a.r+b.r;if(d<min&&d>0.001&&a.hp>0&&b.hp>0){let nx=(b.x-a.x)/d,ny=(b.y-a.y)/d,overlap=(min-d)*.5;a.x-=nx*overlap;a.y-=ny*overlap;b.x+=nx*overlap;b.y+=ny*overlap;let v=rng(35,55);a.vx-=nx*v;a.vy-=ny*v;b.vx+=nx*v;b.vy+=ny*v;if(a.bumpCd===0&&b.bumpCd===0&&d<min*.65){a.bumpCd=b.bumpCd=.95;particlesAt((a.x+b.x)/2,(a.y+b.y)/2,'#b8c8bd',8,.6)}}
- for(let g of graphs){g.age+=dt;if(g.age>=g.warning&&g.age<=g.warning+g.duration&&!g.hit){let target=players[1-g.team];if(graphHit(g,target)){g.hit=true;damage(target,g.damage,target.x,target.y,g)}}}
+ let a=players[0],b=players[1],d=dist(a,b),min=a.r+b.r;if(d<min&&d>0.001&&a.hp>0&&b.hp>0){let nx=(b.x-a.x)/d,ny=(b.y-a.y)/d,overlap=(min-d)*.5;a.x-=nx*overlap;a.y-=ny*overlap;b.x+=nx*overlap;b.y+=ny*overlap;let v=rng(35,55);a.vx-=nx*v;a.vy-=ny*v;b.vx+=nx*v;b.vy+=ny*v;if(a.bumpCd===0&&b.bumpCd===0){
+  if(a.dashTime>0||b.dashTime>0){
+   const attacker=a.dashTime>=b.dashTime?a:b,victim=attacker===a?b:a,sign=attacker===a?1:-1;
+   victim.frozen=Math.max(victim.frozen||0,1.0);victim.dashTime=0;
+   victim.vx=nx*sign*230;victim.vy=ny*sign*230;
+   a.bumpCd=b.bumpCd=.85;particlesAt((a.x+b.x)/2,(a.y+b.y)/2,'#ffce78',22,1.1);
+   burstRing((a.x+b.x)/2,(a.y+b.y)/2,'#ffc65f',30,.65);
+   showDamage(victim.x,victim.y-victim.r-17,'BUMP!','#d99428');playSound('bump',victim.team);
+  }else if(d<min*.65){a.bumpCd=b.bumpCd=.95;particlesAt((a.x+b.x)/2,(a.y+b.y)/2,'#b8c8bd',8,.6)}
+ }}
+ for(let g of graphs){
+  g.age+=dt;
+  if(g.age>=g.warning&&g.age<=g.warning+g.duration&&!g.hit){
+   const target=players[1-g.team];if(graphHit(g,target)){g.hit=true;damage(target,g.damage,target.x,target.y,g)}
+   else if(!g.grazed&&target.hp>0&&target.grazeCd<=0){
+    const yy=curveY(g,target.x,g.age),gap=yy===null?Infinity:Math.abs(yy-target.y);
+    if(gap>target.r+5&&gap<target.r+Math.min(unit*.55,33)){
+     g.grazed=true;target.grazeCd=.5;chargeDrive(target,27,'graze');
+    }
+   }
+  }
+ }
  graphs=graphs.filter(g=>g.age<g.warning+g.duration+g.fade);
  for(let i=pickups.length-1;i>=0;i--){let q=pickups[i];q.t+=dt;q.life-=dt;for(const p of players){if(p.hp<=0||p.magnet<=0)continue;let d=Math.hypot(p.x-q.x,p.y-q.y);if(d>3&&d<W*.44){const move=Math.min(d,dt*clamp(440-d*.65,120,410));q.x+=(p.x-q.x)/d*move;q.y+=(p.y-q.y)/d*move;}}let who=players.find(p=>p.hp>0&&dist(p,q)<p.r+q.r);if(who){collectPickup(q,who);pickups.splice(i,1)}else if(q.life<=0){particlesAt(q.x,q.y,POWERUPS[q.kind].color,7,.38);pickups.splice(i,1)}}
  for(let i=gunBursts.length-1;i>=0;i--){let b=gunBursts[i];b.wait-=dt;if(b.wait<=0&&b.remaining>0){const shooter=players[b.team];if(shooter&&shooter.hp>0&&state==='playing')shootRay(shooter);b.remaining--;b.wait+=.2;}if(b.remaining<=0)gunBursts.splice(i,1)}
@@ -1646,7 +1703,7 @@ function drawExtraEffects(){
  ctx.globalAlpha=1;
 }
 function drawPickups(){for(let q of pickups){let power=POWERUPS[q.kind],pulse=1+Math.sin(q.t*5)*.085;ctx.save();ctx.globalAlpha=clamp(q.life/.85,0,1);ctx.translate(q.x,q.y+Math.sin(q.t*3)*3);ctx.scale(.7+.3*clamp(q.life/.85,0,1),.7+.3*clamp(q.life/.85,0,1));ctx.scale(pulse,pulse);ctx.shadowColor=power.color;ctx.shadowBlur=19+Math.sin(q.t*6)*5;ctx.fillStyle='#fff';ctx.strokeStyle=power.color;ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,0,q.r,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.shadowBlur=0;ctx.fillStyle=power.color;ctx.font=q.kind==='gun'?'16px sans-serif':'bold 17px ui-sans-serif, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(power.label,0,1);ctx.restore()}}
-function drawBalls(){for(let p of players){for(let tr of p.trails){let r=p.r*(.45+tr.t*.6);ctx.beginPath();ctx.arc(tr.x,tr.y,r,0,Math.PI*2);ctx.fillStyle=p.team?`rgba(220,64,73,${tr.t*.065})`:`rgba(26,144,74,${tr.t*.065})`;ctx.fill()}if(p.hp<=0||(cinematic&&p.team!==cinematic.winner))continue;ctx.save();ctx.translate(p.x,p.y);let color=COLORS[p.team];if(p.power>0||p.shield>0||p.rapid>0||p.frozen>0||p.regen>0||p.magnet>0){ctx.beginPath();ctx.arc(0,0,p.r+8+Math.sin(now*7)*2,0,Math.PI*2);ctx.strokeStyle=p.shield>0?'rgba(65,152,228,.85)':p.frozen>0?'rgba(77,188,211,.87)':p.regen>0?'rgba(249,107,157,.85)':p.magnet>0?'rgba(189,100,229,.8)':p.rapid>0?'rgba(239,139,45,.8)':'rgba(229,170,20,.65)';ctx.lineWidth=p.shield>0?4:2.8;ctx.setLineDash(p.shield>0?[]:[4,5]);ctx.stroke();ctx.setLineDash([])}ctx.shadowColor=color;ctx.shadowBlur=p.inv>0?25:16;ctx.fillStyle=p.team?'#fff2f2':'#effcf1';ctx.strokeStyle=color;ctx.lineWidth=p.dashTime>0?4:2.35;ctx.beginPath();ctx.arc(0,0,p.r,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.shadowBlur=0;ctx.fillStyle=p.team?'#a32638':'#20653a';let label=warzone?'P'+(p.team+1):F[p.formula].short;ctx.font=`bold italic ${label.length>4?p.r*.62:p.r*.82}px Georgia,serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,0,1.5);ctx.restore();}}
+function drawBalls(){for(let p of players){for(let tr of p.trails){let r=p.r*(.45+tr.t*.6);ctx.beginPath();ctx.arc(tr.x,tr.y,r,0,Math.PI*2);ctx.fillStyle=p.team?`rgba(220,64,73,${tr.t*.065})`:`rgba(26,144,74,${tr.t*.065})`;ctx.fill()}if(p.hp<=0||(cinematic&&p.team!==cinematic.winner))continue;ctx.save();ctx.translate(p.x,p.y);let color=COLORS[p.team];if(p.power>0||p.shield>0||p.rapid>0||p.frozen>0||p.regen>0||p.magnet>0||p.overdrive>0){ctx.beginPath();ctx.arc(0,0,p.r+8+Math.sin(now*7)*2,0,Math.PI*2);ctx.strokeStyle=p.overdrive>0?'rgba(255,205,74,.96)':p.shield>0?'rgba(65,152,228,.85)':p.frozen>0?'rgba(77,188,211,.87)':p.regen>0?'rgba(249,107,157,.85)':p.magnet>0?'rgba(189,100,229,.8)':p.rapid>0?'rgba(239,139,45,.8)':'rgba(229,170,20,.65)';ctx.lineWidth=p.shield>0?4:2.8;ctx.setLineDash(p.shield>0?[]:[4,5]);ctx.stroke();ctx.setLineDash([])}ctx.shadowColor=color;ctx.shadowBlur=p.inv>0?25:16;ctx.fillStyle=p.team?'#fff2f2':'#effcf1';ctx.strokeStyle=color;ctx.lineWidth=p.dashTime>0?4:2.35;ctx.beginPath();ctx.arc(0,0,p.r,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.shadowBlur=0;ctx.fillStyle=p.team?'#a32638':'#20653a';let label=warzone?'P'+(p.team+1):F[p.formula].short;ctx.font=`bold italic ${label.length>4?p.r*.62:p.r*.82}px Georgia,serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,0,1.5);ctx.restore();}}
 function drawShards(){for(const sh of finishShards){ctx.save();ctx.translate(sh.x,sh.y);ctx.rotate(sh.rotation);ctx.globalAlpha=clamp(sh.life/.9,0,1);ctx.fillStyle=sh.color;ctx.shadowColor=sh.color;ctx.shadowBlur=12;ctx.fillRect(-sh.size/2,-sh.size*.22,sh.size,sh.size*.44);ctx.restore()}}
 function drawParticles(dt){for(let p of particles){ctx.save();ctx.globalAlpha=clamp(p.life/p.max,0,1);ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.r*(.35+.65*p.life/p.max),0,Math.PI*2);ctx.fill();ctx.restore()}for(let t of texts){ctx.save();ctx.globalAlpha=clamp(t.life/t.max,0,1);ctx.font='900 20px Inter,Arial,sans-serif';ctx.fillStyle=t.color;ctx.strokeStyle='white';ctx.lineWidth=3;ctx.textAlign='center';ctx.strokeText(t.value,t.x,t.y);ctx.fillText(t.value,t.x,t.y);ctx.restore()}}
 // Extend the coordinate paper beyond arena edges while the KO camera is zoomed.
@@ -1692,8 +1749,13 @@ function draw(){
 function drawIdlePreview(){const lf=F[selection[0]],rf=F[selection[1]];let mock=[{x:W*.22+Math.sin(performance.now()/850)*8,y:H*.52,r:clamp(W*.031,15,23),team:0,formula:selection[0],hp:80,inv:0,power:0,dashTime:0,trails:[]},{x:W*.78,y:H*.40+Math.cos(performance.now()/1200)*9,r:clamp(W*.031,15,23),team:1,formula:selection[1],hp:80,inv:0,power:0,dashTime:0,trails:[]}];let original=players;players=mock;drawBalls();players=original;ctx.save();ctx.textAlign='center';ctx.font='bold 15px system-ui';ctx.fillStyle='#b2b9b4';ctx.fillText('CHOOSE YOUR FUNCTION TO BEGIN',W/2,H*.87);ctx.restore()}
 function updateHUD(force=false){if(!players.length)return;const a=players[0],b=players[1];
  setText('leftHP',Math.ceil(a.hp)+' / 80');setText('rightHP',Math.ceil(b.hp)+' / 80');$('leftFill').style.width=(a.hp/80*100)+'%';$('rightFill').style.width=(b.hp/80*100)+'%';
- setText('leftStatus',a.hp<=0?'ELIMINATED':a.shield>0?'◆ SHIELD · '+Math.ceil(a.shield)+'s':a.rapid>0?'⚡ RAPID · '+Math.ceil(a.rapid)+'s':a.frozen>0?'❄ SLOWED':a.regen>0?'♥ REGEN':a.magnet>0?'🧲 MAGNET':a.power>0?'×2 DAMAGE · '+Math.ceil(a.power)+'s':a.cd<=0?'ATTACK READY':'RECHARGING');
- setText('rightStatus',b.hp<=0?'ELIMINATED':b.shield>0?'◆ SHIELD · '+Math.ceil(b.shield)+'s':b.rapid>0?'⚡ RAPID · '+Math.ceil(b.rapid)+'s':b.frozen>0?'❄ SLOWED':b.regen>0?'♥ REGEN':b.magnet>0?'🧲 MAGNET':b.power>0?'×2 DAMAGE · '+Math.ceil(b.power)+'s':b.cd<=0?'ATTACK READY':'RECHARGING');
+ setText('leftStatus',a.hp<=0?'ELIMINATED':a.overdrive>0?'✦ OVERDRIVE · '+Math.ceil(a.overdrive)+'s':a.shield>0?'◆ SHIELD · '+Math.ceil(a.shield)+'s':a.rapid>0?'⚡ RAPID · '+Math.ceil(a.rapid)+'s':a.frozen>0?'❄ SLOWED':a.regen>0?'♥ REGEN':a.magnet>0?'🧲 MAGNET':a.power>0?'×2 DAMAGE · '+Math.ceil(a.power)+'s':a.cd<=0?'ATTACK READY':'RECHARGING');
+ setText('rightStatus',b.hp<=0?'ELIMINATED':b.overdrive>0?'✦ OVERDRIVE · '+Math.ceil(b.overdrive)+'s':b.shield>0?'◆ SHIELD · '+Math.ceil(b.shield)+'s':b.rapid>0?'⚡ RAPID · '+Math.ceil(b.rapid)+'s':b.frozen>0?'❄ SLOWED':b.regen>0?'♥ REGEN':b.magnet>0?'🧲 MAGNET':b.power>0?'×2 DAMAGE · '+Math.ceil(b.power)+'s':b.cd<=0?'ATTACK READY':'RECHARGING');
+ for(const p of [a,b]){
+  const bar=$('driveFill'+p.team),label=$('driveLabel'+p.team);
+  if(bar){bar.style.width=(p.overdrive>0?100:clamp(p.drive||0,0,100))+'%';bar.classList.toggle('boosting',p.overdrive>0)}
+  if(label)setText('driveLabel'+p.team,p.overdrive>0?'OVERDRIVE!':Math.round(p.drive||0)+'%');
+ }
  setText('matchTime',String(Math.floor(time/60)).padStart(2,'0')+':'+String(Math.floor(time%60)).padStart(2,'0'));
  let ready=a.cd<=0,dashready=a.dashCd<=0;setText('castCool',watch?'AUTO':ready?'READY':a.cd.toFixed(1)+'s COOLDOWN');setText('dashCool',watch?'AUTO':dashready?'READY':a.dashCd.toFixed(1)+'s COOLDOWN');
  $('castBtn').disabled=state!=='playing'||watch||!ready;$('dashBtn').disabled=state!=='playing'||watch||!dashready;$('castLoad').style.width=(a.cd>0?clamp(100-a.cd/F[a.formula].cd*100,0,100):100)+'%';$('dashLoad').style.width=(a.dashCd>0?clamp(100-a.dashCd/2.2*100,0,100):100)+'%';
@@ -2355,7 +2417,7 @@ window.MFOnlineBridge={
  },
  capture(){
   if(!players.length)return null;
-  const fields=['x','y','vx','vy','r','hp','cd','dashCd','dashTime','dirX','dirY','power','shield','rapid','frozen','magnet','regen','inv','warArmor','warSurge','warSprint','warBump','team','score'];
+  const fields=['x','y','vx','vy','r','hp','cd','dashCd','dashTime','dirX','dirY','power','shield','rapid','frozen','magnet','regen','inv','warArmor','warSurge','warSprint','warBump','drive','overdrive','team','score'];
   const ps=players.map(p=>Object.fromEntries(fields.map(k=>[k,Number(p[k])||0])));
   const base={gameMode:this.gameMode,w:W,h:H,seq:Math.floor(performance.now()),state,phase:warzone?.phase||'classic',turn:warzone?.turn||0,round:warzone?.round||round,stage:warzone?.stage||1,series:warzone?.series||[0,0],roundWinner:warzone?.roundWinner??-1,players:ps,winner:cinematic?.winner??null,reason:document.getElementById('resultEyebrow').textContent.includes('FLAG')?'flag':'knockout'};
   if(this.gameMode==='classic')return {...base,time:time,functions:players.map(p=>({id:p.formula,eq:F[p.formula].eq,vars:p.formula==='custom'+p.team?customVariables[p.team]:[]})),
