@@ -541,6 +541,7 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
 @media(max-width:730px){.coord-bubble,.device-mobile .coord-bubble{font-size:9px!important;padding:10px 15px 16px!important}}
 @media(prefers-reduced-motion:reduce){.coord-bubble.show{animation:none!important;transform:translate(-50%,-100%) scale(1)!important}}
 
+.coord-bubble.fading{animation:none!important;opacity:0!important;transform:translate(-50%,-100%) rotate(1.5deg) scale(.95)!important;transition:opacity .49s ease-out,transform .49s ease-out!important}
 </style>
 </head>
 <body>
@@ -600,7 +601,7 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
 <div class="modal-bg" id="modalBg"><div class="modal" id="modal">
  <div id="setupPage">
   <div class="setup-scroll mf-lobby">
-    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V25 · HAND-DRAWN</span></div><h1>Choose your battle.</h1><p>Select a mode and fight.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
+    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V26 · THE SHOWDOWN</span></div><h1>Choose your battle.</h1><p>Select a mode and fight.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
     <div class="disconnect-notice" id="disconnectNotice" hidden role="alert"><div class="disconnect-icon">↪</div><div class="disconnect-copy"><strong>Match ended</strong><span id="disconnectMessage">The other player left the match.</span></div><button type="button" id="disconnectDismiss" aria-label="Dismiss disconnect notice">×</button></div>
     <div class="lobby-category-tabs" id="modeCategoryTabs" role="tablist" aria-label="Game categories">
   <button type="button" class="active" id="categoryLocal" role="tab" aria-selected="true" aria-controls="categoryModes">⌂ <span>Local</span></button>
@@ -645,7 +646,7 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
     </section>
     <div class="ai-difficulty-box" id="aiDifficultyBox">
       <div class="ai-difficulty-copy"><strong>🤖 CPU DIFFICULTY</strong><span id="aiDifficultyDescription">Normal · Smart enough to fight back, but still makes mistakes.</span></div>
-      <select id="aiDifficulty" aria-label="CPU difficulty"><option value="easy">Casual</option><option value="normal" selected>Normal</option><option value="hard">Hard</option><option value="expert">Expert</option></select>
+      <select id="aiDifficulty" aria-label="CPU difficulty"><option value="beginner">Beginner</option><option value="easy">Casual</option><option value="normal" selected>Normal</option><option value="hard">Hard</option><option value="expert">Expert</option><option value="nightmare">Nightmare</option></select>
     </div>
     <p class="mode-description lobby-mode-caption" id="modeDescription">Two AI fighters. Choose their equations and enjoy the battle.</p>
     <details id="localControlHelp"><summary>❔ Controls for local 1v1</summary><div class="help-controls"><div><strong>🟢 Player 1</strong> — Move <kbd>WASD</kbd>, dash <kbd>Left Shift</kbd>. Graphs fire automatically.</div><div><strong>🔴 Player 2</strong> — Move <kbd>Arrow Keys</kbd>, dash <kbd>Right Shift</kbd>. Graphs fire automatically.</div></div><p style="margin:7px 0 0">Mobile: use the two joysticks and the dash buttons. In Warzone, type a function, take turns firing, then rush the flags for 5 seconds.</p></details>
@@ -1039,9 +1040,9 @@ const rosterIds=['tan','exp','sin','quad','abs','custom'],COLORS=['#238a47','#dd
 let warzone=null,cinematic=null,screenFlash=0,ambientSparks=[],shotTrails=[],finishShards=[];
 let aiDifficulty='normal';
 let onlineGame='warzone'; // selected room type, independent from the local simulation mode
-const AI_LEVELS={easy:{name:'Casual',miss:.43,think:[.54,.91],choices:5,dodge:.27,dash:.14,pickup:.36,noise:1.9},normal:{name:'Normal',miss:.27,think:[.37,.64],choices:8,dodge:.53,dash:.36,pickup:.66,noise:.9},hard:{name:'Hard',miss:.15,think:[.23,.42],choices:12,dodge:.79,dash:.66,pickup:.85,noise:.4},expert:{name:'Expert',miss:.085,think:[.16,.28],choices:16,dodge:1,dash:.87,pickup:1,noise:.12}};
+const AI_LEVELS={beginner:{name:'Beginner',miss:.65,think:[.78,1.24],choices:3,dodge:.12,dash:.06,pickup:.17,noise:2.6,bump:.1},easy:{name:'Casual',miss:.43,think:[.54,.91],choices:5,dodge:.27,dash:.14,pickup:.36,noise:1.9,bump:.26},normal:{name:'Normal',miss:.27,think:[.37,.64],choices:8,dodge:.53,dash:.36,pickup:.66,noise:.9,bump:.65},hard:{name:'Hard',miss:.15,think:[.23,.42],choices:12,dodge:.79,dash:.66,pickup:.85,noise:.4,bump:.9},expert:{name:'Expert',miss:.085,think:[.16,.28],choices:16,dodge:1,dash:.87,pickup:1,noise:.12,bump:1.15},nightmare:{name:'Nightmare',miss:.045,think:[.09,.16],choices:22,dodge:1.2,dash:.97,pickup:1.1,noise:.035,bump:1.6}};
 function aiRules(){return AI_LEVELS[aiDifficulty]||AI_LEVELS.normal}
-function showAiDifficulty(){const visible=!['online','onlineClassic'].includes(window.MFSelectedLobbyMode)&&(mode==='cpu'||mode==='watch'||(mode==='warzone'&&$('warzonePlayers').value==='cpu')); $('aiDifficultyBox').hidden=!visible;let a=aiRules();$('aiDifficultyDescription').textContent=({'easy':'Relaxed reactions · lots of mistakes and misses.','normal':'A good fight, but plenty of mistakes.','hard':'Faster dodges and smarter decisions.','expert':'Very sharp tactics, but still misses sometimes.'}[aiDifficulty]);}
+function showAiDifficulty(){const visible=!['online','onlineClassic'].includes(window.MFSelectedLobbyMode)&&(mode==='cpu'||mode==='watch'||(mode==='warzone'&&$('warzonePlayers').value==='cpu')); $('aiDifficultyBox').hidden=!visible;let a=aiRules();$('aiDifficultyDescription').textContent=({'beginner':'Very forgiving · easy to dodge and outsmart.','easy':'Relaxed reactions · lots of mistakes and misses.','normal':'A good fight, but plenty of mistakes.','hard':'Faster dodges and smarter decisions.','expert':'Very sharp tactics, but still misses sometimes.','nightmare':'Relentless reactions and aggressive bumps · still occasionally misses.'}[aiDifficulty]);}
 let selection=['tan','exp'],mode='cpu',watch=false,local=false,localWins=[0,0],state='menu',players=[],graphs=[],particles=[],texts=[],pickups=[],rays=[],gunBursts=[],shockwaves=[],feedItems=[],W=800,H=620,unit=58,now=0,prev=0,round=1,time=0,shake=0,pickupClock=0,totalStats={wins:0,streak:0,best:0};
 let touch=null,keys=new Set(),holding=[false,false],stick=[{x:0,y:0,active:false,id:null},{x:0,y:0,active:false,id:null}],pointer={0:{down:false,x:0,y:0,id:null},1:{down:false,x:0,y:0,id:null}},audio=null,sound=true,hitFlash=0,lastHud=0,id=0,orientation=1;
 try{let saved=JSON.parse(localStorage.getItem('mathBallFightStats')||'null');if(saved&&typeof saved==='object')totalStats={...totalStats,...saved}}catch(e){}
@@ -1916,7 +1917,7 @@ function warCpuSelectShot(team){
  const good=tries.filter(o=>o.hit&&o.score>tries[0].score-15);
  const pool=good.length?good:tries.slice(0,Math.max(3,Math.ceil(rule.choices*.5)));
  if(!pool.length)return null;
- const bestCount=aiDifficulty==='expert'?2:aiDifficulty==='hard'?4:aiDifficulty==='normal'?8:12;
+ const bestCount=aiDifficulty==='nightmare'?1:aiDifficulty==='expert'?2:aiDifficulty==='hard'?4:aiDifficulty==='normal'?8:aiDifficulty==='beginner'?16:12;
  return pool[Math.floor(rng(0,Math.min(bestCount,pool.length)))];
 }
 // A grid-based A* navigator avoids the former 'spin at the same wall' movement.
@@ -2010,7 +2011,7 @@ function updateWarzone(dt){time+=dt;now+=dt;shake=Math.max(0,shake-dt*11);screen
 function warAiMove(p,dt){
  const flag=warzone.flag[1-p.team],nav=p.warNav||(p.warNav={path:[],clock:0,stuck:0,oldX:p.x,oldY:p.y});
  const rule=aiRules();nav.clock-=dt;
- if(nav.clock<=0||!nav.path.length){nav.path=warAiPath(p,flag);nav.clock=(.55+rng(0,.18))*(aiDifficulty==='easy'?1.7:aiDifficulty==='normal'?1.25:1)}
+ if(nav.clock<=0||!nav.path.length){nav.path=warAiPath(p,flag);nav.clock=(.55+rng(0,.18))*(aiDifficulty==='beginner'?2:aiDifficulty==='easy'?1.7:aiDifficulty==='normal'?1.25:1)}
  while(nav.path.length>1&&Math.hypot(p.x-nav.path[0].x,p.y-nav.path[0].y)<Math.max(14,p.r+6))nav.path.shift();
  let target=nav.path[0]||flag;
  // Skip unnecessary bends only if there is a truly unobstructed corridor.
@@ -2024,10 +2025,10 @@ function warAiMove(p,dt){
  }
  if(Math.random()<dt*rule.miss*.9){const r=rng(-.95,.95);let xx=x*Math.cos(r)-y*Math.sin(r),yy=x*Math.sin(r)+y*Math.cos(r);x=xx;y=yy;}
   const rival=players[1-p.team],enemyDistance=Math.hypot(rival.x-p.x,rival.y-p.y);
-  if(rival.hp>0&&p.dashCd<=0&&p.warBump<=0&&enemyDistance>p.r+rival.r+7&&enemyDistance<120&&Math.random()<dt*(.4+rule.dash*1.5)){
-    const direction={x:(rival.x-p.x)/enemyDistance,y:(rival.y-p.y)/enemyDistance};
+  if(rival.hp>0&&p.dashCd<=0&&p.warBump<=0&&enemyDistance>p.r+rival.r+7&&enemyDistance<120&&Math.random()<dt*rule.bump*(.7+rule.dash)){
+    const direction={x:(rival.x+Math.max(-20,Math.min(20,rival.vx*.12))-p.x)/enemyDistance,y:(rival.y+Math.max(-20,Math.min(20,rival.vy*.12))-p.y)/enemyDistance};
     if(warLineClear(p,{x:rival.x,y:rival.y},p.r+4)){
-      p.dirX=direction.x;p.dirY=direction.y;dash(p);return direction;
+      const length=Math.hypot(direction.x,direction.y)||1;direction.x/=length;direction.y/=length;p.dirX=direction.x;p.dirY=direction.y;dash(p);return direction;
     }
   }
  p.dirX=x;p.dirY=y;
@@ -2134,7 +2135,7 @@ function bind(){
  canvas.addEventListener('pointermove',e=>{for(let p of [pointer[0],pointer[1]])if(p.down&&p.id===e.pointerId)movePointer(e,p)});
  for(let ev of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(ev,e=>{for(let p of [pointer[0],pointer[1]])if(p.id===e.pointerId){p.down=false;p.id=null}});
   const coordBubble=$('coordBubble'),coordText=$('coordBubbleText');
-  let coordTimer=0,coordVisible=false;
+  let coordTimer=0,coordFadeTimer=0,coordVisible=false;
   function locateCoordinate(e){
     const rect=canvas.getBoundingClientRect();
     const px=clamp((e.clientX-rect.left)/Math.max(1,rect.width)*W,0,W);
@@ -2143,21 +2144,21 @@ function bind(){
     // Precision is limited only by the actual pointer position and floating-point representation.
     const fmt=v=>Number(v.toPrecision(13)).toString();
     coordText.textContent='('+fmt((px-W/2)/scale)+', '+fmt((H/2-py)/scale)+')';
-    coordBubble.style.left=clamp(e.clientX-rect.left,45,Math.max(45,rect.width-45))+'px';
+    coordBubble.style.left=clamp(e.clientX-rect.left-7,45,Math.max(45,rect.width-45))+'px';
     coordBubble.style.top=clamp(e.clientY-rect.top-12,48,Math.max(48,rect.height-12))+'px';
   }
   canvas.addEventListener('pointerdown',e=>{
     if(state==='menu'||state==='over')return;
-    locateCoordinate(e);coordVisible=true;coordBubble.classList.remove('show','copied');coordBubble.querySelector('.coord-copy-hint').textContent='C - COPY';
+    locateCoordinate(e);coordVisible=true;coordBubble.classList.remove('show','copied','fading');clearTimeout(coordFadeTimer);coordBubble.querySelector('.coord-copy-hint').textContent='C - COPY';
     void coordBubble.offsetWidth;coordBubble.classList.add('show');
-    clearTimeout(coordTimer);coordTimer=setTimeout(()=>{coordVisible=false;coordBubble.classList.remove('show')},1000);
+    clearTimeout(coordTimer);coordTimer=setTimeout(()=>{coordBubble.classList.remove('show');coordBubble.classList.add('fading');coordFadeTimer=setTimeout(()=>{coordVisible=false;coordBubble.classList.remove('fading')},520)},1000);
     playSound('coords');
   });
   // Freeze coordinates at the click location; moving the cursor only moves the speech bubble.
   canvas.addEventListener('pointermove',e=>{
     if(!coordVisible)return;
     const rect=canvas.getBoundingClientRect();
-    coordBubble.style.left=clamp(e.clientX-rect.left,45,Math.max(45,rect.width-45))+'px';
+    coordBubble.style.left=clamp(e.clientX-rect.left-7,45,Math.max(45,rect.width-45))+'px';
     coordBubble.style.top=clamp(e.clientY-rect.top-12,48,Math.max(48,rect.height-12))+'px';
   });
   window.addEventListener('keydown',async e=>{
