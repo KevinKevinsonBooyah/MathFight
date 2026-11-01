@@ -500,6 +500,47 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
 @media(max-width:730px){.lobby-category-tabs button{height:40px;font-size:12px}.mode-switch.lobby-modes .mode-grid button{min-height:71px}.lab-head h2{font-size:21px}.lab-head p{font-size:10px}.lab-variable-grid{gap:6px}.lab-graph canvas{height:225px}.lab-actions button{font-size:10px}.coord-bubble{font-size:8px}}
 @media(max-width:390px){.lab-actions{grid-template-columns:1fr 1fr}.lab-actions #labUse{grid-column:1/-1}.lab-zoom button{min-width:24px}.lab-head p{max-width:210px}}
 
+
+/* V25: intentionally crude hand-drawn speech balloon from the player's sketch */
+.coord-bubble,.device-mobile .coord-bubble{
+  --coord-ink:#121212;
+  position:absolute!important;z-index:8;pointer-events:none;
+  display:flex!important;align-items:center;justify-content:center;
+  width:max-content;max-width:calc(100% - 14px);min-width:99px;
+  min-height:38px;padding:10px 19px 17px!important;
+  background:transparent!important;border:0!important;border-radius:0!important;
+  box-shadow:none!important;white-space:nowrap;
+  color:var(--coord-ink)!important;
+  font:700 10px "Comic Sans MS","Trebuchet MS",sans-serif!important;
+  letter-spacing:0;line-height:1.1;
+  opacity:0;transform:translate(-50%,-100%) rotate(-2deg) scale(.9);
+  transform-origin:50% 15%;animation:none;
+  transition:opacity .42s ease-out!important;
+  will-change:transform,opacity;
+}
+.coord-bubble:after,.coord-bubble:before{display:none!important;content:none!important}
+.coord-doodle{position:absolute;inset:0;width:100%;height:100%;z-index:-1;overflow:visible;filter:drop-shadow(0 2px 1px rgba(0,0,0,.07))}
+.coord-doodle-shape{fill:#fffef9;stroke:#171717;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+.coord-doodle-rough{fill:none;stroke:#171717;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.coord-bubble .coord-values{position:relative;display:block;text-align:center;max-width:100%;padding:0 2px;z-index:1}
+.coord-bubble .coord-copy-hint{
+  position:absolute;top:-8px;left:50%;transform:translateX(-50%);
+  white-space:nowrap;padding:0 2px;border:0!important;background:transparent;
+  color:#101010!important;font:800 8px "Comic Sans MS","Trebuchet MS",sans-serif;
+}
+.coord-bubble.copied .coord-copy-hint{color:#287d48!important}
+.coord-bubble.show{opacity:1!important;animation:mfCrudeSign .65s ease-out both!important}
+@keyframes mfCrudeSign{
+  0%{transform:translate(-50%,-100%) rotate(-11deg) scale(.86)}
+  24%{transform:translate(-50%,-100%) rotate(7deg) scale(1.015)}
+  44%{transform:translate(-50%,-100%) rotate(-4deg) scale(1)}
+  63%{transform:translate(-50%,-100%) rotate(2.5deg) scale(1)}
+  80%{transform:translate(-50%,-100%) rotate(-1deg) scale(1)}
+  100%{transform:translate(-50%,-100%) rotate(0) scale(1)}
+}
+@media(max-width:730px){.coord-bubble,.device-mobile .coord-bubble{font-size:9px!important;padding:10px 15px 16px!important}}
+@media(prefers-reduced-motion:reduce){.coord-bubble.show{animation:none!important;transform:translate(-50%,-100%) scale(1)!important}}
+
 </style>
 </head>
 <body>
@@ -515,7 +556,13 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
    <div class="vs">VS</div>
    <div class="fighter-title team-red right"><div class="fighter-big" id="rightFormula">e<sup>x</sup></div><div class="fighter-detail"><strong id="rightName">CPU</strong><small id="rightStatus">READY TO FIGHT</small></div></div>
   </div></div>
-  <div class="stage" id="stage"><div class="coord-bubble" id="coordBubble" aria-hidden="true"><span class="coord-pip"></span><span id="coordBubbleText">(0, 0)</span><span class="coord-copy-hint">C · copy</span></div><canvas id="arena" aria-label="Mathematical battle arena. Use WASD or the touch joystick to move, Space or Attack to fire."></canvas>
+  <div class="stage" id="stage"><div class="coord-bubble" id="coordBubble" aria-hidden="true">
+  <svg class="coord-doodle" viewBox="0 0 340 82" preserveAspectRatio="none" aria-hidden="true">
+    <path class="coord-doodle-shape" d="M20 22 Q35 13 63 15 L102 11 Q155 14 192 12 Q254 14 285 17 Q314 22 323 30 Q337 37 325 47 Q310 58 279 58 L199 61 L183 71 Q177 77 168 65 L160 61 Q98 64 55 59 Q24 59 14 50 Q6 43 14 33 Z"/>
+    <path class="coord-doodle-rough" d="M16 29 Q9 39 13 48 M29 17 Q62 12 106 15 M195 10 Q261 12 288 20 M325 44 Q310 55 284 57 M158 63 L169 66 Q174 78 183 70 M91 60 Q124 64 157 61"/>
+  </svg>
+  <span class="coord-copy-hint">C - COPY</span><span class="coord-values" id="coordBubbleText">(0, 0)</span>
+</div><canvas id="arena" aria-label="Mathematical battle arena. Use WASD or the touch joystick to move, Space or Attack to fire."></canvas>
     <div class="ko-overlay" id="koOverlay" aria-hidden="true">K.O.!</div>
     <div class="joystick-zone" id="joystick0" aria-label="Player 1 move joystick"><div class="joystick-base"><div class="joystick-knob"></div></div><span class="joystick-label">MOVE</span></div>
     <div class="joystick-zone joystick-p2" id="joystick1" aria-label="Player 2 move joystick"><div class="joystick-base"><div class="joystick-knob"></div></div><span class="joystick-label">P2 MOVE</span></div><div class="stage-overlay" id="pauseOverlay"><strong>PAUSED</strong><small>Take your time. Math can wait.</small><button id="resumeBtn">RESUME BATTLE</button></div></div>
@@ -553,7 +600,7 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
 <div class="modal-bg" id="modalBg"><div class="modal" id="modal">
  <div id="setupPage">
   <div class="setup-scroll mf-lobby">
-    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V24 · FROM POINT</span></div><h1>Choose your battle.</h1><p>Select a mode and fight.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
+    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V25 · HAND-DRAWN</span></div><h1>Choose your battle.</h1><p>Select a mode and fight.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
     <div class="disconnect-notice" id="disconnectNotice" hidden role="alert"><div class="disconnect-icon">↪</div><div class="disconnect-copy"><strong>Match ended</strong><span id="disconnectMessage">The other player left the match.</span></div><button type="button" id="disconnectDismiss" aria-label="Dismiss disconnect notice">×</button></div>
     <div class="lobby-category-tabs" id="modeCategoryTabs" role="tablist" aria-label="Game categories">
   <button type="button" class="active" id="categoryLocal" role="tab" aria-selected="true" aria-controls="categoryModes">⌂ <span>Local</span></button>
@@ -2097,11 +2144,11 @@ function bind(){
     const fmt=v=>Number(v.toPrecision(13)).toString();
     coordText.textContent='('+fmt((px-W/2)/scale)+', '+fmt((H/2-py)/scale)+')';
     coordBubble.style.left=clamp(e.clientX-rect.left,45,Math.max(45,rect.width-45))+'px';
-    coordBubble.style.top=clamp(e.clientY-rect.top-27,35,Math.max(35,rect.height-27))+'px';
+    coordBubble.style.top=clamp(e.clientY-rect.top-12,48,Math.max(48,rect.height-12))+'px';
   }
   canvas.addEventListener('pointerdown',e=>{
     if(state==='menu'||state==='over')return;
-    locateCoordinate(e);coordVisible=true;coordBubble.classList.remove('show','copied');coordBubble.querySelector('.coord-copy-hint').textContent='C · copy';
+    locateCoordinate(e);coordVisible=true;coordBubble.classList.remove('show','copied');coordBubble.querySelector('.coord-copy-hint').textContent='C - COPY';
     void coordBubble.offsetWidth;coordBubble.classList.add('show');
     clearTimeout(coordTimer);coordTimer=setTimeout(()=>{coordVisible=false;coordBubble.classList.remove('show')},1000);
     playSound('coords');
@@ -2111,7 +2158,7 @@ function bind(){
     if(!coordVisible)return;
     const rect=canvas.getBoundingClientRect();
     coordBubble.style.left=clamp(e.clientX-rect.left,45,Math.max(45,rect.width-45))+'px';
-    coordBubble.style.top=clamp(e.clientY-rect.top-27,35,Math.max(35,rect.height-27))+'px';
+    coordBubble.style.top=clamp(e.clientY-rect.top-12,48,Math.max(48,rect.height-12))+'px';
   });
   window.addEventListener('keydown',async e=>{
     if(!coordVisible||e.repeat||e.key.toLowerCase()!=='c')return;
