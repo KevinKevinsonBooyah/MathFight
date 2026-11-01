@@ -542,6 +542,17 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
 @media(prefers-reduced-motion:reduce){.coord-bubble.show{animation:none!important;transform:translate(-50%,-100%) scale(1)!important}}
 
 .coord-bubble.fading{animation:none!important;opacity:0!important;transform:translate(-50%,-100%) rotate(1.5deg) scale(.95)!important;transition:opacity .49s ease-out,transform .49s ease-out!important}
+
+/* Easy on-ramp: four equation shapes built from where your opponent is. */
+.war-quickshots{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:7px 10px;margin-top:6px;background:#fff7f8;border:1px solid #efd3da;border-radius:9px}
+.war-quickshots[hidden]{display:none!important}
+.war-quick-heading{font-size:9px;font-weight:900;color:#9c3049;letter-spacing:.7px}
+.war-quick-heading small{font-weight:550;letter-spacing:0;color:#946f79;font-size:9px}
+.war-quick-grid{display:flex;gap:5px;flex:1;justify-content:flex-end;flex-wrap:wrap}
+.war-quick-grid button{font:800 10px inherit;font-size:10px;font-weight:800;border:1px solid #e7b5c1;border-radius:7px;background:#fff;color:#a3314b;padding:7px 9px;transition:transform .15s,background .15s}
+.war-quick-grid button:hover{background:#ffe7ed;transform:translateY(-1px)}
+@media(max-width:700px){.war-quickshots{gap:5px;padding:7px}.war-quick-grid{justify-content:flex-start}.war-quick-grid button{padding:7px 8px}}
+
 </style>
 </head>
 <body>
@@ -586,6 +597,15 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
   <div class="warzone-panel" id="warzonePanel" hidden>
     <div class="warzone-label"><span id="warzonePrompt">PLAYER 1 · DRAW YOUR ATTACK</span><small id="warzoneHint">Tip: y = 0 draws a horizontal line through the center.</small></div>
     <div class="warzone-formula"><span>y =</span><input id="warzoneInput" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="90" placeholder="0.5*x + 2" aria-label="Warzone graph equation"><button id="warzoneFire">FIRE GRAPH ↗</button></div>
+    <div class="war-quickshots" id="warQuickShots">
+  <div class="war-quick-heading">QUICK SHOTS <small>Choose a shape, then fire or adjust its equation.</small></div>
+  <div class="war-quick-grid">
+    <button type="button" data-warquick="line" title="Straight line toward your opponent">↗ Line</button>
+    <button type="button" data-warquick="wave" title="A flowing sine wave">〰 Wave</button>
+    <button type="button" data-warquick="arc" title="A curved quadratic graph">⌒ Arc</button>
+    <button type="button" data-warquick="zigzag" title="A rapidly oscillating graph">⚡ Zigzag</button>
+  </div>
+</div>
     <details id="warVarDetails" class="war-var-details"><summary id="warVarSummary">▸ Variables for Player 1 (0)</summary><p class="war-var-description">Optional: write <code>a*x+b</code>, then define <code>a</code> and <code>b</code> here. Each player has their own variables for this match.</p><div class="war-var-toolbar"><strong id="warVarOwner">PLAYER 1 VARIABLES</strong><button id="warAddVar" type="button">+ Add variable</button></div><div id="warVarList"></div></details>
     <p id="warzoneError" class="warzone-error" role="status">Your graph starts at your ball and travels toward the opponent. Cover blocks it.</p>
   </div>
@@ -1831,6 +1851,7 @@ function warzoneHUD(){if(!warzone)return;const z=warzone,t=z.turn;
  $('warVarDetails').hidden=!turn||players[t].auto;if(!turn)$('warVarDetails').open=false;
  $('warzoneInput').disabled=!turn||players[t].auto;
  $('warzoneFire').disabled=!turn||players[t].auto;
+  $('warQuickShots').hidden=!turn||players[t].auto;
  $('warzoneInput').placeholder='e.g. '+(t?'cos(x) + 1':'sin(x) - 1');
  $('warzoneHint').textContent=moving?'Move with WASD/arrows or joysticks! Dash with Shift or the buttons below.':turn?'Enemy: '+formatXY(players[1-t]):'Obstacles can block a graph line.';
  $('warMoveActions').classList.toggle('active',moving);$('warDash1').style.display=local?'block':'none';
@@ -1839,12 +1860,25 @@ function warzoneHUD(){if(!warzone)return;const z=warzone,t=z.turn;
  if(window.MFOnlineBridge?.active){
   const mine=window.MFOnlineBridge.host?0:1,canFire=turn&&t===mine;
   $('warzoneInput').disabled=!canFire;$('warzoneFire').disabled=!canFire;
+   $('warQuickShots').hidden=!canFire;
   $('warVarDetails').hidden=!canFire;
   $('warDash0').style.display=mine===0?'block':'none';$('warDash1').style.display=mine===1?'block':'none';
   if(turn&&!canFire)$('warzoneHint').textContent='Waiting for your opponent to fire...';
  }
 }
 function formatXY(p){const c=warCoords(p.x,p.y);return `x=${c.x.toFixed(1)}, y=${c.y.toFixed(1)}`}
+
+function warQuickEquation(shape){
+  if(!warzone||players.length!==2)return '';
+  const team=warzone.turn,shooter=players[team],target=players[1-team];
+  const run=Math.max(.5,Math.abs(target.x-shooter.x)/warUnit());
+  const rise=(shooter.y-target.y)/warUnit();
+  const fmt=v=>Number(v.toFixed(5)).toString();
+  if(shape==='line')return fmt(rise/run)+'*x';
+  if(shape==='wave'){const a=.85,f=2.4;return fmt((rise-a*Math.sin(f*run))/run)+'*x + 0.85*sin(2.4*x)';}
+  if(shape==='arc'){const a=.16;return fmt((rise-a*run*run)/run)+'*x + 0.16*x^2';}
+  const a=.65,f=5.1;return fmt((rise-a*Math.sin(f*run))/run)+'*x + 0.65*sin(5.1*x)';
+}
 function warzoneFire(){if(!warzone||state!=='playing'||warzone.phase!=='turn')return;
  if(window.MFOnlineBridge?.active&&!window.MFOnlineBridge.host){window.MFOnlineBridge.guestFire();return;}const z=warzone,team=z.turn,p=players[team];if(p.auto)return;
  let raw=$('warzoneInput').value.trim();try{const parsed=parseMathExpression(raw,getWarVariableScope(team));submitWarShot(team,parsed,raw)}catch(e){$('warzoneError').textContent=e.message;$('warzoneError').classList.add('bad');playSound('warning')}}
@@ -2100,7 +2134,17 @@ function bind(){
  $('warDash0').onclick=()=>{if(warzone&&warzone.phase==='move'&&players[0]){unlockAudio();dash(players[0])}};
  $('warDash1').onclick=()=>{if(window.MFOnlineBridge?.active&&!window.MFOnlineBridge.host){window.MFOnlineBridge.guestDash();return;}if(warzone&&warzone.phase==='move'&&local&&players[1]){unlockAudio();dash(players[1])}};
  $('modeWarzone').onclick=()=>setMode('warzone');$('modeOnline').onclick=()=>setMode('online');$('modeOnlineClassic').onclick=()=>setMode('onlineClassic');$('warzonePlayers').onchange=showAiDifficulty;$('aiDifficulty').onchange=()=>{aiDifficulty=$('aiDifficulty').value;showAiDifficulty();};$('warzoneFire').onclick=warzoneFire;
- $('warAddVar').onclick=()=>{if(!warzone||warzone.phase!=='turn'||players[warzone.turn].auto)return;const vars=warzone.variables[warzone.turn];if(vars.length>=8)return;let i=vars.length;const taken=new Set(vars.map(v=>v.name));let name=['a','b','c','d','speed','k','m','n'].find(n=>!taken.has(n))||'v'+i;vars.push({name,value:'1'});$('warVarDetails').open=true;renderWarVariables();$('warVarList').lastElementChild?.querySelector('input')?.focus()};
+ for(const button of $('warQuickShots').querySelectorAll('[data-warquick]')){
+   button.onclick=()=>{
+    if(!warzone||warzone.phase!=='turn'||players[warzone.turn]?.auto||$('warzoneFire').disabled)return;
+    const formula=warQuickEquation(button.dataset.warquick);
+    $('warzoneInput').value=formula;$('warzoneInput').focus();
+    $('warzoneError').classList.remove('bad');
+    $('warzoneError').textContent='Ready: y = '+formula+' · Cover can still block your attack.';
+    playSound('click');
+   };
+  }
+  $('warAddVar').onclick=()=>{if(!warzone||warzone.phase!=='turn'||players[warzone.turn].auto)return;const vars=warzone.variables[warzone.turn];if(vars.length>=8)return;let i=vars.length;const taken=new Set(vars.map(v=>v.name));let name=['a','b','c','d','speed','k','m','n'].find(n=>!taken.has(n))||'v'+i;vars.push({name,value:'1'});$('warVarDetails').open=true;renderWarVariables();$('warVarList').lastElementChild?.querySelector('input')?.focus()};
  $('startBtn').onclick=()=>start();$('modePlay').onclick=()=>setMode('cpu');$('modeLocal').onclick=()=>setMode('local');$('modeWatch').onclick=()=>setMode('watch');$('setupClose').onclick=closeModal;$('resultChange').onclick=()=>{if(window.MFOnlineBridge?.active)window.MFOnlineBridge.leave();state='menu';setModal('setup')};$('resultRematch').onclick=()=>{if(window.MFOnlineBridge?.active){window.MFOnlineBridge.rematch();return;}start()};
  $('menuBtn').onclick=()=>{if(window.MFOnlineBridge?.active){window.MFOnlineBridge.leave();state='menu';setModal('setup');return;}if(state==='playing'){state='paused';$('pauseOverlay').classList.add('active');keys.clear()}setModal('setup')};$('pauseBtn').onclick=()=>{if(!window.MFOnlineBridge?.active)togglePause();};$('resumeBtn').onclick=togglePause;
  $('castBtn').onclick=()=>{unlockAudio();if(!warzone&&players[0])cast(players[0])};$('dashBtn').onclick=()=>{unlockAudio();if(players[0])dash(players[0])};
