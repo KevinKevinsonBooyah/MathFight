@@ -467,10 +467,37 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
 .lab-feedback{margin:8px 0 0;color:#32865c;font-size:10px}.lab-feedback.error{color:#c44d60}
 .lab-presets{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.lab-presets button{border:1px solid #dce9e0;background:#fff;border-radius:8px;padding:7px 10px;color:#527263;font-size:11px;font-weight:750;transition:transform .15s,background .15s}.lab-presets button:hover{background:#e7f6ed;transform:translateY(-1px)}
 .lab-actions{display:grid;grid-template-columns:1.2fr 1fr 1.3fr;gap:7px}.lab-actions button{padding:11px 8px;border:1px solid #d4e2d8;background:#fff;border-radius:9px;color:#3d6e52;font-size:11px;font-weight:900}.lab-actions .lab-test{background:#27945e;color:white;border-color:#27945e}.lab-actions #labUse{background:#253c31;color:white;border-color:#253c31}
-.coord-bubble{background:#23372eff!important;border:1px solid #568273!important;border-radius:13px!important;padding:8px 11px!important;box-shadow:0 6px 17px #10291c45!important;font-size:10px!important;transform:translate(-50%,-129%) scale(.82)!important;transition:opacity .2s,transform .24s cubic-bezier(.2,1.4,.3,1)!important;display:flex;align-items:center;gap:6px}
-.coord-bubble.show{transform:translate(-50%,-129%) scale(1)!important}.coord-bubble:after{content:'';position:absolute;top:calc(100% - 1px);left:50%;width:11px;height:11px;transform:translate(-50%,-50%) rotate(45deg);background:#23372e;border-right:1px solid #568273;border-bottom:1px solid #568273;z-index:-1}
-.coord-copy-hint{color:#a4e8c2;font:800 8px system-ui,sans-serif;border-left:1px solid #ffffff39;padding-left:6px}.coord-bubble.copied .coord-copy-hint{color:#7bffb9}
-@media(max-width:730px){.lobby-category-tabs button{height:40px;font-size:12px}.mode-switch.lobby-modes .mode-grid button{min-height:71px}.lab-head h2{font-size:21px}.lab-head p{font-size:10px}.lab-variable-grid{gap:6px}.lab-graph canvas{height:225px}.lab-actions button{font-size:10px}.coord-bubble{font-size:9px!important}}
+/* V24: tiny coordinates sign, lifted clear of the cursor, with damped wooden-sign swing. */
+.coord-bubble{background:#23372ef5;border:1px solid #568273;border-radius:10px;padding:4px 7px;box-shadow:0 5px 13px #10291c35;font-size:9px;line-height:1.15;transform-origin:50% 0%;transform:translate(-50%,-100%) rotate(-9deg) scale(.82);transition:opacity .17s;display:flex;align-items:center;gap:5px;will-change:transform,opacity}
+.coord-bubble.show{opacity:.95;animation:mfSignSwing .7s ease-out both}
+@keyframes mfSignSwing{
+  0%{transform:translate(-50%,-100%) rotate(-13deg) scale(.82)}
+  25%{transform:translate(-50%,-100%) rotate(9deg) scale(1)}
+  43%{transform:translate(-50%,-100%) rotate(-6deg) scale(1)}
+  62%{transform:translate(-50%,-100%) rotate(3.5deg) scale(1)}
+  78%{transform:translate(-50%,-100%) rotate(-1.5deg) scale(1)}
+  90%{transform:translate(-50%,-100%) rotate(.6deg) scale(1)}
+  100%{transform:translate(-50%,-100%) rotate(0) scale(1)}
+}
+.coord-bubble:after{content:'';position:absolute;top:calc(100% - 2px);left:50%;width:8px;height:8px;transform:translate(-50%,-50%) rotate(45deg);background:#23372e;border-right:1px solid #568273;border-bottom:1px solid #568273;z-index:-1}
+.coord-copy-hint{color:#a4e8c2;font:800 7px system-ui,sans-serif;border-left:1px solid #ffffff39;padding-left:5px}.coord-bubble.copied .coord-copy-hint{color:#7bffb9}
+@media(prefers-reduced-motion:reduce){.coord-bubble.show{animation:none;transform:translate(-50%,-100%)}}
+
+/* V24: independent graphing styles, Warzone-like player origin, and direction control. */
+.lab-mode-bar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:8px 0 9px}
+.lab-mode-choices{display:flex;gap:3px;align-items:center;border-radius:9px;border:1px solid #dbe8df;padding:3px;background:#edf4ef}
+.lab-mode-choices button{border-radius:7px;background:transparent;color:#5e7767;padding:7px 10px;font-size:10px;font-weight:850;transition:background .14s,color .14s}
+.lab-mode-choices button.active{background:#fff;color:#247f52;box-shadow:0 1px 5px #14472a1a}
+.lab-mode-hint{font-size:10px;color:#7a8d80;flex:1;min-width:140px}
+.lab-from-point-options{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 10px;margin:-3px 0 9px;border:1px solid #cfe5d7;border-radius:9px;background:#f0faf4;font-size:10px;color:#4b7c5f;font-weight:700}
+.lab-from-point-options[hidden]{display:none!important}
+.lab-from-point-options button{border:1px solid #bfe0ca;border-radius:7px;background:#fff;color:#237b4f;padding:6px 9px;font-size:10px;font-weight:850;white-space:nowrap}
+.lab-graph.origin-enabled canvas{cursor:grab;touch-action:none}
+.lab-graph.origin-enabled.dragging canvas{cursor:grabbing}
+.lab-graph.origin-enabled .lab-graph-tip{background:#ebfaf1e8;border-color:#b6dbc4}
+@media(max-width:530px){.lab-mode-hint{min-width:95px;font-size:9px}.lab-mode-choices button{padding:6px 8px}.lab-from-point-options{font-size:9px}}
+
+@media(max-width:730px){.lobby-category-tabs button{height:40px;font-size:12px}.mode-switch.lobby-modes .mode-grid button{min-height:71px}.lab-head h2{font-size:21px}.lab-head p{font-size:10px}.lab-variable-grid{gap:6px}.lab-graph canvas{height:225px}.lab-actions button{font-size:10px}.coord-bubble{font-size:8px}}
 @media(max-width:390px){.lab-actions{grid-template-columns:1fr 1fr}.lab-actions #labUse{grid-column:1/-1}.lab-zoom button{min-width:24px}.lab-head p{max-width:210px}}
 
 </style>
@@ -526,7 +553,7 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
 <div class="modal-bg" id="modalBg"><div class="modal" id="modal">
  <div id="setupPage">
   <div class="setup-scroll mf-lobby">
-    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V23 · GRAPH LAB</span></div><h1>Choose your battle.</h1><p>Select a mode and fight.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
+    <div class="lobby-head"><div><div class="lobby-eyebrow">MATHFIGHT <span>V24 · FROM POINT</span></div><h1>Choose your battle.</h1><p>Select a mode and fight.</p></div><button class="close" id="setupClose" title="Close">×</button></div>
     <div class="disconnect-notice" id="disconnectNotice" hidden role="alert"><div class="disconnect-icon">↪</div><div class="disconnect-copy"><strong>Match ended</strong><span id="disconnectMessage">The other player left the match.</span></div><button type="button" id="disconnectDismiss" aria-label="Dismiss disconnect notice">×</button></div>
     <div class="lobby-category-tabs" id="modeCategoryTabs" role="tablist" aria-label="Game categories">
   <button type="button" class="active" id="categoryLocal" role="tab" aria-selected="true" aria-controls="categoryModes">⌂ <span>Local</span></button>
@@ -545,7 +572,9 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
      </div></div></div>
      <section class="graph-lab" id="graphLab" hidden aria-label="Interactive Graph Lab">
        <div class="lab-head"><div><span class="lab-eyebrow">SANDBOX · NO DAMAGE</span><h2>Graph Lab <span>∿</span></h2><p>Make a curve, change its variables, and see exactly what happens.</p></div><div class="lab-zoom"><button type="button" id="labZoomOut" title="Zoom out" aria-label="Zoom out">−</button><button type="button" id="labZoomReset" title="Reset graph zoom">1×</button><button type="button" id="labZoomIn" title="Zoom in" aria-label="Zoom in">+</button></div></div>
-       <div class="lab-graph"><canvas id="labCanvas" aria-label="Interactive function plot" width="920" height="460"></canvas><div class="lab-graph-tip" id="labPoint">Point: move your cursor over the graph</div></div>
+       <div class="lab-mode-bar"><div class="lab-mode-choices" role="group" aria-label="Graph Lab plotting style"><button type="button" id="labModeNormal" class="active" aria-pressed="true">∿ Full Graph</button><button type="button" id="labModeFromPoint" aria-pressed="false">◎ From Point</button></div><span class="lab-mode-hint" id="labModeHint">Plot your entire function.</span></div>
+       <div class="lab-from-point-options" id="labFromPointControls" hidden><span>Drag the green player ball to move your launch point.</span><button type="button" id="labDirection" aria-label="Change firing direction" title="Flip firing direction">Fire →</button></div>
+       <div class="lab-graph" id="labGraph"><canvas id="labCanvas" aria-label="Interactive function plot" width="920" height="460"></canvas><div class="lab-graph-tip" id="labPoint">Point: move your cursor over the graph</div></div>
        <div class="lab-workspace"><label class="lab-equation">YOUR FUNCTION <span><i>y</i> = <input id="labEquation" spellcheck="false" autocomplete="off" maxlength="90" value="a*sin(b*x)+c" aria-label="Graph Lab equation"></span></label>
        <div class="lab-variable-grid">
         <label><span>a · height <output id="labValueA">2</output></span><input id="labParamA" type="range" min="-5" max="5" step="0.25" value="2"></label>
@@ -1070,64 +1099,155 @@ function showBattleCategory(category){
   else if(window.MFSelectedLobbyMode)setMode('watch');
   if(!isLab)drawRoster();
 }
-const labState={zoom:8,formula:'a*sin(b*x)+c',fn:null,sweep:-1,probe:0,valid:false,frame:0};
+const labState={zoom:8,formula:'a*sin(b*x)+c',fn:null,sweep:-1,probe:0,valid:false,frame:0,fromPoint:false,direction:1,origin:{x:-3.5,y:0},anchor:0,dragging:false,dragId:null};
 function labVariables(){return {a:Number($('labParamA').value),b:Number($('labParamB').value),c:Number($('labParamC').value)}}
 function evaluateLab(){
   labState.formula=$('labEquation').value.trim();
   for(const letter of ['A','B','C'])$('labValue'+letter).textContent=Number($('labParam'+letter).value).toString();
-  try{const parsed=parseMathExpression(labState.formula,labVariables());labState.fn=parsed.fn;labState.valid=true;
-    $('labFeedback').textContent='✓ Valid graph · adjust sliders or choose a preset.';$('labFeedback').classList.remove('error');}
-  catch(e){labState.fn=null;labState.valid=false;$('labFeedback').textContent=e.message;$('labFeedback').classList.add('error');}
+  try{
+    const parsed=parseMathExpression(labState.formula,labVariables());
+    labState.fn=parsed.fn;labState.valid=true;
+    if(labState.fromPoint){
+      labState.anchor=labState.fn(0);
+      if(!Number.isFinite(labState.anchor))throw Error('From Point needs a finite f(0), so the shot can start at your player.');
+    }
+    $('labFeedback').textContent=labState.fromPoint?'✓ Ready to fire · drag the green ball to set the starting point.':'✓ Valid graph · adjust sliders or choose a preset.';
+    $('labFeedback').classList.remove('error');
+  }catch(e){labState.fn=null;labState.valid=false;$('labFeedback').textContent=e.message;$('labFeedback').classList.add('error');}
   drawLab();
+}
+function labViewport(canvas){
+  const width=canvas.clientWidth||750,height=canvas.clientHeight||310;
+  const px=width/(2*labState.zoom),midX=width/2,midY=height/2;
+  return {width,height,px,midX,midY,fromX:x=>midX+x*px,fromY:y=>midY-y*px};
+}
+function clampLabOrigin(view){
+  const xMin=-labState.zoom+.75,xMax=labState.zoom-.75;
+  const maxY=view.height/(2*view.px)-.75;
+  labState.origin.x=clamp(labState.origin.x,xMin,xMax);
+  labState.origin.y=clamp(labState.origin.y,-Math.max(.25,maxY),Math.max(.25,maxY));
+}
+function labShotCurve(c,view,maxDistance,color,strokeWidth,dashed=false){
+  const {width,height,px,fromX,fromY}=view,origin=labState.origin;
+  const sx=fromX(origin.x),dir=labState.direction,startY=fromY(origin.y);
+  const maxTravel=Math.max(0,dir>0?width-8-sx:sx-8);
+  const travel=Math.min(maxTravel,Math.max(0,maxDistance));
+  let last=null,lastY=startY;
+  c.save();c.beginPath();c.rect(0,0,width,height);c.clip();
+  c.beginPath();c.moveTo(sx,startY);
+  for(let distance=0;distance<=travel+1.35;distance+=1.35){
+    const t=Math.min(distance,travel),xx=sx+dir*t;
+    let v;try{v=labState.fn(t/px)}catch(e){v=NaN}
+    if(!Number.isFinite(v)) {last=null;continue;}
+    const y=fromY(origin.y-(v-labState.anchor));
+    // Warzone shots stop when they hit the arena's upper/lower boundary.
+    if(!Number.isFinite(y)||y<8||y>height-8){
+      if(last){
+        const edge=clamp(y,8,height-8),dy=y-last.y;
+        if(Number.isFinite(y)&&Math.abs(dy)>.00001){const alpha=clamp((edge-last.y)/dy,0,1);c.lineTo(last.x+(xx-last.x)*alpha,edge);last={x:xx,y:edge};}
+      }
+      break;
+    }
+    // Discontinuities stay disconnected instead of bridging across an asymptote.
+    if(last&&Math.abs(y-last.y)>height*.16)c.moveTo(xx,y);else c.lineTo(xx,y);
+    last={x:xx,y};lastY=y;
+    if(t>=travel)break;
+  }
+  c.strokeStyle=color;c.lineWidth=strokeWidth;c.lineCap='round';c.lineJoin='round';
+  if(dashed)c.setLineDash([4,6]);
+  c.stroke();c.setLineDash([]);c.restore();
+  return {last,maxTravel,originX:sx,originY:startY};
 }
 function drawLab(){
   const canvas=$('labCanvas');if(!canvas||!canvas.isConnected)return;
-  const width=canvas.clientWidth||750,height=canvas.clientHeight||310;if(width<2||height<2)return;
+  const view=labViewport(canvas),{width,height,midX,midY,px,fromX,fromY}=view;
+  if(width<2||height<2)return;
   const dpr=Math.min(window.devicePixelRatio||1,2),pw=Math.round(width*dpr),ph=Math.round(height*dpr);
   if(canvas.width!==pw||canvas.height!==ph){canvas.width=pw;canvas.height=ph;}
   const c=canvas.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);
   c.fillStyle='#fcfefd';c.fillRect(0,0,width,height);
-  const midX=width/2,midY=height/2,px=width/(2*labState.zoom),py=px;
-  const fromX=x=>midX+x*px,fromY=y=>midY-y*py;
   const gridStep=labState.zoom<=5?1:labState.zoom<=10?2:4;
   c.lineWidth=.8;c.strokeStyle='#e6ede9';c.beginPath();
   for(let x=-Math.ceil(labState.zoom);x<=Math.ceil(labState.zoom);x+=gridStep){let xx=fromX(x);if(xx>=0&&xx<=width){c.moveTo(xx,0);c.lineTo(xx,height);}}
-  const yMax=height/(2*py);
+  const yMax=height/(2*px);
   for(let y=-Math.ceil(yMax);y<=Math.ceil(yMax);y+=gridStep){let yy=fromY(y);if(yy>=0&&yy<=height){c.moveTo(0,yy);c.lineTo(width,yy);}}c.stroke();
   c.strokeStyle='#9bb4a7';c.lineWidth=1.35;c.beginPath();c.moveTo(midX,0);c.lineTo(midX,height);c.moveTo(0,midY);c.lineTo(width,midY);c.stroke();
   c.fillStyle='#9caea5';c.font='10px ui-monospace,monospace';c.textAlign='center';
   for(let x=-Math.ceil(labState.zoom);x<=Math.ceil(labState.zoom);x+=gridStep){if(!x)continue;let xx=fromX(x);if(xx>14&&xx<width-14)c.fillText(String(x),xx,midY+13);}
   c.textAlign='right';for(let y=-Math.ceil(yMax);y<=Math.ceil(yMax);y+=gridStep){if(!y)continue;let yy=fromY(y);if(yy>11&&yy<height-10)c.fillText(String(y),midX-6,yy+3);}
-  if(labState.valid){
-    c.save();c.beginPath();c.rect(0,0,width,height);c.clip();
-    c.beginPath();let previous=null;
-    for(let i=0;i<=width;i+=1.5){const x=(i-midX)/px;let y;try{y=labState.fn(x)}catch(e){y=NaN}
-      const sy=fromY(y),good=Number.isFinite(sy)&&Math.abs(sy)<height*10;
-      if(!good){previous=null;continue}
-      if(!previous||Math.abs(sy-previous.sy)>height*.65)c.moveTo(i,sy);else c.lineTo(i,sy);
-      previous={sy};
+  if(labState.fromPoint){
+    clampLabOrigin(view);
+    const origin=labState.origin,sx=fromX(origin.x),sy=fromY(origin.y);
+    if(labState.valid){
+      const length=Math.max(0,labState.direction>0?width-8-sx:sx-8);
+      if(labState.sweep>=0){
+        labShotCurve(c,view,length,'rgba(49,153,98,.24)',1.5,true);
+        const hit=labShotCurve(c,view,length*labState.sweep,'#208f5b',3.3);
+        if(hit.last){c.beginPath();c.arc(hit.last.x,hit.last.y,5,0,Math.PI*2);c.fillStyle='#50e39a';c.fill();c.strokeStyle='#fff';c.lineWidth=1.2;c.stroke();}
+      }else{
+        labShotCurve(c,view,length,'rgba(33,147,88,.75)',2.3,true);
+      }
     }
-    c.strokeStyle='#36bd7c';c.lineWidth=7;c.globalAlpha=.11;c.shadowBlur=12;c.shadowColor='#3aba80';c.stroke();
-    c.strokeStyle='#208e5c';c.globalAlpha=1;c.lineWidth=2.8;c.shadowBlur=0;c.stroke();
+    // A Warzone-style green player marker with an aiming arrow and pulsing drag ring.
+    c.save();c.translate(sx,sy);
+    c.fillStyle='rgba(45,185,104,.10)';c.beginPath();c.arc(0,0,23,0,Math.PI*2);c.fill();
+    c.setLineDash([3,3]);c.strokeStyle='rgba(35,149,88,.36)';c.lineWidth=1.5;c.beginPath();c.arc(0,0,19,0,Math.PI*2);c.stroke();c.setLineDash([]);
+    c.shadowColor='#46d88d';c.shadowBlur=10;c.fillStyle='#228a55';c.strokeStyle='#fff';c.lineWidth=2.5;c.beginPath();c.arc(0,0,12,0,Math.PI*2);c.fill();c.stroke();c.shadowBlur=0;
+    c.fillStyle='#fff';c.textAlign='center';c.textBaseline='middle';c.font='800 10px system-ui';c.fillText('P',0,.5);
+    c.fillStyle='#238959';c.beginPath();const arrow=labState.direction*19;c.moveTo(arrow,0);c.lineTo(arrow-labState.direction*6,-4);c.lineTo(arrow-labState.direction*6,4);c.closePath();c.fill();
     c.restore();
-    let x=labState.probe,y;try{y=labState.fn(x)}catch(e){y=NaN}
-    const ix=fromX(x),iy=fromY(y);
-    if(Number.isFinite(iy)&&iy>=0&&iy<=height){c.setLineDash([3,4]);c.strokeStyle='#72b898';c.beginPath();c.moveTo(ix,0);c.lineTo(ix,height);c.moveTo(0,iy);c.lineTo(width,iy);c.stroke();c.setLineDash([]);c.beginPath();c.arc(ix,iy,5,0,Math.PI*2);c.fillStyle='#fff';c.fill();c.lineWidth=2.6;c.strokeStyle='#208e5c';c.stroke();}
-    const fmt=v=>Number.isFinite(v)?Number(v.toPrecision(7)).toString():'undefined';
-    $('labPoint').textContent='x = '+fmt(x)+'   ·   f(x) = '+fmt(y);
-  }else $('labPoint').textContent='Enter a valid equation to graph it.';
-  if(labState.sweep>=0){
-    const sweepX=labState.sweep*width;
-    const glow=c.createLinearGradient(sweepX-50,0,sweepX+12,0);glow.addColorStop(0,'#26c57d00');glow.addColorStop(.84,'#26c57d26');glow.addColorStop(1,'#26c57d00');c.fillStyle=glow;c.fillRect(sweepX-50,0,64,height);
-    c.strokeStyle='#31cf87';c.globalAlpha=.8;c.lineWidth=1.8;c.beginPath();c.moveTo(sweepX,0);c.lineTo(sweepX,height);c.stroke();c.globalAlpha=1;
+    const fmt=v=>Number(v.toPrecision(5)).toString();
+    $('labPoint').textContent='PLAYER ('+fmt(origin.x)+', '+fmt(origin.y)+')  ·  fire '+(labState.direction>0?'→':'←')+(labState.valid?'':'  ·  fix equation');
+    canvas.dataset.originX=origin.x;canvas.dataset.originY=origin.y;
+  }else{
+    if(labState.valid){
+      c.save();c.beginPath();c.rect(0,0,width,height);c.clip();
+      c.beginPath();let previous=null;
+      for(let i=0;i<=width;i+=1.5){const x=(i-midX)/px;let y;try{y=labState.fn(x)}catch(e){y=NaN}
+        const sy=fromY(y),good=Number.isFinite(sy)&&Math.abs(sy)<height*10;
+        if(!good){previous=null;continue}
+        if(!previous||Math.abs(sy-previous.sy)>height*.65)c.moveTo(i,sy);else c.lineTo(i,sy);
+        previous={sy};
+      }
+      c.strokeStyle='#36bd7c';c.lineWidth=7;c.globalAlpha=.11;c.shadowBlur=12;c.shadowColor='#3aba80';c.stroke();
+      c.strokeStyle='#208e5c';c.globalAlpha=1;c.lineWidth=2.8;c.shadowBlur=0;c.stroke();c.restore();
+      let x=labState.probe,y;try{y=labState.fn(x)}catch(e){y=NaN}
+      const ix=fromX(x),iy=fromY(y);
+      if(Number.isFinite(iy)&&iy>=0&&iy<=height){c.setLineDash([3,4]);c.strokeStyle='#72b898';c.beginPath();c.moveTo(ix,0);c.lineTo(ix,height);c.moveTo(0,iy);c.lineTo(width,iy);c.stroke();c.setLineDash([]);c.beginPath();c.arc(ix,iy,5,0,Math.PI*2);c.fillStyle='#fff';c.fill();c.lineWidth=2.6;c.strokeStyle='#208e5c';c.stroke();}
+      const fmt=v=>Number.isFinite(v)?Number(v.toPrecision(7)).toString():'undefined';
+      $('labPoint').textContent='x = '+fmt(x)+'   ·   f(x) = '+fmt(y);
+    }else $('labPoint').textContent='Enter a valid equation to graph it.';
+    if(labState.sweep>=0){
+      const sweepX=labState.sweep*width;
+      const glow=c.createLinearGradient(sweepX-50,0,sweepX+12,0);glow.addColorStop(0,'#26c57d00');glow.addColorStop(.84,'#26c57d26');glow.addColorStop(1,'#26c57d00');c.fillStyle=glow;c.fillRect(sweepX-50,0,64,height);
+      c.strokeStyle='#31cf87';c.globalAlpha=.8;c.lineWidth=1.8;c.beginPath();c.moveTo(sweepX,0);c.lineTo(sweepX,height);c.stroke();c.globalAlpha=1;
+    }
   }
 }
-function startLabSweep(){if(!labState.valid)return;playSound('warfire');const start=performance.now();cancelAnimationFrame(labState.frame);
-  const tick=now=>{if(document.body.classList.contains('graph-lab-open')){labState.sweep=Math.min(1,(now-start)/930);drawLab();if(labState.sweep<1)labState.frame=requestAnimationFrame(tick);else{labState.sweep=-1;drawLab();playSound('ready');}}else labState.sweep=-1;};
+function startLabSweep(){
+  if(!labState.valid)return;
+  playSound('warfire');const start=performance.now();cancelAnimationFrame(labState.frame);
+  const tick=now=>{if(document.body.classList.contains('graph-lab-open')){
+    labState.sweep=Math.min(1,(now-start)/(labState.fromPoint?1100:930));drawLab();
+    if(labState.sweep<1)labState.frame=requestAnimationFrame(tick);
+    else{labState.sweep=-1;drawLab();playSound('ready');}
+  }else labState.sweep=-1;};
   labState.frame=requestAnimationFrame(tick);
 }
 function setupGraphLab(){
   for(const category of ['Local','Online','Lab'])$('category'+category).onclick=()=>{if(document.body.classList.contains('online-room-host')||document.body.classList.contains('online-room-guest')){playSound('warning');return;}showBattleCategory(category.toLowerCase());playSound('click')};
+  function selectLabStyle(fromPoint){
+    labState.fromPoint=fromPoint;labState.sweep=-1;cancelAnimationFrame(labState.frame);
+    $('labModeNormal').classList.toggle('active',!fromPoint);$('labModeFromPoint').classList.toggle('active',fromPoint);
+    $('labModeNormal').setAttribute('aria-pressed',String(!fromPoint));$('labModeFromPoint').setAttribute('aria-pressed',String(fromPoint));
+    $('labFromPointControls').hidden=!fromPoint;$('labGraph').classList.toggle('origin-enabled',fromPoint);
+    $('labModeHint').textContent=fromPoint?'Start an attack from your player, just like Warzone.':'Plot your entire function.';
+    $('labTest').textContent=fromPoint?'✦ Fire from point':'✦ Test attack';
+    evaluateLab();playSound('click');
+  }
+  $('labModeNormal').onclick=()=>selectLabStyle(false);
+  $('labModeFromPoint').onclick=()=>selectLabStyle(true);
+  $('labDirection').onclick=()=>{labState.direction*=-1;$('labDirection').textContent='Fire '+(labState.direction>0?'→':'←');drawLab();playSound('click')};
   $('labEquation').addEventListener('input',evaluateLab);
   for(const v of ['A','B','C'])$('labParam'+v).addEventListener('input',evaluateLab);
   for(const btn of $('labPresets').querySelectorAll('[data-formula]'))btn.addEventListener('click',()=>{$('labEquation').value=btn.dataset.formula;evaluateLab();playSound('click')});
@@ -1141,11 +1261,29 @@ function setupGraphLab(){
     customVariables[0]=Object.entries(labVariables()).map(([name,value])=>({name,value:String(value)}));
     $('customInput0').value=$('labEquation').value;
     renderVariables(0);recomputeCustom(0);showBattleCategory('local');setMode('cpu');drawRoster();
-    $('lobbyFighters').scrollIntoView({block:'nearest',behavior:'smooth'});
-    playSound('ready');
+    $('lobbyFighters').scrollIntoView({block:'nearest',behavior:'smooth'});playSound('ready');
   };
-  $('labCanvas').addEventListener('pointermove',e=>{const rect=$('labCanvas').getBoundingClientRect();const x=(e.clientX-rect.left-rect.width/2)/(rect.width/(2*labState.zoom));labState.probe=x;drawLab();});
-  new ResizeObserver(()=>{if(!document.body.classList.contains('graph-lab-open'))return;drawLab()}).observe($('labCanvas'));
+  const labCanvas=$('labCanvas');
+  function moveOrigin(e){
+    const rect=labCanvas.getBoundingClientRect(),view=labViewport(labCanvas);
+    const x=(e.clientX-rect.left-view.midX)/view.px;
+    const y=(view.midY-(e.clientY-rect.top))/view.px;
+    labState.origin.x=x;labState.origin.y=y;clampLabOrigin(view);drawLab();
+  }
+  labCanvas.addEventListener('pointerdown',e=>{
+    if(!labState.fromPoint)return;
+    e.preventDefault();labState.dragging=true;labState.dragId=e.pointerId;$('labGraph').classList.add('dragging');
+    try{labCanvas.setPointerCapture(e.pointerId)}catch(ex){}
+    moveOrigin(e);playSound('coords');
+  });
+  labCanvas.addEventListener('pointermove',e=>{
+    if(labState.fromPoint){if(labState.dragging&&e.pointerId===labState.dragId){e.preventDefault();moveOrigin(e);}return;}
+    const rect=labCanvas.getBoundingClientRect();labState.probe=(e.clientX-rect.left-rect.width/2)/(rect.width/(2*labState.zoom));drawLab();
+  });
+  for(const event of ['pointerup','pointercancel','lostpointercapture'])labCanvas.addEventListener(event,e=>{
+    if(e.pointerId===labState.dragId){labState.dragging=false;labState.dragId=null;$('labGraph').classList.remove('dragging');}
+  });
+  if(window.ResizeObserver)new ResizeObserver(()=>{if(document.body.classList.contains('graph-lab-open'))drawLab()}).observe(labCanvas);
   evaluateLab();showBattleCategory('local');
 }
 function setMode(next){
@@ -1958,8 +2096,8 @@ function bind(){
     // Precision is limited only by the actual pointer position and floating-point representation.
     const fmt=v=>Number(v.toPrecision(13)).toString();
     coordText.textContent='('+fmt((px-W/2)/scale)+', '+fmt((H/2-py)/scale)+')';
-    coordBubble.style.left=clamp(e.clientX-rect.left,50,Math.max(50,rect.width-50))+'px';
-    coordBubble.style.top=clamp(e.clientY-rect.top,38,Math.max(38,rect.height-4))+'px';
+    coordBubble.style.left=clamp(e.clientX-rect.left,45,Math.max(45,rect.width-45))+'px';
+    coordBubble.style.top=clamp(e.clientY-rect.top-27,35,Math.max(35,rect.height-27))+'px';
   }
   canvas.addEventListener('pointerdown',e=>{
     if(state==='menu'||state==='over')return;
@@ -1972,8 +2110,8 @@ function bind(){
   canvas.addEventListener('pointermove',e=>{
     if(!coordVisible)return;
     const rect=canvas.getBoundingClientRect();
-    coordBubble.style.left=clamp(e.clientX-rect.left,52,Math.max(52,rect.width-52))+'px';
-    coordBubble.style.top=clamp(e.clientY-rect.top,40,Math.max(40,rect.height-5))+'px';
+    coordBubble.style.left=clamp(e.clientX-rect.left,45,Math.max(45,rect.width-45))+'px';
+    coordBubble.style.top=clamp(e.clientY-rect.top-27,35,Math.max(35,rect.height-27))+'px';
   });
   window.addEventListener('keydown',async e=>{
     if(!coordVisible||e.repeat||e.key.toLowerCase()!=='c')return;
